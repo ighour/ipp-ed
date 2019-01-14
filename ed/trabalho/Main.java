@@ -32,7 +32,7 @@ import java.util.Iterator;
  *
  * @author igu
  */
-public class EDTrabalho {
+public class Main {
 
   /**
    * @param args the command line arguments
@@ -96,7 +96,7 @@ public class EDTrabalho {
     //Temporarly reads JSON from /test.json
     Gson gson = new Gson();
     
-    GrafoSocial json = gson.fromJson(new FileReader("src/test.json"), GrafoSocial.class);
+    GrafoSocial json = gson.fromJson(new FileReader("./src/test.json"), GrafoSocial.class);
     
     return json.getResult();
   }
@@ -194,32 +194,35 @@ public class EDTrabalho {
     
     System.out.println("\n# TEST NETWORK");
     
+    System.out.println("\nAdjacency Matrix:");
     System.out.println(x.toString());
-        
+    
+    System.out.println("\nIs Connected:");
     System.out.println(x.isConnected());
     
     Iterator i1 = x.iteratorBFS(p0);
-    System.out.println("ITERATOR BFS FROM 0");
+    System.out.println("\nITERATOR BFS FROM 0");
     while(i1.hasNext())
       System.out.print(i1.next() + "\t");
     System.out.println("");
       
     Iterator i2 = x.iteratorDFS(p0);
-    System.out.println("ITERATOR DFS FROM 0");
+    System.out.println("\nITERATOR DFS FROM 0");
     while(i2.hasNext())
       System.out.print(i2.next() + "\t");
     System.out.println("");
     
     Iterator i3 = x.iteratorShortestPath(p0, p3);
-    System.out.println("ITERATOR SP FROM 0 TO 3");
+    System.out.println("\nITERATOR SP FROM 0 TO 3");
     while(i3.hasNext())
       System.out.print(i3.next() + "\t");
     System.out.println("");
     
+    System.out.println("\nShortest Path Weight from 0 to 3:");
     System.out.println(x.shortestPathWeight(p0, p3));
     
     NetworkADT<Person> mst = x.mstNetwork(p0);
-    System.out.println("MST FROM A");
+    System.out.println("\nMST FROM A");
     System.out.println(mst.toString());
     Iterator i4 = mst.iteratorBFS(p0);
     while(i4.hasNext())
