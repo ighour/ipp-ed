@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ed.trabalho.json;
+
+/**
+ *
+ * @author igu
+ */
+public class Pessoa {
+  private int id;
+  private String nome;
+  private int idade;
+  private String email;
+  private FormacaoAcademica[] formacaoAcademica;
+  private CargosProfissionais[] cargosProfissionais;
+  private String[] skills;
+  private Contact[] contacts;
+  private Mencao[] mencoes;
+  private int visualizacoes;
+
+  public int getId() {
+    return id;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public int getIdade() {
+    return idade;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public FormacaoAcademica[] getFormacaoAcademica() {
+    return formacaoAcademica;
+  }
+
+  public CargosProfissionais[] getCargosProfissionais() {
+    return cargosProfissionais;
+  }
+
+  public String[] getSkills() {
+    return skills;
+  }
+
+  public Contact[] getContacts() {
+    return contacts;
+  }
+
+  public Mencao[] getMencoes() {
+    return mencoes;
+  }
+
+  public int getVisualizacoes() {
+    return visualizacoes;
+  }
+}
