@@ -113,7 +113,7 @@ public class Person implements Comparable<Person> {
   
   @Override
   public String toString(){
-    return String.valueOf(this.id);
+    return this.name + " [ID " + this.id + "]";
   }
 
 }

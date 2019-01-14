@@ -7,6 +7,7 @@ package ed.trabalho.resources.gui;
 
 import ed.trabalho.adt.ReverseNetwork;
 import ed.trabalho.helpers.JSON;
+import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
@@ -54,6 +55,8 @@ public class JMenu extends javax.swing.JFrame {
     openJson = new javax.swing.JMenuItem();
     testJson = new javax.swing.JMenuItem();
     Exit = new javax.swing.JMenuItem();
+    viewMenu = new javax.swing.JMenu();
+    viewNetwork = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
 
@@ -92,13 +95,25 @@ public class JMenu extends javax.swing.JFrame {
 
     jMenuBar1.add(jMenu1);
 
+    viewMenu.setText("View");
+
+    viewNetwork.setText(" Network");
+    viewNetwork.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        viewNetworkActionPerformed(evt);
+      }
+    });
+    viewMenu.add(viewNetwork);
+
+    jMenuBar1.add(viewMenu);
+
     setJMenuBar(jMenuBar1);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1676, Short.MAX_VALUE)
+      .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1685, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +138,8 @@ public class JMenu extends javax.swing.JFrame {
         System.out.println("Problem acessing file" + file.getAbsolutePath());
       }
       catch(Exception e){
-        testTextarea.setText("Error importing file. Is it a valid JSON file?");
+        testTextarea.setText("Error loading file. Is it a valid JSON?");
+        throw e;
       }
     }
     else{
@@ -142,6 +158,19 @@ public class JMenu extends javax.swing.JFrame {
       testTextarea.setText("Error testing JSON.");
     }
   }//GEN-LAST:event_testJsonActionPerformed
+
+  private void viewNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewNetworkActionPerformed
+    try{
+      //Generate view
+      Viewer.create(this.network);
+
+      testTextarea.setText("Successfully created network view!");
+    }
+    catch(Exception e){
+      testTextarea.setText("Error creating Network View!");
+      throw e;
+    }
+  }//GEN-LAST:event_viewNetworkActionPerformed
 
   /**
    * @param args the command line arguments
@@ -187,6 +216,8 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenuItem openJson;
   private javax.swing.JMenuItem testJson;
   private javax.swing.JTextArea testTextarea;
+  private javax.swing.JMenu viewMenu;
+  private javax.swing.JMenuItem viewNetwork;
   // End of variables declaration//GEN-END:variables
 
   public void bootApp(){

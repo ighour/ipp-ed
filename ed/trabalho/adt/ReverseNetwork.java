@@ -9,6 +9,7 @@ import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.EmptyCollectionException;
 import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.graph.Network;
+import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.NetworkADT;
 import estg.ed.interfaces.PriorityQueueADT;
 import estg.ed.interfaces.UnorderedListADT;
@@ -19,6 +20,7 @@ import java.util.Iterator;
 /**
  * Implements a directional network with an adjacency matrix.
  * Uses the inverse of weight, so more weight more priority.
+ * Add methods to retrieve adjacency matrix and vertices to generate network View with Jung.
  * @author igu
  * @param <T>
  */
@@ -233,5 +235,13 @@ public class ReverseNetwork<T> extends Network<T> implements NetworkADT<T> {
         
     //Return result
     return resultGraph;
+  }
+  
+  public DynamicArrayContract<DynamicArrayContract<Double>> adjacencyMatrix(){
+    return this.adjMatrix;
+  }
+  
+  public DynamicArrayContract<T> vertices(){
+    return this.vertices;
   }
 }
