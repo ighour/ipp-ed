@@ -6,42 +6,60 @@
 package ed.trabalho.model;
 
 /**
- *
+ * Professional model.
+ * Represent a professional information of a Person.
  * @author igu
  */
 public class Professional {
-  private int year;
-  private String company;
-  private String role;
+  /**
+   * Year of professional activity.
+   */
+  private final int year;
+  
+  /**
+   * Company name.
+   */
+  private final String company;
+  
+  /**
+   * Role name at company.
+   */
+  private final String role;
 
+  /**
+   * Instantiate with parameters.
+   * @param year
+   * @param company
+   * @param role 
+   */
   public Professional(int year, String company, String role) {
     this.year = year;
     this.company = company;
     this.role = role;
   }
 
+  /**
+   * Get year of professional activity.
+   * @return 
+   */
   public int getYear() {
     return year;
   }
 
-  public void setYear(int year) {
-    this.year = year;
-  }
-
+  /**
+   * Get company name.
+   * @return 
+   */
   public String getCompany() {
     return company;
   }
 
-  public void setCompany(String company) {
-    this.company = company;
-  }
-
+  /**
+   * Get role name at company.
+   * @return 
+   */
   public String getRole() {
     return role;
-  }
-
-  public void setRole(String role) {
-    this.role = role;
   }
 
 }

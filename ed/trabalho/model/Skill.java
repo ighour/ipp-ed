@@ -6,21 +6,29 @@
 package ed.trabalho.model;
 
 /**
- *
+ * Skill model.
+ * Represent a skill of a Person.
  * @author igu
  */
 public class Skill {
-  private String skill;
+  /**
+   * Skill name.
+   */
+  private final String skill;
 
+  /**
+   * Instantiate with parameters.
+   * @param skill 
+   */
   public Skill(String skill) {
     this.skill = skill;
   }
 
+  /**
+   * Get skill name.
+   * @return 
+   */
   public String getSkill() {
     return skill;
-  }
-
-  public void setSkill(String skill) {
-    this.skill = skill;
   }
 }
