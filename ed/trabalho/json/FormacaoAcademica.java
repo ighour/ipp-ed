@@ -6,7 +6,8 @@
 package ed.trabalho.json;
 
 /**
- *
+ * Class for receiving data from JSON input.
+ * Populated with gson.
  * @author igu
  */
 public class FormacaoAcademica {

@@ -20,7 +20,7 @@ import java.util.Iterator;
 /**
  * Implements a directional network with an adjacency matrix.
  * Uses the inverse of weight, so more weight more priority.
- * Add methods to retrieve adjacency matrix and vertices to generate network View with Jung.
+ * Add methods to retrieve adjacency matrix and vertices to generate network view with Jung.
  * @author igu
  * @param <T>
  */
