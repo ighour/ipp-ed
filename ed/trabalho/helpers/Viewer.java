@@ -87,4 +87,20 @@ public class Viewer {
   public void showMessageDialog(){
     JOptionPane.showMessageDialog(null, this.vv);
   }
+  
+  /**
+   * View Node to store edge info.
+   */
+  class ViewNode {
+    public double weight;
+    
+    public ViewNode(double weight){
+      this.weight = weight;
+    }
+    
+    @Override
+    public String toString(){
+      return String.valueOf((int)this.weight);
+    }
+  }
 }
