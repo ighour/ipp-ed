@@ -19,13 +19,28 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Creates a view of the network.
+ * Using Jung dependency.
  * @author igu
  */
-public abstract class Viewer {
-  public static void create(NetworkADT<Person> original){
-    //Get accessible network
-    ReverseNetwork<Person> source = (ReverseNetwork<Person>) original;
+public class Viewer {
+  /**
+   * Jung graph to receive vertices and edges.
+   */
+  private DirectedGraph<Person, ViewNode> viewGraph;
+  
+  /**
+   * Jung virtualization server to expose graphic.
+   */
+  private BasicVisualizationServer<Person,ViewNode> vv;
+  
+  /**
+   * Create a view of input network.
+   * @param originalNetwork 
+   */
+  public void create(NetworkADT<Person> originalNetwork){
+    //Convert accessible network
+    ReverseNetwork<Person> source = (ReverseNetwork<Person>) originalNetwork;
 
     //Get matrix
     DynamicArrayContract<DynamicArrayContract<Double>> matrix = source.adjacencyMatrix();
@@ -33,41 +48,43 @@ public abstract class Viewer {
     //Get vertices
     DynamicArrayContract<Person> vertices = source.vertices();
     
-    //Generate GraphVIEW
-    DirectedGraph<Person, ViewNode> view = new DirectedSparseMultigraph<>();
+    //Generate view
+    this.viewGraph = new DirectedSparseMultigraph<>();
     
     //Get count of vertices
     int size = vertices.size();
     
-    //Add vertices
-    for(int i = 0; i < size; i++){
-      view.addVertex(vertices.get(i));
-    }
+    //Add vertices to view
+    for(int i = 0; i < size; i++)
+      this.viewGraph.addVertex(vertices.get(i));
     
-    //Add edges
-    for(int i = 0; i < size; i++){
-      for(int j = 0; j < size; j++){
+    //Add edges to view
+    for(int i = 0; i < size; i++)
+      for(int j = 0; j < size; j++)
         //Has edge
         if(matrix.get(i).get(j) != Double.POSITIVE_INFINITY){
           //Generate link
           ViewNode link = new ViewNode(matrix.get(i).get(j));
-          view.addEdge(link, vertices.get(i), vertices.get(j));
+          this.viewGraph.addEdge(link, vertices.get(i), vertices.get(j));
         }
-      }
-    }
     
     //Generate Layout
-    Layout<Person, ViewNode> layout = new KKLayout (view);
+    Layout<Person, ViewNode> layout = new KKLayout(this.viewGraph);
     layout.setSize(new Dimension(800,800)); // sets the initial size of the space
     
     //Generate Visualization Server
-    BasicVisualizationServer<Person,ViewNode> vv = new BasicVisualizationServer<>(layout);
-    vv.setPreferredSize(new Dimension(850,850)); //Sets the viewing area size
+    this.vv = new BasicVisualizationServer<>(layout);
+    this.vv.setPreferredSize(new Dimension(850,850)); //Sets the viewing area size
     
     //Set labels
-    vv.getRenderContext().setVertexLabelTransformer((Function<Person, String>) i -> {return i.toString();});
-    vv.getRenderContext().setEdgeLabelTransformer((Function<ViewNode, String>) i -> {return i.toString();});
-    
-    JOptionPane.showMessageDialog(null, vv);
+    this.vv.getRenderContext().setVertexLabelTransformer((Function<Person, String>) i -> {return i.toString();});
+    this.vv.getRenderContext().setEdgeLabelTransformer((Function<ViewNode, String>) i -> {return i.toString();});
+  }
+  
+  /**
+   * Show the view as a JOptionPane message dialog.
+   */
+  public void showMessageDialog(){
+    JOptionPane.showMessageDialog(null, this.vv);
   }
 }

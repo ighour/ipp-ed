@@ -166,7 +166,9 @@ public class JMenu extends javax.swing.JFrame {
   private void viewNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewNetworkActionPerformed
     try{
       //Generate view
-      Viewer.create(this.network);
+      Viewer viewer = new Viewer();
+      viewer.create(this.network);
+      viewer.showMessageDialog();
 
       testTextarea.setText("Successfully created network view!");
     }
