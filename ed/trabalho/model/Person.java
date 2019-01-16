@@ -23,10 +23,8 @@ public class Person implements Comparable<Person> {
   private DynamicArrayContract<Skill> skillList;
   private DynamicArrayContract<Person> contactList;
   private DynamicArrayContract<Person> mentionList;
-  private final int[] contactIdList;
-  private final int[] mentionIdList;
   
-  public Person(int id, String name, int age, String email, int visualizations, int[] contactIdList, int[] mentionIdList) {
+  public Person(int id, String name, int age, String email, int visualizations) {
     this.id = id;
     this.name = name;
     this.age = age;
@@ -37,8 +35,6 @@ public class Person implements Comparable<Person> {
     this.skillList = new DynamicArray<>();
     this.contactList = new DynamicArray<>();
     this.mentionList = new DynamicArray<>();
-    this.contactIdList = contactIdList;
-    this.mentionIdList = mentionIdList;
   }
 
   public int getId() {
@@ -83,14 +79,6 @@ public class Person implements Comparable<Person> {
 
   public void setMentionList(DynamicArrayContract<Person> mentionList) {
     this.mentionList = mentionList;
-  }
-  
-  public int[] getContactIdList() {
-    return contactIdList;
-  }
-  
-  public int[] getMentionIdList() {
-    return mentionIdList;
   }
   
   public int getMentions(){

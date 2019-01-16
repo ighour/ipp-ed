@@ -49,15 +49,15 @@ public class Pessoa {
     return skills;
   }
 
+  public int getVisualizacoes() {
+    return visualizacoes;
+  }
+  
   public Contact[] getContacts() {
     return contacts;
   }
-
+  
   public Mencao[] getMencoes() {
     return mencoes;
-  }
-
-  public int getVisualizacoes() {
-    return visualizacoes;
   }
 }

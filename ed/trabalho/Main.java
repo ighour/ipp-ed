@@ -9,7 +9,7 @@ import ed.trabalho.resources.gui.JMenu;
 import javax.swing.JFrame;
 
 /**
- *
+ * Social Graph main entrypoint.
  * @author igu
  */
 public class Main {
@@ -19,7 +19,7 @@ public class Main {
    */
   public static void main(String[] args) {
     /**
-     * Starts menu
+     * Starts menu using Swing
      */
     JFrame menu = new JMenu();
     menu.setVisible(true);

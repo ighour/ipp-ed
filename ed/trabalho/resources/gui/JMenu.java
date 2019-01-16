@@ -6,30 +6,25 @@
 package ed.trabalho.resources.gui;
 
 import ed.trabalho.adt.ReverseNetwork;
-import ed.trabalho.helpers.JSON;
+import ed.trabalho.helpers.Data;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.NetworkADT;
-import estg.ed.interfaces.OrderedListADT;
-import estg.ed.list.OrderedArrayList;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 
 /**
- *
+ * Menu for application using Swing.
  * @author igu
  */
-public class JMenu extends javax.swing.JFrame {
-
-  private Pessoa[] json;
-  
+public class JMenu extends javax.swing.JFrame { 
+  /**
+   * Network with people obtained from JSON input.
+   */
   private NetworkADT<Person> network;
-  
-  private OrderedListADT<Person> peopleList;
   
   /**
    * Creates new form JMenu
@@ -53,7 +48,6 @@ public class JMenu extends javax.swing.JFrame {
     jMenuBar1 = new javax.swing.JMenuBar();
     jMenu1 = new javax.swing.JMenu();
     openJson = new javax.swing.JMenuItem();
-    testJson = new javax.swing.JMenuItem();
     Exit = new javax.swing.JMenuItem();
     viewMenu = new javax.swing.JMenu();
     viewNetwork = new javax.swing.JMenuItem();
@@ -77,14 +71,6 @@ public class JMenu extends javax.swing.JFrame {
     });
     jMenu1.add(openJson);
 
-    testJson.setText("Test JSON");
-    testJson.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        testJsonActionPerformed(evt);
-      }
-    });
-    jMenu1.add(testJson);
-
     Exit.setText("Exit");
     Exit.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,9 +81,9 @@ public class JMenu extends javax.swing.JFrame {
 
     jMenuBar1.add(jMenu1);
 
-    viewMenu.setText("View");
+    viewMenu.setText("Network");
 
-    viewNetwork.setText(" Network");
+    viewNetwork.setText("View Network");
     viewNetwork.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         viewNetworkActionPerformed(evt);
@@ -123,41 +109,59 @@ public class JMenu extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  /**
+   * Open file chooser to select JSON input.
+   * Stores converted JSON info on json attribute.
+   * Construct the network after converting JSON.
+   * @param evt 
+   */
   private void openJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openJsonActionPerformed
     int returnVal = fileChooser.showOpenDialog(this);
+    
+    //Selected a file
     if(returnVal == JFileChooser.APPROVE_OPTION){
       File file = fileChooser.getSelectedFile();
+      
+      Pessoa[] data;
+      
+      //Get JSON data converted into java classes
       try {
-        //Parse JSON and store
-        this.json = JSON.readJson(file.getAbsolutePath());
-        
-        //Starts App Base
-        this.bootApp();
+        data = Data.readJson(file.getAbsolutePath());
       }
       catch(IOException ex){
-        System.out.println("Problem acessing file" + file.getAbsolutePath());
+        testTextarea.setText("Problem acessing file" + file.getAbsolutePath());
+        return;
       }
       catch(Exception e){
         testTextarea.setText("Error loading file. Is it a valid JSON?");
-        throw e;
+        return;
       }
+    
+      //Generates an empty directional network
+      //It is reverse, the best cost is from the more weighted edge
+      this.network = new ReverseNetwork<>();
+      
+      //Populate network and peopleList with JSON data
+      try {
+        Data.populate(data, this.network);
+        
+      } catch (ElementNotFoundException ex) {
+        testTextarea.setText("Error populating network with provided data!");
+        return;
+      }
+
+      //Success
+      testTextarea.setText("Successfully imported JSON file and populated Network!");
     }
+    //Cancelled file input
     else{
-      System.out.println("File access cancelled by user.");
+      testTextarea.setText("File access cancelled by user.");
     }
   }//GEN-LAST:event_openJsonActionPerformed
 
   private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
     System.exit(0);
   }//GEN-LAST:event_ExitActionPerformed
-
-  private void testJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testJsonActionPerformed
-    try {
-      testTextarea.setText(JSON.testNetwork(this.network, this.peopleList));
-    } catch (ElementNotFoundException | VertexIsNotAccessibleException ex) {
-      testTextarea.setText("Error testing JSON.");
-    }
-  }//GEN-LAST:event_testJsonActionPerformed
 
   private void viewNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewNetworkActionPerformed
     try{
@@ -214,24 +218,8 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JMenuItem openJson;
-  private javax.swing.JMenuItem testJson;
   private javax.swing.JTextArea testTextarea;
   private javax.swing.JMenu viewMenu;
   private javax.swing.JMenuItem viewNetwork;
   // End of variables declaration//GEN-END:variables
-
-  public void bootApp(){
-    //Generates Empty Directional Network
-    //It is reverse, so more weight is the best cost
-    this.network = new ReverseNetwork<>();
-    
-    //Add pool of people to an ordered list (to get relations after)
-    this.peopleList = new OrderedArrayList<>();
-    
-    //Populate data
-    JSON.populateData(this.json, this.network, this.peopleList);
-    
-    //Show ok
-    testTextarea.setText("Successfully imported JSON file and populated Network!");
-  }
 }
