@@ -5,14 +5,16 @@
  */
 package ed.trabalho.resources.gui;
 
+import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.ReverseNetwork;
 import ed.trabalho.helpers.Data;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.exceptions.NotComparableException;
 import estg.ed.interfaces.NetworkADT;
-import java.awt.Container;
+import estg.ed.interfaces.OrderedListADT;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -26,6 +28,11 @@ public class JMenu extends javax.swing.JFrame {
    * Network with people obtained from JSON input.
    */
   private NetworkADT<Person> network;
+  
+  /**
+   * People ordered list by id.
+   */
+  private OrderedListADT<Person> peopleById;
   
   /**
    * Creates new form JMenu
@@ -101,9 +108,7 @@ public class JMenu extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap(1243, Short.MAX_VALUE)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
+      .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1712, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,17 +150,21 @@ public class JMenu extends javax.swing.JFrame {
       //It is reverse, the best cost is from the more weighted edge
       this.network = new ReverseNetwork<>();
       
+      //Generates an empty ordered list
+      //To store people ordered by id
+      this.peopleById = new PersonIdOrderedList();
+      
       //Populate network and peopleList with JSON data
       try {
-        Data.populate(data, this.network);
+        Data.populate(data, this.network, this.peopleById);
         
-      } catch (ElementNotFoundException ex) {
+      } catch (ElementNotFoundException | NotComparableException ex) {
         consoleTextArea.setText("Error populating network with provided data!");
         return;
       }
 
       //Success
-      consoleTextArea.setText("Successfully imported JSON file and populated Network!");
+      consoleTextArea.setText("Successfully imported JSON file and populated Network with users:\n" + this.peopleById.toString());
     }
     //Cancelled file input
     else{

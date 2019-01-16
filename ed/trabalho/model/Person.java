@@ -195,6 +195,6 @@ public class Person implements Comparable<Person> {
    */
   @Override
   public String toString(){
-    return this.name + " [ID " + this.id + "]";
+    return this.name + " (ID " + this.id + ")";
   }
 }

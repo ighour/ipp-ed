@@ -17,8 +17,10 @@ import ed.trabalho.model.Person;
 import ed.trabalho.model.Professional;
 import ed.trabalho.model.Skill;
 import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.exceptions.NotComparableException;
 import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.NetworkADT;
+import estg.ed.interfaces.OrderedListADT;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -46,9 +48,10 @@ public abstract class Data {
    * Populates the network and binary search tree with provided data.
    * @param source
    * @param network
+   * @param peopleById
    * @throws estg.ed.exceptions.ElementNotFoundException
    */
-  public static void populate(Pessoa[] source, NetworkADT<Person> network) throws ElementNotFoundException{
+  public static void populate(Pessoa[] source, NetworkADT<Person> network, OrderedListADT<Person> peopleById) throws ElementNotFoundException, NotComparableException{
     //Create list of People
     Person[] peopleList = new Person[source.length];
 
@@ -56,10 +59,10 @@ public abstract class Data {
     for(int i = 0; i < source.length; i++){
       //Create person if needed
       if(peopleList[i] == null)
-        peopleList[i] = addPerson(source[i], network);
+        peopleList[i] = addPerson(source[i], network, peopleById);
       
       //Add relations
-      addRelations(i, source, peopleList, network);
+      addRelations(i, source, peopleList, network, peopleById);
     }
   }
   
@@ -70,7 +73,7 @@ public abstract class Data {
    * @param network
    * @return 
    */
-  private static Person addPerson(Pessoa p, NetworkADT<Person> network){
+  private static Person addPerson(Pessoa p, NetworkADT<Person> network, OrderedListADT<Person> peopleById) throws NotComparableException{
     //Parse "Pessoa" (converted JSON data) to "Person" (model)
     Person newPerson = new Person(p.getId(), p.getNome(), p.getIdade(), p.getEmail(), p.getVisualizacoes());
 
@@ -91,6 +94,9 @@ public abstract class Data {
 
     //Add newPerson to Network
     network.addVertex(newPerson);
+    
+    //Add newPerson to peopleById list
+    peopleById.add(newPerson);
 
     //Return newPerson
     return newPerson;
@@ -105,7 +111,7 @@ public abstract class Data {
    * @param network
    * @throws ElementNotFoundException 
    */
-  private static void addRelations(int id, Pessoa[] source, Person[] peopleList, NetworkADT<Person> network) throws ElementNotFoundException{
+  private static void addRelations(int id, Pessoa[] source, Person[] peopleList, NetworkADT<Person> network, OrderedListADT<Person> peopleById) throws ElementNotFoundException, NotComparableException{
     /* Add Mentions */
     
     //Get mentions from source data
@@ -116,7 +122,7 @@ public abstract class Data {
       int mentionUid = sourceMention.getUserid();
       int uidIndex = getIndex(mentionUid, source);
       
-      addRelation(peopleList[id].getMentionList(), uidIndex, source, peopleList, network);
+      addRelation(peopleList[id].getMentionList(), uidIndex, source, peopleList, network, peopleById);
     }
     
     /* Add Contacts */
@@ -129,7 +135,7 @@ public abstract class Data {
       int contactUid = sourceContact.getUserid();
       int uidIndex = getIndex(contactUid, source);
       
-      addRelation(peopleList[id].getContactList(), uidIndex, source, peopleList, network);
+      addRelation(peopleList[id].getContactList(), uidIndex, source, peopleList, network, peopleById);
       
       //Add edge in network
       //Using visualizations for weight
@@ -147,13 +153,13 @@ public abstract class Data {
    * @param peopleList
    * @param network 
    */
-  private static void addRelation(DynamicArrayContract<Person> relationList, int relationIndex, Pessoa[] source, Person[] peopleList, NetworkADT<Person> network){
+  private static void addRelation(DynamicArrayContract<Person> relationList, int relationIndex, Pessoa[] source, Person[] peopleList, NetworkADT<Person> network, OrderedListADT<Person> peopleById) throws NotComparableException{
     Person relationUser;
 
     //User was not created
     if(peopleList[relationIndex] == null){
       //Create the user
-      relationUser = addPerson(source[relationIndex], network);
+      relationUser = addPerson(source[relationIndex], network, peopleById);
 
       //Add to list
       peopleList[relationIndex] = relationUser;
