@@ -12,6 +12,7 @@ import ed.trabalho.json.Pessoa;
 import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.interfaces.NetworkADT;
+import java.awt.Container;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -44,7 +45,7 @@ public class JMenu extends javax.swing.JFrame {
 
     fileChooser = new javax.swing.JFileChooser();
     jScrollPane1 = new javax.swing.JScrollPane();
-    testTextarea = new javax.swing.JTextArea();
+    consoleTextArea = new javax.swing.JTextArea();
     jMenuBar1 = new javax.swing.JMenuBar();
     jMenu1 = new javax.swing.JMenu();
     openJson = new javax.swing.JMenuItem();
@@ -57,9 +58,10 @@ public class JMenu extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Menu");
 
-    testTextarea.setColumns(20);
-    testTextarea.setRows(5);
-    jScrollPane1.setViewportView(testTextarea);
+    consoleTextArea.setEditable(false);
+    consoleTextArea.setColumns(20);
+    consoleTextArea.setRows(5);
+    jScrollPane1.setViewportView(consoleTextArea);
 
     jMenu1.setText("File");
 
@@ -99,7 +101,9 @@ public class JMenu extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1685, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap(1243, Short.MAX_VALUE)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,11 +133,11 @@ public class JMenu extends javax.swing.JFrame {
         data = Data.readJson(file.getAbsolutePath());
       }
       catch(IOException ex){
-        testTextarea.setText("Problem acessing file" + file.getAbsolutePath());
+        consoleTextArea.setText("Problem acessing file" + file.getAbsolutePath());
         return;
       }
       catch(Exception e){
-        testTextarea.setText("Error loading file. Is it a valid JSON?");
+        consoleTextArea.setText("Error loading file. Is it a valid JSON?");
         return;
       }
     
@@ -146,16 +150,16 @@ public class JMenu extends javax.swing.JFrame {
         Data.populate(data, this.network);
         
       } catch (ElementNotFoundException ex) {
-        testTextarea.setText("Error populating network with provided data!");
+        consoleTextArea.setText("Error populating network with provided data!");
         return;
       }
 
       //Success
-      testTextarea.setText("Successfully imported JSON file and populated Network!");
+      consoleTextArea.setText("Successfully imported JSON file and populated Network!");
     }
     //Cancelled file input
     else{
-      testTextarea.setText("File access cancelled by user.");
+      consoleTextArea.setText("File access cancelled by user.");
     }
   }//GEN-LAST:event_openJsonActionPerformed
 
@@ -168,12 +172,12 @@ public class JMenu extends javax.swing.JFrame {
       //Generate view
       Viewer viewer = new Viewer();
       viewer.create(this.network);
-      viewer.showMessageDialog();
+      viewer.showFrame();
 
-      testTextarea.setText("Successfully created network view!");
+      consoleTextArea.setText("Successfully created network view!");
     }
     catch(Exception e){
-      testTextarea.setText("Error creating Network View!");
+      consoleTextArea.setText("Error creating Network View!");
       throw e;
     }
   }//GEN-LAST:event_viewNetworkActionPerformed
@@ -215,12 +219,12 @@ public class JMenu extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JMenuItem Exit;
+  private javax.swing.JTextArea consoleTextArea;
   private javax.swing.JFileChooser fileChooser;
   private javax.swing.JMenu jMenu1;
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JMenuItem openJson;
-  private javax.swing.JTextArea testTextarea;
   private javax.swing.JMenu viewMenu;
   private javax.swing.JMenuItem viewNetwork;
   // End of variables declaration//GEN-END:variables

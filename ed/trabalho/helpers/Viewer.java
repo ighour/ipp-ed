@@ -12,11 +12,13 @@ import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.NetworkADT;
 import java.awt.Dimension;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 
 /**
  * Creates a view of the network.
@@ -32,7 +34,7 @@ public class Viewer {
   /**
    * Jung virtualization server to expose graphic.
    */
-  private BasicVisualizationServer<Person,ViewNode> vv;
+  private VisualizationViewer<Person,ViewNode> vv;
   
   /**
    * Create a view of input network.
@@ -73,19 +75,27 @@ public class Viewer {
     layout.setSize(new Dimension(800,800)); // sets the initial size of the space
     
     //Generate Visualization Server
-    this.vv = new BasicVisualizationServer<>(layout);
+    this.vv = new VisualizationViewer<>(layout);
     this.vv.setPreferredSize(new Dimension(850,850)); //Sets the viewing area size
     
     //Set labels
     this.vv.getRenderContext().setVertexLabelTransformer((Function<Person, String>) i -> {return i.toString();});
     this.vv.getRenderContext().setEdgeLabelTransformer((Function<ViewNode, String>) i -> {return i.toString();});
+  
+    //Add graph mouse
+    DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
+    gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
+    this.vv.setGraphMouse(gm);
   }
   
   /**
-   * Show the view as a JOptionPane message dialog.
+   * Show the view on a new JFrame.
    */
-  public void showMessageDialog(){
-    JOptionPane.showMessageDialog(null, this.vv);
+  public void showFrame(){
+    JFrame frame = new JFrame("Social Graph");
+    frame.getContentPane().add(vv);
+    frame.pack();
+    frame.setVisible(true); 
   }
   
   /**
