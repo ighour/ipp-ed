@@ -49,9 +49,11 @@ public abstract class Data {
    * @param source
    * @param network
    * @param peopleById
+   * @param peopleByEmail
    * @throws estg.ed.exceptions.ElementNotFoundException
+   * @throws estg.ed.exceptions.NotComparableException
    */
-  public static void populate(Pessoa[] source, NetworkADT<Person> network, OrderedListADT<Person> peopleById) throws ElementNotFoundException, NotComparableException{
+  public static void populate(Pessoa[] source, NetworkADT<Person> network, OrderedListADT<Person> peopleById, OrderedListADT<Person> peopleByEmail) throws ElementNotFoundException, NotComparableException{
     //Create list of People
     Person[] peopleList = new Person[source.length];
 
@@ -59,10 +61,10 @@ public abstract class Data {
     for(int i = 0; i < source.length; i++){
       //Create person if needed
       if(peopleList[i] == null)
-        peopleList[i] = addPerson(source[i], network, peopleById);
+        peopleList[i] = addPerson(source[i], network, peopleById, peopleByEmail);
       
       //Add relations
-      addRelations(i, source, peopleList, network, peopleById);
+      addRelations(i, source, peopleList, network, peopleById, peopleByEmail);
     }
   }
   
@@ -73,7 +75,7 @@ public abstract class Data {
    * @param network
    * @return 
    */
-  private static Person addPerson(Pessoa p, NetworkADT<Person> network, OrderedListADT<Person> peopleById) throws NotComparableException{
+  private static Person addPerson(Pessoa p, NetworkADT<Person> network, OrderedListADT<Person> peopleById, OrderedListADT<Person> peopleByEmail) throws NotComparableException{
     //Parse "Pessoa" (converted JSON data) to "Person" (model)
     Person newPerson = new Person(p.getId(), p.getNome(), p.getIdade(), p.getEmail(), p.getVisualizacoes());
 
@@ -97,6 +99,9 @@ public abstract class Data {
     
     //Add newPerson to peopleById list
     peopleById.add(newPerson);
+    
+    //Add newPerson to peopleByEmail list
+    peopleByEmail.add(newPerson);
 
     //Return newPerson
     return newPerson;
@@ -111,7 +116,7 @@ public abstract class Data {
    * @param network
    * @throws ElementNotFoundException 
    */
-  private static void addRelations(int id, Pessoa[] source, Person[] peopleList, NetworkADT<Person> network, OrderedListADT<Person> peopleById) throws ElementNotFoundException, NotComparableException{
+  private static void addRelations(int id, Pessoa[] source, Person[] peopleList, NetworkADT<Person> network, OrderedListADT<Person> peopleById, OrderedListADT<Person> peopleByEmail) throws ElementNotFoundException, NotComparableException{
     /* Add Mentions */
     
     //Get mentions from source data
@@ -122,7 +127,7 @@ public abstract class Data {
       int mentionUid = sourceMention.getUserid();
       int uidIndex = getIndex(mentionUid, source);
       
-      addRelation(peopleList[id].getMentionList(), uidIndex, source, peopleList, network, peopleById);
+      addRelation(peopleList[id].getMentionList(), uidIndex, source, peopleList, network, peopleById, peopleByEmail);
     }
     
     /* Add Contacts */
@@ -135,7 +140,7 @@ public abstract class Data {
       int contactUid = sourceContact.getUserid();
       int uidIndex = getIndex(contactUid, source);
       
-      addRelation(peopleList[id].getContactList(), uidIndex, source, peopleList, network, peopleById);
+      addRelation(peopleList[id].getContactList(), uidIndex, source, peopleList, network, peopleById, peopleByEmail);
       
       //Add edge in network
       //Using visualizations for weight
@@ -153,13 +158,13 @@ public abstract class Data {
    * @param peopleList
    * @param network 
    */
-  private static void addRelation(DynamicArrayContract<Person> relationList, int relationIndex, Pessoa[] source, Person[] peopleList, NetworkADT<Person> network, OrderedListADT<Person> peopleById) throws NotComparableException{
+  private static void addRelation(DynamicArrayContract<Person> relationList, int relationIndex, Pessoa[] source, Person[] peopleList, NetworkADT<Person> network, OrderedListADT<Person> peopleById, OrderedListADT<Person> peopleByEmail) throws NotComparableException{
     Person relationUser;
 
     //User was not created
     if(peopleList[relationIndex] == null){
       //Create the user
-      relationUser = addPerson(source[relationIndex], network, peopleById);
+      relationUser = addPerson(source[relationIndex], network, peopleById, peopleByEmail);
 
       //Add to list
       peopleList[relationIndex] = relationUser;

@@ -33,13 +33,18 @@ public class PersonInfoFrame extends javax.swing.JFrame {
   private OrderedListADT<Person> peopleById;
   
   /**
+   * People ordered list by email.
+   */
+  private OrderedListADT<Person> peopleByEmail;
+  
+  /**
    * Creates new form PersonInfoFrame
    */
   public PersonInfoFrame() {
     initComponents();
   }
   
-  public void setData(Person person, NetworkADT<Person> network, OrderedListADT<Person> peopleById){
+  public void setData(Person person, NetworkADT<Person> network, OrderedListADT<Person> peopleById, OrderedListADT<Person> peopleByEmail){
     this.person = person;
     this.inputName.setText(person.getName());
     this.inputAge.setText(String.valueOf(person.getAge()));
@@ -48,6 +53,7 @@ public class PersonInfoFrame extends javax.swing.JFrame {
     this.inputCountMentions.setText(String.valueOf(person.getMentions()));
     this.network = network;
     this.peopleById = peopleById;
+    this.peopleByEmail = peopleByEmail;
   }
 
   /**
@@ -203,8 +209,13 @@ public class PersonInfoFrame extends javax.swing.JFrame {
     }
     
     try{
-      if(!inputEmail.getText().isEmpty() && !inputEmail.getText().equals(this.person.getEmail()))
-        this.person.setName(inputEmail.getText());
+      if(!inputEmail.getText().isEmpty() && !inputEmail.getText().equals(this.person.getEmail())){
+        this.person.setEmail(inputEmail.getText());
+        
+        //Update person index on peopleByEmail list
+        this.peopleByEmail.remove(this.person);
+        this.peopleByEmail.add(this.person);
+      }
     }
     catch(Exception e){
       JOptionPane.showMessageDialog(null, "Error updating email.");

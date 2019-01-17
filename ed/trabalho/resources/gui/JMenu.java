@@ -5,12 +5,14 @@
  */
 package ed.trabalho.resources.gui;
 
+import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.ReverseNetwork;
 import ed.trabalho.helpers.Data;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.model.Person;
+import ed.trabalho.resources.form.FindPersonByEmailForm;
 import ed.trabalho.resources.form.FindPersonByIdForm;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
@@ -19,8 +21,6 @@ import estg.ed.interfaces.OrderedListADT;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  * Menu for application using Swing.
@@ -36,6 +36,11 @@ public class JMenu extends javax.swing.JFrame {
    * People ordered list by id.
    */
   private OrderedListADT<Person> peopleById;
+  
+  /**
+   * People ordered list by email.
+   */
+  private OrderedListADT<Person> peopleByEmail;
   
   /**
    * Creates new form JMenu
@@ -64,6 +69,7 @@ public class JMenu extends javax.swing.JFrame {
     viewMenuViewNetwork = new javax.swing.JMenuItem();
     searchMenu = new javax.swing.JMenu();
     searchMenuById = new javax.swing.JMenuItem();
+    searchMenuByEmail = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
 
@@ -116,6 +122,14 @@ public class JMenu extends javax.swing.JFrame {
       }
     });
     searchMenu.add(searchMenuById);
+
+    searchMenuByEmail.setText("By Email");
+    searchMenuByEmail.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        searchMenuByEmailActionPerformed(evt);
+      }
+    });
+    searchMenu.add(searchMenuByEmail);
 
     jMenuBar1.add(searchMenu);
 
@@ -173,9 +187,13 @@ public class JMenu extends javax.swing.JFrame {
       //To store people ordered by id
       this.peopleById = new PersonIdOrderedList();
       
+      //Generates an empty ordered list
+      //To store people ordered by email
+      this.peopleByEmail = new PersonEmailOrderedList();
+      
       //Populate network and peopleList with JSON data
       try {
-        Data.populate(data, this.network, this.peopleById);
+        Data.populate(data, this.network, this.peopleById, this.peopleByEmail);
         
       } catch (ElementNotFoundException | NotComparableException ex) {
         consoleTextArea.setText("Error populating network with provided data!");
@@ -183,7 +201,7 @@ public class JMenu extends javax.swing.JFrame {
       }
 
       //Success
-      consoleTextArea.setText("Successfully imported JSON file and populated Network with users:\n" + this.peopleById.toString());
+      consoleTextArea.setText("Successfully imported JSON file and populated Network:\nPeople by id:\t" + this.peopleById.toString() + "\nPeople by email:\t" + this.peopleByEmail.toString());
     }
     //Cancelled file input
     else{
@@ -211,10 +229,17 @@ public class JMenu extends javax.swing.JFrame {
 
   private void searchMenuByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuByIdActionPerformed
     FindPersonByIdForm form = new FindPersonByIdForm();
-    form.setData(this.network, this.peopleById);
+    form.setData(this.network, this.peopleById, this.peopleByEmail);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_searchMenuByIdActionPerformed
+
+  private void searchMenuByEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuByEmailActionPerformed
+    FindPersonByEmailForm form = new FindPersonByEmailForm();
+    form.setData(this.network, this.peopleById, this.peopleByEmail);
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_searchMenuByEmailActionPerformed
 
   /**
    * @param args the command line arguments
@@ -260,6 +285,7 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JMenu searchMenu;
+  private javax.swing.JMenuItem searchMenuByEmail;
   private javax.swing.JMenuItem searchMenuById;
   private javax.swing.JMenu viewMenu;
   private javax.swing.JMenuItem viewMenuViewNetwork;

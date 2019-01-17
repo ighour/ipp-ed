@@ -12,7 +12,6 @@ import estg.ed.list.OrderedArrayList;
 
 /**
  * List of Person ordered by id.
- * Using default compareTo of Person.
  * @author igu
  */
 public class PersonIdOrderedList extends OrderedArrayList<Person> implements OrderedListADT<Person> {
@@ -30,7 +29,7 @@ public class PersonIdOrderedList extends OrderedArrayList<Person> implements Ord
     for(int i = 0; i < size; i++){
       Person p = this.array.get(i);
       
-      stb.append("\"").append(p.toString()).append("\"");
+      stb.append("\"").append(p.getId()).append("\"");
       
       if(i != size - 1)
         stb.append(" , ");
