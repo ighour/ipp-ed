@@ -7,10 +7,14 @@ package ed.trabalho.resources.form;
 
 import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.adt.PersonIdOrderedList;
+import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.helpers.Store;
+import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.frame.PersonInfoFrame;
 import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.graph.Network;
+import estg.ed.interfaces.NetworkADT;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 
@@ -247,12 +251,41 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
       return;
     }
     
-    //Get path in graph
+    //Get path
     Iterator it = this.store.getNetwork().iteratorShortestPath(from, to);
-    while(it.hasNext()){
-      Person p = (Person) it.next();
+    
+    //There is no path
+    if(it.hasNext() == false){
+      JOptionPane.showMessageDialog(null, "There is no path between desired users.");
+      return;
+    }
+    
+    //Construct a graph to show the path with the Jung
+    try {
+      NetworkADT<Person> resultGraph = new SocialNetwork<>();
+      Person last = null;
+      
+      //Populate the view graph with users in minimum path
+      while(it.hasNext()){
+        Person p = (Person) it.next();
 
-      System.out.println(p.toString());
+        resultGraph.addVertex(p);
+
+        //There is a user before -> add an edge
+        if(last != null){
+          resultGraph.addEdge(last, p, 1 / (double) p.getVisualizations());
+        }
+
+        last = p;
+      }
+      
+      //Show as Jung Graph
+      Viewer resultView = new Viewer();
+      resultView.create(resultGraph);
+      resultView.showFrame();
+    }
+    catch(ElementNotFoundException e){
+      JOptionPane.showMessageDialog(null, "There was a problem constructing the minimal path view.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 
