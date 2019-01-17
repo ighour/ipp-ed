@@ -9,15 +9,13 @@ import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.ReverseNetwork;
 import ed.trabalho.helpers.Data;
+import ed.trabalho.helpers.Store;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
-import ed.trabalho.model.Person;
 import ed.trabalho.resources.form.FindPersonByEmailForm;
 import ed.trabalho.resources.form.FindPersonByIdForm;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
-import estg.ed.interfaces.NetworkADT;
-import estg.ed.interfaces.OrderedListADT;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -28,19 +26,9 @@ import javax.swing.JFileChooser;
  */
 public class JMenu extends javax.swing.JFrame { 
   /**
-   * Network with people obtained from JSON input.
+   * Store with all application data.
    */
-  private NetworkADT<Person> network;
-  
-  /**
-   * People ordered list by id.
-   */
-  private OrderedListADT<Person> peopleById;
-  
-  /**
-   * People ordered list by email.
-   */
-  private OrderedListADT<Person> peopleByEmail;
+  private Store store;
   
   /**
    * Creates new form JMenu
@@ -179,21 +167,15 @@ public class JMenu extends javax.swing.JFrame {
         return;
       }
     
-      //Generates an empty directional network
-      //It is reverse, the best cost is from the more weighted edge
-      this.network = new ReverseNetwork<>();
+      //Instantiates the store with
+      //Directional network (it is reverse, the best cost is from the more weighted edge
+      //People list by id
+      //People list by email
+      this.store = new Store(new ReverseNetwork<>(), new PersonIdOrderedList(), new PersonEmailOrderedList());
       
-      //Generates an empty ordered list
-      //To store people ordered by id
-      this.peopleById = new PersonIdOrderedList();
-      
-      //Generates an empty ordered list
-      //To store people ordered by email
-      this.peopleByEmail = new PersonEmailOrderedList();
-      
-      //Populate network and peopleList with JSON data
+      //Populate store with JSON data
       try {
-        Data.populate(data, this.network, this.peopleById, this.peopleByEmail);
+        Data.populate(data, this.store);
         
       } catch (ElementNotFoundException | NotComparableException ex) {
         consoleTextArea.setText("Error populating network with provided data!");
@@ -201,7 +183,7 @@ public class JMenu extends javax.swing.JFrame {
       }
 
       //Success
-      consoleTextArea.setText("Successfully imported JSON file and populated Network:\nPeople by id:\t" + this.peopleById.toString() + "\nPeople by email:\t" + this.peopleByEmail.toString());
+      consoleTextArea.setText("Successfully imported JSON file and populated Network:\nPeople by id:\t" + this.store.getPeopleById().toString() + "\nPeople by email:\t" + this.store.getPeopleByEmail().toString());
     }
     //Cancelled file input
     else{
@@ -217,7 +199,7 @@ public class JMenu extends javax.swing.JFrame {
     try{
       //Generate view
       Viewer viewer = new Viewer();
-      viewer.create(this.network);
+      viewer.create(this.store.getNetwork());
       viewer.showFrame();
 
       consoleTextArea.setText("Successfully created network view!");
@@ -229,14 +211,14 @@ public class JMenu extends javax.swing.JFrame {
 
   private void searchMenuByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuByIdActionPerformed
     FindPersonByIdForm form = new FindPersonByIdForm();
-    form.setData(this.network, this.peopleById, this.peopleByEmail);
+    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_searchMenuByIdActionPerformed
 
   private void searchMenuByEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuByEmailActionPerformed
     FindPersonByEmailForm form = new FindPersonByEmailForm();
-    form.setData(this.network, this.peopleById, this.peopleByEmail);
+    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_searchMenuByEmailActionPerformed

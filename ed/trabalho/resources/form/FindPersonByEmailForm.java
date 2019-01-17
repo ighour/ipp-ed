@@ -6,11 +6,10 @@
 package ed.trabalho.resources.form;
 
 import ed.trabalho.adt.PersonEmailOrderedList;
+import ed.trabalho.helpers.Store;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.frame.PersonInfoFrame;
 import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.interfaces.NetworkADT;
-import estg.ed.interfaces.OrderedListADT;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,19 +19,9 @@ import javax.swing.JOptionPane;
 public class FindPersonByEmailForm extends javax.swing.JFrame {
 
   /**
-   * Network with people obtained from JSON input.
+   * Stores with all application data.
    */
-  private NetworkADT<Person> network;
-  
-  /**
-   * People ordered list by id.
-   */
-  private OrderedListADT<Person> peopleById;
-  
-  /**
-   * People ordered list by email.
-   */
-  private OrderedListADT<Person> peopleByEmail;
+  private Store store;
   
   /**
    * Creates new form FindPersonByIdForm
@@ -41,10 +30,12 @@ public class FindPersonByEmailForm extends javax.swing.JFrame {
     initComponents();
   }
   
-  public void setData(NetworkADT<Person> network, OrderedListADT<Person> peopleById, OrderedListADT<Person> peopleByEmail){
-    this.network = network;
-    this.peopleById = peopleById;
-    this.peopleByEmail = peopleByEmail;
+  /**
+   * Set store access to component.
+   * @param store 
+   */
+  public void setStore(Store store){
+    this.store = store;
   }
 
   /**
@@ -120,13 +111,14 @@ public class FindPersonByEmailForm extends javax.swing.JFrame {
     try {
       String email = inputPersonEmail.getText();
       
-      PersonEmailOrderedList list = (PersonEmailOrderedList) this.peopleByEmail;
+      PersonEmailOrderedList list = (PersonEmailOrderedList) this.store.getPeopleByEmail();
       
       Person result = list.searchByEmail(email);
       
       //Open person view
       PersonInfoFrame personView = new PersonInfoFrame();
-      personView.setData(result, this.network, this.peopleById, this.peopleByEmail);
+      personView.setStore(store);
+      personView.setData(result);
       personView.pack();
       personView.setVisible(true);
     }

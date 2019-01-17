@@ -5,9 +5,8 @@
  */
 package ed.trabalho.resources.frame;
 
+import ed.trabalho.helpers.Store;
 import ed.trabalho.model.Person;
-import estg.ed.interfaces.NetworkADT;
-import estg.ed.interfaces.OrderedListADT;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 
@@ -23,19 +22,9 @@ public class PersonInfoFrame extends javax.swing.JFrame {
   private Person person;
   
   /**
-   * Network with people obtained from JSON input.
+   * Stores with all application data.
    */
-  private NetworkADT<Person> network;
-  
-  /**
-   * People ordered list by id.
-   */
-  private OrderedListADT<Person> peopleById;
-  
-  /**
-   * People ordered list by email.
-   */
-  private OrderedListADT<Person> peopleByEmail;
+  private Store store;
   
   /**
    * Creates new form PersonInfoFrame
@@ -44,16 +33,25 @@ public class PersonInfoFrame extends javax.swing.JFrame {
     initComponents();
   }
   
-  public void setData(Person person, NetworkADT<Person> network, OrderedListADT<Person> peopleById, OrderedListADT<Person> peopleByEmail){
+  /**
+   * Set store access to component.
+   * @param store 
+   */
+  public void setStore(Store store){
+    this.store = store;
+  }
+  
+  /**
+   * Set person data to form/view. 
+   * @param person
+   */
+  public void setData(Person person){
     this.person = person;
     this.inputName.setText(person.getName());
     this.inputAge.setText(String.valueOf(person.getAge()));
     this.inputEmail.setText(person.getEmail());
     this.inputVisualizacoes.setText(String.valueOf(person.getVisualizations()));
     this.inputCountMentions.setText(String.valueOf(person.getMentions()));
-    this.network = network;
-    this.peopleById = peopleById;
-    this.peopleByEmail = peopleByEmail;
   }
 
   /**
@@ -213,8 +211,8 @@ public class PersonInfoFrame extends javax.swing.JFrame {
         this.person.setEmail(inputEmail.getText());
         
         //Update person index on peopleByEmail list
-        this.peopleByEmail.remove(this.person);
-        this.peopleByEmail.add(this.person);
+        this.store.getPeopleByEmail().remove(this.person);
+        this.store.getPeopleByEmail().add(this.person);
       }
     }
     catch(Exception e){
@@ -227,14 +225,14 @@ public class PersonInfoFrame extends javax.swing.JFrame {
         this.person.setVisualizations(Integer.valueOf(inputVisualizacoes.getText()));
         
         //Update edges on network
-        Iterator list = this.peopleById.iterator();
+        Iterator list = this.store.getPeopleById().iterator();
         while(list.hasNext()){
           Person p = (Person) list.next();
           
           //Current Person is a contact of P
           //Update edge weight
           if(p.isContact(this.person))
-            this.network.addEdge(p, this.person, Integer.valueOf(inputVisualizacoes.getText()));
+            this.store.getNetwork().addEdge(p, this.person, Integer.valueOf(inputVisualizacoes.getText()));
         }
       }
     }
