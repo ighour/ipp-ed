@@ -6,6 +6,7 @@
 package ed.trabalho.adt;
 
 import ed.trabalho.model.Person;
+import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.interfaces.OrderedListADT;
 import estg.ed.list.OrderedArrayList;
 
@@ -36,5 +37,44 @@ public class PersonIdOrderedList extends OrderedArrayList<Person> implements Ord
     }
     
     return stb.toString();
+  }
+  
+  /**
+   * Search a person by id.
+   * Uses recursion to binary search in ordered list.
+   * Throws ElementNotFoundException if there is no person with desired id.
+   * @param targetId
+   * @return
+   * @throws ElementNotFoundException 
+   */
+  public Person searchById(int targetId) throws ElementNotFoundException{
+    if(this.array.size() == 0)
+      throw new ElementNotFoundException("There is no person with ID " + targetId);
+    
+    return this.searchByIdRec(targetId, 0, this.array.size() - 1);
+  }
+  
+  private Person searchByIdRec(int targetId, int left, int right) throws ElementNotFoundException{
+    //Not found
+    if(left > right)
+      throw new ElementNotFoundException("There is no person with ID " + targetId);
+    
+    //Compare to middle
+    int middle = (left + right) / 2;
+    
+    Person search = this.array.get(middle);
+    int searchId = search.getId();
+
+    //Found
+    if(targetId == searchId)
+      return search;
+    
+    //Is smaller
+    else if(targetId < searchId)
+      return searchByIdRec(targetId, left, middle - 1);
+    
+    //Is greater
+    else
+      return searchByIdRec(targetId, middle + 1, right);
   }
 }

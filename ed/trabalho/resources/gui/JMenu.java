@@ -11,6 +11,7 @@ import ed.trabalho.helpers.Data;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.model.Person;
+import ed.trabalho.resources.form.FindPersonByIdForm;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
 import estg.ed.interfaces.NetworkADT;
@@ -18,6 +19,8 @@ import estg.ed.interfaces.OrderedListADT;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Menu for application using Swing.
@@ -54,11 +57,13 @@ public class JMenu extends javax.swing.JFrame {
     jScrollPane1 = new javax.swing.JScrollPane();
     consoleTextArea = new javax.swing.JTextArea();
     jMenuBar1 = new javax.swing.JMenuBar();
-    jMenu1 = new javax.swing.JMenu();
-    openJson = new javax.swing.JMenuItem();
-    Exit = new javax.swing.JMenuItem();
+    fileMenu = new javax.swing.JMenu();
+    fileMenuOpenJson = new javax.swing.JMenuItem();
+    fileMenuExit = new javax.swing.JMenuItem();
     viewMenu = new javax.swing.JMenu();
-    viewNetwork = new javax.swing.JMenuItem();
+    viewMenuViewNetwork = new javax.swing.JMenuItem();
+    searchMenu = new javax.swing.JMenu();
+    searchMenuById = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
 
@@ -70,37 +75,49 @@ public class JMenu extends javax.swing.JFrame {
     consoleTextArea.setRows(5);
     jScrollPane1.setViewportView(consoleTextArea);
 
-    jMenu1.setText("File");
+    fileMenu.setText("File");
 
-    openJson.setText("Open JSON");
-    openJson.addActionListener(new java.awt.event.ActionListener() {
+    fileMenuOpenJson.setText("Open JSON");
+    fileMenuOpenJson.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        openJsonActionPerformed(evt);
+        fileMenuOpenJsonActionPerformed(evt);
       }
     });
-    jMenu1.add(openJson);
+    fileMenu.add(fileMenuOpenJson);
 
-    Exit.setText("Exit");
-    Exit.addActionListener(new java.awt.event.ActionListener() {
+    fileMenuExit.setText("Exit");
+    fileMenuExit.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        ExitActionPerformed(evt);
+        fileMenuExitActionPerformed(evt);
       }
     });
-    jMenu1.add(Exit);
+    fileMenu.add(fileMenuExit);
 
-    jMenuBar1.add(jMenu1);
+    jMenuBar1.add(fileMenu);
 
-    viewMenu.setText("Network");
+    viewMenu.setText("View");
 
-    viewNetwork.setText("View Network");
-    viewNetwork.addActionListener(new java.awt.event.ActionListener() {
+    viewMenuViewNetwork.setText("Network");
+    viewMenuViewNetwork.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        viewNetworkActionPerformed(evt);
+        viewMenuViewNetworkActionPerformed(evt);
       }
     });
-    viewMenu.add(viewNetwork);
+    viewMenu.add(viewMenuViewNetwork);
 
     jMenuBar1.add(viewMenu);
+
+    searchMenu.setText("Search");
+
+    searchMenuById.setText("By ID");
+    searchMenuById.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        searchMenuByIdActionPerformed(evt);
+      }
+    });
+    searchMenu.add(searchMenuById);
+
+    jMenuBar1.add(searchMenu);
 
     setJMenuBar(jMenuBar1);
 
@@ -108,7 +125,9 @@ public class JMenu extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1712, Short.MAX_VALUE)
+      .addGroup(layout.createSequentialGroup()
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(831, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,7 +143,7 @@ public class JMenu extends javax.swing.JFrame {
    * Construct the network after converting JSON.
    * @param evt 
    */
-  private void openJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openJsonActionPerformed
+  private void fileMenuOpenJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuOpenJsonActionPerformed
     int returnVal = fileChooser.showOpenDialog(this);
     
     //Selected a file
@@ -170,13 +189,13 @@ public class JMenu extends javax.swing.JFrame {
     else{
       consoleTextArea.setText("File access cancelled by user.");
     }
-  }//GEN-LAST:event_openJsonActionPerformed
+  }//GEN-LAST:event_fileMenuOpenJsonActionPerformed
 
-  private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+  private void fileMenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuExitActionPerformed
     System.exit(0);
-  }//GEN-LAST:event_ExitActionPerformed
+  }//GEN-LAST:event_fileMenuExitActionPerformed
 
-  private void viewNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewNetworkActionPerformed
+  private void viewMenuViewNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMenuViewNetworkActionPerformed
     try{
       //Generate view
       Viewer viewer = new Viewer();
@@ -187,9 +206,15 @@ public class JMenu extends javax.swing.JFrame {
     }
     catch(Exception e){
       consoleTextArea.setText("Error creating Network View!");
-      throw e;
     }
-  }//GEN-LAST:event_viewNetworkActionPerformed
+  }//GEN-LAST:event_viewMenuViewNetworkActionPerformed
+
+  private void searchMenuByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuByIdActionPerformed
+    FindPersonByIdForm form = new FindPersonByIdForm();
+    form.setData(this.network, this.peopleById);
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_searchMenuByIdActionPerformed
 
   /**
    * @param args the command line arguments
@@ -227,14 +252,16 @@ public class JMenu extends javax.swing.JFrame {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JMenuItem Exit;
   private javax.swing.JTextArea consoleTextArea;
   private javax.swing.JFileChooser fileChooser;
-  private javax.swing.JMenu jMenu1;
+  private javax.swing.JMenu fileMenu;
+  private javax.swing.JMenuItem fileMenuExit;
+  private javax.swing.JMenuItem fileMenuOpenJson;
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JMenuItem openJson;
+  private javax.swing.JMenu searchMenu;
+  private javax.swing.JMenuItem searchMenuById;
   private javax.swing.JMenu viewMenu;
-  private javax.swing.JMenuItem viewNetwork;
+  private javax.swing.JMenuItem viewMenuViewNetwork;
   // End of variables declaration//GEN-END:variables
 }

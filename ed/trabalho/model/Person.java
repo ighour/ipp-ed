@@ -21,22 +21,22 @@ public class Person implements Comparable<Person> {
   /**
    * Name.
    */
-  private final String name;
+  private String name;
   
   /**
    * Age.
    */
-  private final int age;
+  private int age;
   
   /**
    * Email.
    */
-  private final String email;
+  private String email;
   
   /**
    * Count of person visualizations.
    */
-  private final int visualizations;
+  private int visualizations;
   
   /**
    * List of academic information.
@@ -166,11 +166,61 @@ public class Person implements Comparable<Person> {
   }
 
   /**
+   * Set a new name.
+   * @param name 
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * Set a new age.
+   * @param age 
+   */
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  /**
+   * Set a new email.
+   * @param email 
+   */
+  public void setEmail(String email) {
+    this.email = email;
+  }
+  
+  /**
+   * Set a new visualization count. 
+   * @param visualizations
+   */
+  public void setVisualizations(int visualizations) {
+    this.visualizations = visualizations;
+  }
+
+  /**
    * Get count of mentions.
    * @return 
    */  
   public int getMentions(){
     return this.mentionList.size();
+  }
+  
+  /**
+   * Check if desired Person is in contact list.
+   * @param person
+   * @return 
+   */
+  public boolean isContact(Person person) {
+    int size = this.contactList.size();
+    
+    for(int i = 0; i < size; i++){
+      Person contact = this.contactList.get(i);
+      
+      if(contact.getId() == person.getId())
+        return true;
+    }
+    
+    return false;
   }
 
   /**
