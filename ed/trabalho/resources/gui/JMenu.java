@@ -15,6 +15,7 @@ import ed.trabalho.resources.form.FindPersonByIdForm;
 import ed.trabalho.resources.form.NotReachableUsersByUserForm;
 import ed.trabalho.resources.form.PathPersonToPersonForm;
 import ed.trabalho.resources.form.ReachableUsersByUserForm;
+import ed.trabalho.resources.form.SkillsOrderedByCostForm;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
 import java.io.File;
@@ -69,6 +70,7 @@ public class JMenu extends javax.swing.JFrame {
     userMenuSearchById = new javax.swing.JMenuItem();
     userMenuSearchByEmail = new javax.swing.JMenuItem();
     userMenuCompareCompanyPeopleAndPersonContacts = new javax.swing.JMenuItem();
+    userMenuSkillsOrderedByCost = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
 
@@ -172,6 +174,14 @@ public class JMenu extends javax.swing.JFrame {
       }
     });
     userMenu.add(userMenuCompareCompanyPeopleAndPersonContacts);
+
+    userMenuSkillsOrderedByCost.setText("Skills Ordered By Cost");
+    userMenuSkillsOrderedByCost.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userMenuSkillsOrderedByCostActionPerformed(evt);
+      }
+    });
+    userMenu.add(userMenuSkillsOrderedByCost);
 
     jMenuBar1.add(userMenu);
 
@@ -321,6 +331,14 @@ public class JMenu extends javax.swing.JFrame {
     form.setVisible(true);
   }//GEN-LAST:event_userMenuCompareCompanyPeopleAndPersonContactsActionPerformed
 
+  private void userMenuSkillsOrderedByCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSkillsOrderedByCostActionPerformed
+    SkillsOrderedByCostForm form = new SkillsOrderedByCostForm();
+    form.setTitle("Users with Skill Ordered by Cost From user");
+    form.setStore(this.store);
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_userMenuSkillsOrderedByCostActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -375,5 +393,6 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenuItem userMenuCompareCompanyPeopleAndPersonContacts;
   private javax.swing.JMenuItem userMenuSearchByEmail;
   private javax.swing.JMenuItem userMenuSearchById;
+  private javax.swing.JMenuItem userMenuSkillsOrderedByCost;
   // End of variables declaration//GEN-END:variables
 }

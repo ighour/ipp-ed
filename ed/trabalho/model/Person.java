@@ -222,6 +222,24 @@ public class Person implements Comparable<Person> {
     
     return false;
   }
+  
+  /**
+   * Check if desired Skill is in skills list.
+   * @param targetSkill
+   * @return 
+   */
+  public boolean hasSkill(String targetSkill) {
+    int size = this.skillList.size();
+    
+    for(int i = 0; i < size; i++){
+      Skill skill = this.skillList.get(i);
+      
+      if(skill.getSkill().equals(targetSkill))
+        return true;
+    }
+    
+    return false;
+  }
 
   /**
    * Compare to other Person.
