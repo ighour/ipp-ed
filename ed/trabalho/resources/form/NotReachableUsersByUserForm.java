@@ -9,18 +9,23 @@ import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.helpers.Store;
-import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.exceptions.EmptyCollectionException;
+import estg.ed.exceptions.NotComparableException;
 import estg.ed.interfaces.NetworkADT;
+import estg.ed.interfaces.OrderedListADT;
+import estg.ed.interfaces.UnorderedListADT;
+import estg.ed.list.OrderedArrayList;
+import estg.ed.list.UnorderedArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 
 /**
- * Form to retrieve from and to people to calculate minimal path in graph.
+ * Form to retrieve reachable users from another user.
  * @author igu
  */
-public class PathPersonToPersonForm extends javax.swing.JFrame {
+public class NotReachableUsersByUserForm extends javax.swing.JFrame {
 
   /**
    * Stores with all application data.
@@ -30,7 +35,7 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
   /**
    * Creates new form FindPersonByIdForm
    */
-  public PathPersonToPersonForm() {
+  public NotReachableUsersByUserForm() {
     initComponents();
   }
   
@@ -58,16 +63,10 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
     jLabel2 = new javax.swing.JLabel();
     labelPersonId1 = new javax.swing.JLabel();
     inputFromEmail = new javax.swing.JTextField();
-    jLabel3 = new javax.swing.JLabel();
-    jLabel4 = new javax.swing.JLabel();
-    labelPersonId2 = new javax.swing.JLabel();
-    labelPersonId3 = new javax.swing.JLabel();
-    inputToEmail = new javax.swing.JTextField();
-    inputToID = new javax.swing.JTextField();
 
     labelPersonId.setText("ID");
 
-    submitButton.setText("Calcular Menor Caminho");
+    submitButton.setText("Search");
     submitButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         submitButtonActionPerformed(evt);
@@ -94,51 +93,13 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
       }
     });
 
-    jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-    jLabel3.setText("Usuário de Destino");
-
-    jLabel4.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
-    jLabel4.setText("(ID ou email)");
-
-    labelPersonId2.setText("ID");
-
-    labelPersonId3.setText("Email");
-
-    inputToEmail.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        inputToEmailActionPerformed(evt);
-      }
-    });
-
-    inputToID.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        inputToIDActionPerformed(evt);
-      }
-    });
-
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(submitButton)
-        .addContainerGap())
       .addGroup(layout.createSequentialGroup()
         .addGap(59, 59, 59)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(jLabel3)
-            .addGap(27, 27, 27)
-            .addComponent(jLabel4))
-          .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(labelPersonId2)
-              .addComponent(labelPersonId3))
-            .addGap(27, 27, 27)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(inputToEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(inputToID, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
           .addGroup(layout.createSequentialGroup()
             .addComponent(jLabel1)
             .addGap(27, 27, 27)
@@ -151,7 +112,11 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(inputFromEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(inputFromID, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        .addContainerGap(153, Short.MAX_VALUE))
+        .addContainerGap(33, Short.MAX_VALUE))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(submitButton)
+        .addGap(142, 142, 142))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,19 +133,7 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(labelPersonId1)
           .addComponent(inputFromEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel3)
-          .addComponent(jLabel4))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(labelPersonId2)
-          .addComponent(inputToID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(labelPersonId3)
-          .addComponent(inputToEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(25, 25, 25)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
         .addComponent(submitButton)
         .addContainerGap())
     );
@@ -196,14 +149,6 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
     }
     else if(!inputFromID.getText().isEmpty() && !inputFromEmail.getText().isEmpty()){
       JOptionPane.showMessageDialog(null, "Deve inserir o ID ou Email do usuário de origem, não ambos.");
-      return;
-    }
-    else if(inputToID.getText().isEmpty() && inputToEmail.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Necessita inserir o ID ou Email do usuário de destino.");
-      return;
-    }
-    else if(!inputToID.getText().isEmpty() && !inputToEmail.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Deve inserir o ID ou Email do usuário de destino, não ambos.");
       return;
     }
     
@@ -227,77 +172,37 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, "Não foi encontrado usuário de origem com os dados especificados.");
       return;
     }
-    
-    //Search to
-    Person to;
-    
-    try{
-      //By id
-      if(!inputToID.getText().isEmpty()){
-        int toID = Integer.parseInt(inputToID.getText());
-        to = ((PersonIdOrderedList) this.store.getPeopleById()).searchById(toID);
-      }
-      
-      //By email
-      else {
-        String toEmail = inputToEmail.getText();
-        to = ((PersonEmailOrderedList) this.store.getPeopleByEmail()).searchByEmail(toEmail);
-      }
-    }
-    catch(ElementNotFoundException e){
-      JOptionPane.showMessageDialog(null, "Não foi encontrado usuário de destino com os dados especificados.");
-      return;
-    }
-    
-    //Get path
-    Iterator it = this.store.getNetwork().iteratorShortestPath(from, to);
-    
-    //There is no path
-    if(it.hasNext() == false){
-      JOptionPane.showMessageDialog(null, "There is no path between desired users.");
-      return;
-    }
-    
-    //Construct a graph to show the path with the Jung
+           
+    //Show users not reachable
     try {
-      NetworkADT<Person> resultGraph = new SocialNetwork<>();
-      Person last = null;
-      
-      //Populate the view graph with users in minimum path
+      //Get reachable users
+      NetworkADT<Person> resultGraph = (SocialNetwork) this.store.getNetwork().mstNetwork(from);
+
+      //Create result list
+      OrderedListADT<Person> resultList = new OrderedArrayList();
+      Iterator it = this.store.getPeopleById().iterator();
       while(it.hasNext()){
         Person p = (Person) it.next();
-
-        resultGraph.addVertex(p);
-
-        //There is a user before -> add an edge
-        if(last != null){
-          resultGraph.addEdge(last, p, 1 / (double) p.getVisualizations());
-        }
-
-        last = p;
+        resultList.add(p);
       }
       
-      //Show as Jung Graph
-      Viewer resultView = new Viewer();
-      resultView.create(resultGraph);
-      resultView.showFrame();
+      //Remove reachable users from list
+      Iterator reachable = resultGraph.iteratorBFS(from);
+      while(reachable.hasNext()){
+        Person p = (Person) reachable.next();
+        resultList.remove(p);
+      }
+
+      JOptionPane.showMessageDialog(null, resultList.toString());
     }
-    catch(ElementNotFoundException e){
-      JOptionPane.showMessageDialog(null, "There was a problem constructing the minimal path view.");
+    catch(ElementNotFoundException | NotComparableException | EmptyCollectionException e){
+      JOptionPane.showMessageDialog(null, "There was a problem constructing the unreachable users.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 
   private void inputFromEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputFromEmailActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_inputFromEmailActionPerformed
-
-  private void inputToEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputToEmailActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_inputToEmailActionPerformed
-
-  private void inputToIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputToIDActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_inputToIDActionPerformed
 
   private void inputFromIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputFromIDActionPerformed
     // TODO add your handling code here:
@@ -320,21 +225,27 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(PathPersonToPersonForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(NotReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(PathPersonToPersonForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(NotReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(PathPersonToPersonForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(NotReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(PathPersonToPersonForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(NotReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     //</editor-fold>
     //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new PathPersonToPersonForm().setVisible(false);
+        new NotReachableUsersByUserForm().setVisible(false);
       }
     });
   }
@@ -342,16 +253,10 @@ public class PathPersonToPersonForm extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTextField inputFromEmail;
   private javax.swing.JTextField inputFromID;
-  private javax.swing.JTextField inputToEmail;
-  private javax.swing.JTextField inputToID;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
-  private javax.swing.JLabel jLabel3;
-  private javax.swing.JLabel jLabel4;
   private javax.swing.JLabel labelPersonId;
   private javax.swing.JLabel labelPersonId1;
-  private javax.swing.JLabel labelPersonId2;
-  private javax.swing.JLabel labelPersonId3;
   private javax.swing.JButton submitButton;
   // End of variables declaration//GEN-END:variables
 }

@@ -11,7 +11,9 @@ import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.resources.form.FindPersonByEmailForm;
 import ed.trabalho.resources.form.FindPersonByIdForm;
+import ed.trabalho.resources.form.NotReachableUsersByUserForm;
 import ed.trabalho.resources.form.PathPersonToPersonForm;
+import ed.trabalho.resources.form.ReachableUsersByUserForm;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
 import java.io.File;
@@ -60,6 +62,8 @@ public class JMenu extends javax.swing.JFrame {
     graphMenuView = new javax.swing.JMenuItem();
     graphMenuIsComplete = new javax.swing.JMenuItem();
     graphMenuMinimalPathVertices = new javax.swing.JMenuItem();
+    graphMenuRechableUsersByUser = new javax.swing.JMenuItem();
+    graphMenuNotReachableUsersByUser = new javax.swing.JMenuItem();
     userMenu = new javax.swing.JMenu();
     userMenuSearchById = new javax.swing.JMenuItem();
     userMenuSearchByEmail = new javax.swing.JMenuItem();
@@ -122,6 +126,22 @@ public class JMenu extends javax.swing.JFrame {
       }
     });
     graphMenu.add(graphMenuMinimalPathVertices);
+
+    graphMenuRechableUsersByUser.setText("Reachable Users by Another User");
+    graphMenuRechableUsersByUser.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        graphMenuRechableUsersByUserActionPerformed(evt);
+      }
+    });
+    graphMenu.add(graphMenuRechableUsersByUser);
+
+    graphMenuNotReachableUsersByUser.setText("Not Reachable Users by Another User");
+    graphMenuNotReachableUsersByUser.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        graphMenuNotReachableUsersByUserActionPerformed(evt);
+      }
+    });
+    graphMenu.add(graphMenuNotReachableUsersByUser);
 
     jMenuBar1.add(graphMenu);
 
@@ -267,6 +287,22 @@ public class JMenu extends javax.swing.JFrame {
     form.setVisible(true);
   }//GEN-LAST:event_graphMenuMinimalPathVerticesActionPerformed
 
+  private void graphMenuRechableUsersByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuRechableUsersByUserActionPerformed
+    ReachableUsersByUserForm form = new ReachableUsersByUserForm();
+    form.setTitle("Reachable Users by User");
+    form.setStore(this.store);
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_graphMenuRechableUsersByUserActionPerformed
+
+  private void graphMenuNotReachableUsersByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuNotReachableUsersByUserActionPerformed
+    NotReachableUsersByUserForm form = new NotReachableUsersByUserForm();
+    form.setTitle("Not Reachable Users by User");
+    form.setStore(this.store);
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_graphMenuNotReachableUsersByUserActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -311,6 +347,8 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenu graphMenu;
   private javax.swing.JMenuItem graphMenuIsComplete;
   private javax.swing.JMenuItem graphMenuMinimalPathVertices;
+  private javax.swing.JMenuItem graphMenuNotReachableUsersByUser;
+  private javax.swing.JMenuItem graphMenuRechableUsersByUser;
   private javax.swing.JMenuItem graphMenuView;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JMenuBar jMenuBar1;
