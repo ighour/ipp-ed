@@ -28,13 +28,19 @@ public class JMenu extends javax.swing.JFrame {
   /**
    * Store with all application data.
    */
-  private Store store;
+  private final Store store;
   
   /**
    * Creates new form JMenu
    */
   public JMenu() {
     initComponents();
+    
+    //Instantiates the store with
+    //Directional network (it is reverse, the best cost is from the more weighted edge
+    //People list by id
+    //People list by email
+    this.store = new Store(new ReverseNetwork<>(), new PersonIdOrderedList(), new PersonEmailOrderedList());
   }
 
   /**
@@ -49,15 +55,17 @@ public class JMenu extends javax.swing.JFrame {
     fileChooser = new javax.swing.JFileChooser();
     jScrollPane1 = new javax.swing.JScrollPane();
     consoleTextArea = new javax.swing.JTextArea();
+    jLabel1 = new javax.swing.JLabel();
     jMenuBar1 = new javax.swing.JMenuBar();
     fileMenu = new javax.swing.JMenu();
     fileMenuOpenJson = new javax.swing.JMenuItem();
     fileMenuExit = new javax.swing.JMenuItem();
-    viewMenu = new javax.swing.JMenu();
-    viewMenuViewNetwork = new javax.swing.JMenuItem();
-    searchMenu = new javax.swing.JMenu();
-    searchMenuById = new javax.swing.JMenuItem();
-    searchMenuByEmail = new javax.swing.JMenuItem();
+    graphMenu = new javax.swing.JMenu();
+    graphMenuView = new javax.swing.JMenuItem();
+    graphMenuIsComplete = new javax.swing.JMenuItem();
+    userMenu = new javax.swing.JMenu();
+    userMenuSearchById = new javax.swing.JMenuItem();
+    userMenuSearchByEmail = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
 
@@ -69,9 +77,12 @@ public class JMenu extends javax.swing.JFrame {
     consoleTextArea.setRows(5);
     jScrollPane1.setViewportView(consoleTextArea);
 
-    fileMenu.setText("File");
+    jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+    jLabel1.setText("Grafo Social");
 
-    fileMenuOpenJson.setText("Open JSON");
+    fileMenu.setText("Arquivo");
+
+    fileMenuOpenJson.setText("Abrir JSON");
     fileMenuOpenJson.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         fileMenuOpenJsonActionPerformed(evt);
@@ -79,7 +90,7 @@ public class JMenu extends javax.swing.JFrame {
     });
     fileMenu.add(fileMenuOpenJson);
 
-    fileMenuExit.setText("Exit");
+    fileMenuExit.setText("Sair");
     fileMenuExit.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         fileMenuExitActionPerformed(evt);
@@ -89,37 +100,45 @@ public class JMenu extends javax.swing.JFrame {
 
     jMenuBar1.add(fileMenu);
 
-    viewMenu.setText("View");
+    graphMenu.setText("Grafo");
 
-    viewMenuViewNetwork.setText("Network");
-    viewMenuViewNetwork.addActionListener(new java.awt.event.ActionListener() {
+    graphMenuView.setText("Visualizar");
+    graphMenuView.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        viewMenuViewNetworkActionPerformed(evt);
+        graphMenuViewActionPerformed(evt);
       }
     });
-    viewMenu.add(viewMenuViewNetwork);
+    graphMenu.add(graphMenuView);
 
-    jMenuBar1.add(viewMenu);
-
-    searchMenu.setText("Search");
-
-    searchMenuById.setText("By ID");
-    searchMenuById.addActionListener(new java.awt.event.ActionListener() {
+    graphMenuIsComplete.setText("Verificar se é Completo");
+    graphMenuIsComplete.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        searchMenuByIdActionPerformed(evt);
+        graphMenuIsCompleteActionPerformed(evt);
       }
     });
-    searchMenu.add(searchMenuById);
+    graphMenu.add(graphMenuIsComplete);
 
-    searchMenuByEmail.setText("By Email");
-    searchMenuByEmail.addActionListener(new java.awt.event.ActionListener() {
+    jMenuBar1.add(graphMenu);
+
+    userMenu.setText("Usuário");
+
+    userMenuSearchById.setText("Procurar por ID");
+    userMenuSearchById.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        searchMenuByEmailActionPerformed(evt);
+        userMenuSearchByIdActionPerformed(evt);
       }
     });
-    searchMenu.add(searchMenuByEmail);
+    userMenu.add(userMenuSearchById);
 
-    jMenuBar1.add(searchMenu);
+    userMenuSearchByEmail.setText("Procurar por Email");
+    userMenuSearchByEmail.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userMenuSearchByEmailActionPerformed(evt);
+      }
+    });
+    userMenu.add(userMenuSearchByEmail);
+
+    jMenuBar1.add(userMenu);
 
     setJMenuBar(jMenuBar1);
 
@@ -127,13 +146,19 @@ public class JMenu extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(jScrollPane1)
       .addGroup(layout.createSequentialGroup()
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(831, Short.MAX_VALUE))
+        .addGap(765, 765, 765)
+        .addComponent(jLabel1)
+        .addContainerGap(814, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 993, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jLabel1)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 939, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
 
     pack();
@@ -159,35 +184,29 @@ public class JMenu extends javax.swing.JFrame {
         data = Data.readJson(file.getAbsolutePath());
       }
       catch(IOException ex){
-        consoleTextArea.setText("Problem acessing file" + file.getAbsolutePath());
+        consoleTextArea.setText("Erro ao acessar o arquivo " + file.getAbsolutePath());
         return;
       }
       catch(Exception e){
-        consoleTextArea.setText("Error loading file. Is it a valid JSON?");
+        consoleTextArea.setText("Erro carregando o arquivo. É um JSON válido?");
         return;
       }
-    
-      //Instantiates the store with
-      //Directional network (it is reverse, the best cost is from the more weighted edge
-      //People list by id
-      //People list by email
-      this.store = new Store(new ReverseNetwork<>(), new PersonIdOrderedList(), new PersonEmailOrderedList());
-      
+         
       //Populate store with JSON data
       try {
         Data.populate(data, this.store);
         
       } catch (ElementNotFoundException | NotComparableException ex) {
-        consoleTextArea.setText("Error populating network with provided data!");
+        consoleTextArea.setText("Erro populando a rede com os dados inseridos.");
         return;
       }
 
       //Success
-      consoleTextArea.setText("Successfully imported JSON file and populated Network:\nPeople by id:\t" + this.store.getPeopleById().toString() + "\nPeople by email:\t" + this.store.getPeopleByEmail().toString());
+      consoleTextArea.setText("Arquivo JSON carregado e grafo populado com sucesso.\n\nLista de pessoas por ID:\t" + this.store.getPeopleById().toString() + "\n\nLista de pessoas por Email:\t" + this.store.getPeopleByEmail().toString());
     }
     //Cancelled file input
     else{
-      consoleTextArea.setText("File access cancelled by user.");
+      consoleTextArea.setText("Acesso a arquivo cancelado pelo utilizador.");
     }
   }//GEN-LAST:event_fileMenuOpenJsonActionPerformed
 
@@ -195,33 +214,40 @@ public class JMenu extends javax.swing.JFrame {
     System.exit(0);
   }//GEN-LAST:event_fileMenuExitActionPerformed
 
-  private void viewMenuViewNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMenuViewNetworkActionPerformed
+  private void graphMenuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuViewActionPerformed
     try{
       //Generate view
       Viewer viewer = new Viewer();
       viewer.create(this.store.getNetwork());
       viewer.showFrame();
 
-      consoleTextArea.setText("Successfully created network view!");
+      consoleTextArea.setText("Visualização do grafo construída com sucesso.");
     }
     catch(Exception e){
-      consoleTextArea.setText("Error creating Network View!");
+      consoleTextArea.setText("Erro ao criar a visualização do grafo.");
+      throw e;
     }
-  }//GEN-LAST:event_viewMenuViewNetworkActionPerformed
+  }//GEN-LAST:event_graphMenuViewActionPerformed
 
-  private void searchMenuByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuByIdActionPerformed
+  private void userMenuSearchByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSearchByIdActionPerformed
     FindPersonByIdForm form = new FindPersonByIdForm();
+    form.setTitle("Procurar por ID");
     form.setStore(this.store);
     form.pack();
     form.setVisible(true);
-  }//GEN-LAST:event_searchMenuByIdActionPerformed
+  }//GEN-LAST:event_userMenuSearchByIdActionPerformed
 
-  private void searchMenuByEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuByEmailActionPerformed
+  private void userMenuSearchByEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSearchByEmailActionPerformed
     FindPersonByEmailForm form = new FindPersonByEmailForm();
+    form.setTitle("Procurar por Email");
     form.setStore(this.store);
     form.pack();
     form.setVisible(true);
-  }//GEN-LAST:event_searchMenuByEmailActionPerformed
+  }//GEN-LAST:event_userMenuSearchByEmailActionPerformed
+
+  private void graphMenuIsCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuIsCompleteActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_graphMenuIsCompleteActionPerformed
 
   /**
    * @param args the command line arguments
@@ -264,12 +290,14 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenu fileMenu;
   private javax.swing.JMenuItem fileMenuExit;
   private javax.swing.JMenuItem fileMenuOpenJson;
+  private javax.swing.JMenu graphMenu;
+  private javax.swing.JMenuItem graphMenuIsComplete;
+  private javax.swing.JMenuItem graphMenuView;
+  private javax.swing.JLabel jLabel1;
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JMenu searchMenu;
-  private javax.swing.JMenuItem searchMenuByEmail;
-  private javax.swing.JMenuItem searchMenuById;
-  private javax.swing.JMenu viewMenu;
-  private javax.swing.JMenuItem viewMenuViewNetwork;
+  private javax.swing.JMenu userMenu;
+  private javax.swing.JMenuItem userMenuSearchByEmail;
+  private javax.swing.JMenuItem userMenuSearchById;
   // End of variables declaration//GEN-END:variables
 }

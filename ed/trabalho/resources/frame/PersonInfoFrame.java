@@ -47,6 +47,7 @@ public class PersonInfoFrame extends javax.swing.JFrame {
    */
   public void setData(Person person){
     this.person = person;
+    this.inputID.setText(String.valueOf(person.getId()));
     this.inputName.setText(person.getName());
     this.inputAge.setText(String.valueOf(person.getAge()));
     this.inputEmail.setText(person.getEmail());
@@ -70,12 +71,32 @@ public class PersonInfoFrame extends javax.swing.JFrame {
     inputName = new javax.swing.JTextField();
     inputAge = new javax.swing.JTextField();
     inputEmail = new javax.swing.JTextField();
-    submitUpdate = new javax.swing.JButton();
     jLabel5 = new javax.swing.JLabel();
     jLabel6 = new javax.swing.JLabel();
     jLabel7 = new javax.swing.JLabel();
     inputCountMentions = new javax.swing.JTextField();
     inputVisualizacoes = new javax.swing.JTextField();
+    jLabel8 = new javax.swing.JLabel();
+    jScrollPane2 = new javax.swing.JScrollPane();
+    jList1 = new javax.swing.JList<>();
+    jLabel9 = new javax.swing.JLabel();
+    jScrollPane3 = new javax.swing.JScrollPane();
+    jList2 = new javax.swing.JList<>();
+    jLabel10 = new javax.swing.JLabel();
+    jScrollPane4 = new javax.swing.JScrollPane();
+    jList3 = new javax.swing.JList<>();
+    submitSaveName = new javax.swing.JButton();
+    submitSaveAge = new javax.swing.JButton();
+    submitSaveEmail = new javax.swing.JButton();
+    submitSaveVisualizations = new javax.swing.JButton();
+    jLabel11 = new javax.swing.JLabel();
+    jScrollPane5 = new javax.swing.JScrollPane();
+    jList4 = new javax.swing.JList<>();
+    jLabel12 = new javax.swing.JLabel();
+    jScrollPane6 = new javax.swing.JScrollPane();
+    jList5 = new javax.swing.JList<>();
+    jLabel13 = new javax.swing.JLabel();
+    inputID = new javax.swing.JTextField();
 
     jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
     jLabel1.setText("Informações de Gestão");
@@ -89,15 +110,8 @@ public class PersonInfoFrame extends javax.swing.JFrame {
     jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
     jLabel4.setText("Email");
 
-    submitUpdate.setText("Atualizar Dados");
-    submitUpdate.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        submitUpdateActionPerformed(evt);
-      }
-    });
-
     jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-    jLabel5.setText("Visualizações");
+    jLabel5.setText("nº Visualizações");
 
     jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
     jLabel6.setText("Informação Geral");
@@ -107,105 +121,251 @@ public class PersonInfoFrame extends javax.swing.JFrame {
 
     inputCountMentions.setEditable(false);
 
+    jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+    jLabel8.setText("Formação Acadêmica");
+
+    jList1.setModel(new javax.swing.AbstractListModel<String>() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public String getElementAt(int i) { return strings[i]; }
+    });
+    jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    jScrollPane2.setViewportView(jList1);
+
+    jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+    jLabel9.setText("Formação Profissional");
+
+    jList2.setModel(new javax.swing.AbstractListModel<String>() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public String getElementAt(int i) { return strings[i]; }
+    });
+    jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    jScrollPane3.setViewportView(jList2);
+
+    jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+    jLabel10.setText("Skills");
+
+    jList3.setModel(new javax.swing.AbstractListModel<String>() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public String getElementAt(int i) { return strings[i]; }
+    });
+    jList3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    jScrollPane4.setViewportView(jList3);
+
+    submitSaveName.setText("Salvar");
+    submitSaveName.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitSaveNameActionPerformed(evt);
+      }
+    });
+
+    submitSaveAge.setText("Salvar");
+    submitSaveAge.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitSaveAgeActionPerformed(evt);
+      }
+    });
+
+    submitSaveEmail.setText("Salvar");
+    submitSaveEmail.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitSaveEmailActionPerformed(evt);
+      }
+    });
+
+    submitSaveVisualizations.setText("Salvar");
+    submitSaveVisualizations.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitSaveVisualizationsActionPerformed(evt);
+      }
+    });
+
+    jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+    jLabel11.setText("Lista de Menções");
+
+    jList4.setModel(new javax.swing.AbstractListModel<String>() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public String getElementAt(int i) { return strings[i]; }
+    });
+    jList4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    jScrollPane5.setViewportView(jList4);
+
+    jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+    jLabel12.setText("Lista de Contatos");
+
+    jList5.setModel(new javax.swing.AbstractListModel<String>() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public String getElementAt(int i) { return strings[i]; }
+    });
+    jList5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    jScrollPane6.setViewportView(jList5);
+
+    jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    jLabel13.setText("ID");
+
+    inputID.setEditable(false);
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(28, 28, 28)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-              .addComponent(jLabel2)
-              .addComponent(jLabel5)
-              .addComponent(jLabel7)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel4)
-                .addComponent(jLabel3)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addComponent(jLabel7)
+                .addGap(76, 76, 76)
+                .addComponent(inputCountMentions, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
               .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(inputAge, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)))
-              .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(inputVisualizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(inputCountMentions, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                  .addGroup(layout.createSequentialGroup()
+                    .addGap(169, 169, 169)
+                    .addComponent(inputVisualizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submitSaveVisualizations)))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           .addGroup(layout.createSequentialGroup()
-            .addGap(4, 4, 4)
-            .addComponent(jLabel1)))
-        .addContainerGap(952, Short.MAX_VALUE))
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(submitUpdate)
-        .addGap(44, 44, 44))
-      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-          .addGap(38, 38, 38)
-          .addComponent(jLabel6)
-          .addContainerGap(1317, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel12)
+              .addComponent(jLabel6)
+              .addComponent(jLabel11)
+              .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel4)
+                .addGap(46, 46, 46)
+                .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submitSaveEmail))
+              .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                  .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addComponent(jLabel13)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                    .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(268, 268, 268))
+                  .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addComponent(jLabel2)
+                      .addComponent(jLabel3))
+                    .addGap(42, 42, 42)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                      .addComponent(inputName, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                      .addComponent(inputAge))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(submitSaveName)
+                  .addComponent(submitSaveAge))))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel10)
+              .addComponent(jLabel8)
+              .addComponent(jLabel9)
+              .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(50, 50, 50))))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(68, 68, 68)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel2)
-          .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(23, 23, 23)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel3)
-          .addComponent(inputAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(23, 23, 23)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel4)
-          .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 483, Short.MAX_VALUE)
+        .addContainerGap()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(jLabel8)
+            .addGap(18, 18, 18)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(30, 30, 30)
+            .addComponent(jLabel9)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(jLabel6)
+            .addGap(25, 25, 25)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel13)
+              .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel2)
+              .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(submitSaveName))
+            .addGap(5, 5, 5)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel3)
+              .addComponent(inputAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(submitSaveAge))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel4)
+              .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(submitSaveEmail))
+            .addGap(68, 68, 68)
+            .addComponent(jLabel11)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGap(42, 42, 42)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(jLabel10)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(jLabel12)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGap(46, 46, 46)
         .addComponent(jLabel1)
-        .addGap(31, 31, 31)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel5)
-          .addComponent(inputVisualizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(30, 30, 30)
+          .addComponent(inputVisualizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(submitSaveVisualizations))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel7)
           .addComponent(inputCountMentions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(62, 62, 62)
-        .addComponent(submitUpdate)
-        .addGap(29, 29, 29))
-      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-          .addGap(26, 26, 26)
-          .addComponent(jLabel6)
-          .addContainerGap(882, Short.MAX_VALUE)))
+        .addContainerGap(68, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void submitUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitUpdateActionPerformed
-    //Check has data to update
+  private void submitSaveNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSaveNameActionPerformed
     try{
-      if(!inputName.getText().isEmpty() && !inputName.getText().equals(this.person.getName()))
+      if(!inputName.getText().isEmpty() && !inputName.getText().equals(this.person.getName())){
         this.person.setName(inputName.getText());
+        
+        JOptionPane.showMessageDialog(null, "Nome atualizado.");
+      }
     }
     catch(Exception e){
-      JOptionPane.showMessageDialog(null, "Error updating name.");
-      return;
+      JOptionPane.showMessageDialog(null, "Erro ao atualizar o nome.");
     }
-    
+  }//GEN-LAST:event_submitSaveNameActionPerformed
+
+  private void submitSaveAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSaveAgeActionPerformed
     try{
-      if(!inputAge.getText().isEmpty() && !Integer.valueOf(inputAge.getText()).equals(this.person.getAge()))
+      if(!inputAge.getText().isEmpty() && !Integer.valueOf(inputAge.getText()).equals(this.person.getAge())){
         this.person.setAge(Integer.valueOf(inputAge.getText()));
+        
+        JOptionPane.showMessageDialog(null, "Idade atualizada.");
+      }
     }
     catch(Exception e){
-      JOptionPane.showMessageDialog(null, "Error updating age.");
-      return;
+      JOptionPane.showMessageDialog(null, "Erro ao atualizar a idade.");
     }
-    
+  }//GEN-LAST:event_submitSaveAgeActionPerformed
+
+  private void submitSaveEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSaveEmailActionPerformed
     try{
       if(!inputEmail.getText().isEmpty() && !inputEmail.getText().equals(this.person.getEmail())){
         this.person.setEmail(inputEmail.getText());
@@ -213,13 +373,16 @@ public class PersonInfoFrame extends javax.swing.JFrame {
         //Update person index on peopleByEmail list
         this.store.getPeopleByEmail().remove(this.person);
         this.store.getPeopleByEmail().add(this.person);
+        
+        JOptionPane.showMessageDialog(null, "Email atualizado.");
       }
     }
     catch(Exception e){
-      JOptionPane.showMessageDialog(null, "Error updating email.");
-      return;
+      JOptionPane.showMessageDialog(null, "Erro ao atualizar o email.");
     }
-    
+  }//GEN-LAST:event_submitSaveEmailActionPerformed
+
+  private void submitSaveVisualizationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSaveVisualizationsActionPerformed
     try{
       if(!inputVisualizacoes.getText().isEmpty() && !Integer.valueOf(inputVisualizacoes.getText()).equals(this.person.getVisualizations())){
         this.person.setVisualizations(Integer.valueOf(inputVisualizacoes.getText()));
@@ -234,15 +397,14 @@ public class PersonInfoFrame extends javax.swing.JFrame {
           if(p.isContact(this.person))
             this.store.getNetwork().addEdge(p, this.person, Integer.valueOf(inputVisualizacoes.getText()));
         }
+        
+        JOptionPane.showMessageDialog(null, "Quantidade de visualizações atualizada.");
       }
     }
     catch(Exception e){
-      JOptionPane.showMessageDialog(null, "Error updating visualizações.");
-      return;
+      JOptionPane.showMessageDialog(null, "Erro ao atualizar a quantidade de visualizações.");
     }
-    
-    JOptionPane.showMessageDialog(null, "Person updated.");
-  }//GEN-LAST:event_submitUpdateActionPerformed
+  }//GEN-LAST:event_submitSaveVisualizationsActionPerformed
 
   /**
    * @param args the command line arguments
@@ -283,15 +445,35 @@ public class PersonInfoFrame extends javax.swing.JFrame {
   private javax.swing.JTextField inputAge;
   private javax.swing.JTextField inputCountMentions;
   private javax.swing.JTextField inputEmail;
+  private javax.swing.JTextField inputID;
   private javax.swing.JTextField inputName;
   private javax.swing.JTextField inputVisualizacoes;
   private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel10;
+  private javax.swing.JLabel jLabel11;
+  private javax.swing.JLabel jLabel12;
+  private javax.swing.JLabel jLabel13;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
   private javax.swing.JLabel jLabel5;
   private javax.swing.JLabel jLabel6;
   private javax.swing.JLabel jLabel7;
-  private javax.swing.JButton submitUpdate;
+  private javax.swing.JLabel jLabel8;
+  private javax.swing.JLabel jLabel9;
+  private javax.swing.JList<String> jList1;
+  private javax.swing.JList<String> jList2;
+  private javax.swing.JList<String> jList3;
+  private javax.swing.JList<String> jList4;
+  private javax.swing.JList<String> jList5;
+  private javax.swing.JScrollPane jScrollPane2;
+  private javax.swing.JScrollPane jScrollPane3;
+  private javax.swing.JScrollPane jScrollPane4;
+  private javax.swing.JScrollPane jScrollPane5;
+  private javax.swing.JScrollPane jScrollPane6;
+  private javax.swing.JButton submitSaveAge;
+  private javax.swing.JButton submitSaveEmail;
+  private javax.swing.JButton submitSaveName;
+  private javax.swing.JButton submitSaveVisualizations;
   // End of variables declaration//GEN-END:variables
 }

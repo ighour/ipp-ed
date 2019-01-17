@@ -51,9 +51,9 @@ public class FindPersonByIdForm extends javax.swing.JFrame {
     submitButton = new javax.swing.JButton();
     inputPersonId = new javax.swing.JTextField();
 
-    labelPersonId.setText("Person ID");
+    labelPersonId.setText("ID");
 
-    submitButton.setText("Find");
+    submitButton.setText("Buscar");
     submitButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         submitButtonActionPerformed(evt);
@@ -71,26 +71,23 @@ public class FindPersonByIdForm extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(46, 46, 46)
+        .addGap(59, 59, 59)
         .addComponent(labelPersonId)
-        .addGap(42, 42, 42)
-        .addComponent(inputPersonId, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(29, Short.MAX_VALUE))
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGap(49, 49, 49)
+        .addComponent(inputPersonId, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
         .addComponent(submitButton)
-        .addGap(112, 112, 112))
+        .addGap(71, 71, 71))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(51, 51, 51)
+        .addGap(50, 50, 50)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(labelPersonId)
-          .addComponent(inputPersonId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-        .addComponent(submitButton)
-        .addGap(90, 90, 90))
+          .addComponent(inputPersonId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(submitButton))
+        .addContainerGap(77, Short.MAX_VALUE))
     );
 
     pack();
@@ -103,7 +100,7 @@ public class FindPersonByIdForm extends javax.swing.JFrame {
   private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
     //Check input is valid
     if(inputPersonId.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Missing person ID input parameter.");
+      JOptionPane.showMessageDialog(null, "Parâmetro inválido.");
       return;
     }
     
@@ -117,19 +114,20 @@ public class FindPersonByIdForm extends javax.swing.JFrame {
       
       //Open person view
       PersonInfoFrame personView = new PersonInfoFrame();
+      personView.setTitle("Usuário: " + result.getId() + " (ID)");
       personView.setStore(store);
       personView.setData(result);
       personView.pack();
       personView.setVisible(true);
     }
     catch(ElementNotFoundException e){
-      JOptionPane.showMessageDialog(null, "Person was not found.");
+      JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
     }
     catch(NullPointerException e){
-      JOptionPane.showMessageDialog(null, "JSON data was not loaded.");
+      JOptionPane.showMessageDialog(null, "Arquivo JSON não carregado.");
     }
     catch(Exception e){
-      JOptionPane.showMessageDialog(null, "Invalid input.");
+      JOptionPane.showMessageDialog(null, "Parâmetro inválido.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 
