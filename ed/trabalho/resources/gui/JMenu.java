@@ -5,9 +5,6 @@
  */
 package ed.trabalho.resources.gui;
 
-import ed.trabalho.adt.PersonEmailOrderedList;
-import ed.trabalho.adt.PersonIdOrderedList;
-import ed.trabalho.adt.ReverseNetwork;
 import ed.trabalho.helpers.Data;
 import ed.trabalho.helpers.Store;
 import ed.trabalho.helpers.Viewer;
@@ -19,6 +16,7 @@ import estg.ed.exceptions.NotComparableException;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  * Menu for application using Swing.
@@ -36,11 +34,8 @@ public class JMenu extends javax.swing.JFrame {
   public JMenu() {
     initComponents();
     
-    //Instantiates the store with
-    //Directional network (it is reverse, the best cost is from the more weighted edge
-    //People list by id
-    //People list by email
-    this.store = new Store(new ReverseNetwork<>(), new PersonIdOrderedList(), new PersonEmailOrderedList());
+    //Instantiates the store
+    this.store = new Store();
   }
 
   /**
@@ -246,7 +241,12 @@ public class JMenu extends javax.swing.JFrame {
   }//GEN-LAST:event_userMenuSearchByEmailActionPerformed
 
   private void graphMenuIsCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuIsCompleteActionPerformed
-    // TODO add your handling code here:
+    if(this.store.getNetwork().size() == 0)
+      JOptionPane.showMessageDialog(null, "O grafo está vazio (sem vértices).");
+    else if(this.store.graphIsComplete())
+      JOptionPane.showMessageDialog(null, "O grafo é completo (todos os vértices se conectam).");
+    else
+      JOptionPane.showMessageDialog(null, "O grafo não é completo.");
   }//GEN-LAST:event_graphMenuIsCompleteActionPerformed
 
   /**

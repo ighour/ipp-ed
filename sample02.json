@@ -1,0 +1,125 @@
+{
+  "grafoSocial": [
+    {
+      "id": "0",
+      "nome": "teste1",
+      "idade": "20",
+      "email": "teste1@teste.pt",
+      "formacaoAcademica": [
+        {
+          "ano": "2000",
+          "formacao": "LEI"
+        },
+        {
+          "ano": "1998",
+          "formacao": "12"
+        }
+      ],
+      "cargosProfissionais": [
+        {
+          "ano": "2001",
+          "cargo": "Desenvolvedor",
+          "empresa": "X"
+        },
+        {
+          "ano": "2000",
+          "cargo": "Estagiário",
+          "empresa": "A"
+        }
+      ],
+      "skills": [
+        "Java",
+        "C",
+        "Nebeans"
+      ],
+      "contacts": [
+        {"userid": "1"},
+        {"userid": "2"}
+      ],
+      "mencoes": [
+        {"userid": "1"},
+        {"userid": "2"}
+      ],
+      "visualizacoes": "500"
+    },
+    {
+      "id": "1",
+      "nome": "teste2",
+      "idade": "20",
+      "email": "teste2@teste.pt",
+      "formacaoAcademica": [
+        {
+          "ano": "2010",
+          "formacao": "LSIG"
+        },
+        {
+          "ano": "1995",
+          "formacao": "12"
+        }
+      ],
+      "cargosProfissionais": [
+        {
+          "ano": "2011",
+          "cargo": "Administrador de base de dados",
+          "empresa": "A"
+        },
+        {
+          "ano": "2000",
+          "cargo": "Estagiário",
+          "empresa": "Z"
+        }
+      ],
+      "skills": [
+        "Prolog",
+        "C#",
+        "Visual Studio"
+      ],
+      "contacts": [
+        {"userid": "0"},
+        {"userid": "2"}
+      ],
+      "mencoes": [
+        {"userid": "0"},
+        {"userid": "2"}
+      ],
+      "visualizacoes": "12"
+    },
+    {
+      "id": "2",
+      "nome": "teste3",
+      "idade": "40",
+      "email": "teste3@teste.pt",
+      "formacaoAcademica": [
+        {
+          "ano": "1995",
+          "formacao": "12"
+        }
+      ],
+      "cargosProfissionais": [
+        {
+          "ano": "2011",
+          "cargo": "Adminstrativo",
+          "empresa": "X"
+        },
+        {
+          "ano": "2010",
+          "cargo": "Estagiário",
+          "empresa": "X"
+        }
+      ],
+      "skills": [
+        "Prolog",
+        "C#",
+        "Visual Studio"
+      ],
+      "contacts": [
+        {"userid": "0"},
+        {"userid": "1"}
+      ],
+      "mencoes": [
+        {"userid": "0"}
+      ],
+      "visualizacoes": "150"
+    }
+  ]
+}

@@ -50,6 +50,9 @@ public abstract class Data {
    * @throws estg.ed.exceptions.NotComparableException
    */
   public static void populate(Pessoa[] source, Store store) throws ElementNotFoundException, NotComparableException{
+    //Clear store before (needed if loaded another JSON)
+    store.clearStore();
+
     //Create list of People
     Person[] peopleList = new Person[source.length];
 
