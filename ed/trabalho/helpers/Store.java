@@ -7,7 +7,7 @@ package ed.trabalho.helpers;
 
 import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.adt.PersonIdOrderedList;
-import ed.trabalho.adt.ReverseNetwork;
+import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
 import estg.ed.interfaces.NetworkADT;
 import estg.ed.interfaces.OrderedListADT;
@@ -38,7 +38,7 @@ public class Store {
    * Instantiates the store with network and people lists.
    */
   public Store(){
-    this.network = new ReverseNetwork<>();
+    this.network = new SocialNetwork<>();
     this.peopleById = new PersonIdOrderedList();
     this.peopleByEmail = new PersonEmailOrderedList();
   }
@@ -72,7 +72,7 @@ public class Store {
    * By creating new network and lists.
    */
   public void clearStore(){
-    this.network = new ReverseNetwork<>();
+    this.network = new SocialNetwork<>();
     this.peopleById = new PersonIdOrderedList();
     this.peopleByEmail = new PersonEmailOrderedList();
   }

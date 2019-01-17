@@ -142,9 +142,9 @@ public abstract class Data {
       addRelation(peopleList[id].getContactList(), uidIndex, source, peopleList, store);
       
       //Add edge in network
-      //Using visualizations for weight
+      //Using 1 / visualizations for weight
       //p (neighbor) -> owner
-      store.getNetwork().addEdge(peopleList[id], peopleList[uidIndex], peopleList[uidIndex].getVisualizations());
+      store.getNetwork().addEdge(peopleList[id], peopleList[uidIndex], 1 / (double) peopleList[uidIndex].getVisualizations());
     }
   }
 

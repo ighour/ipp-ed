@@ -6,7 +6,7 @@
 package ed.trabalho.helpers;
 
 import com.google.common.base.Function;
-import ed.trabalho.adt.ReverseNetwork;
+import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -42,7 +42,7 @@ public class Viewer {
    */
   public void create(NetworkADT<Person> originalNetwork){
     //Convert accessible network
-    ReverseNetwork<Person> source = (ReverseNetwork<Person>) originalNetwork;
+    SocialNetwork<Person> source = (SocialNetwork<Person>) originalNetwork;
 
     //Get matrix
     DynamicArrayContract<DynamicArrayContract<Double>> matrix = source.adjacencyMatrix();
@@ -66,7 +66,7 @@ public class Viewer {
         //Has edge
         if(matrix.get(i).get(j) != Double.POSITIVE_INFINITY){
           //Generate link
-          ViewNode link = new ViewNode(matrix.get(i).get(j));
+          ViewNode link = new ViewNode(matrix.get(i).get(j), vertices.get(j).getVisualizations());
           this.viewGraph.addEdge(link, vertices.get(i), vertices.get(j));
         }
     
@@ -103,14 +103,16 @@ public class Viewer {
    */
   class ViewNode {
     public double weight;
+    public int visualizations;
     
-    public ViewNode(double weight){
+    public ViewNode(double weight, int visualizations){
       this.weight = weight;
+      this.visualizations = visualizations;
     }
     
     @Override
     public String toString(){
-      return String.valueOf((int)this.weight);
+      return "1 / " + this.visualizations;
     }
   }
 }

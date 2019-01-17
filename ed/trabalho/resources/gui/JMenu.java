@@ -11,6 +11,7 @@ import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.resources.form.FindPersonByEmailForm;
 import ed.trabalho.resources.form.FindPersonByIdForm;
+import ed.trabalho.resources.form.PathPersonToPersonForm;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
 import java.io.File;
@@ -58,6 +59,7 @@ public class JMenu extends javax.swing.JFrame {
     graphMenu = new javax.swing.JMenu();
     graphMenuView = new javax.swing.JMenuItem();
     graphMenuIsComplete = new javax.swing.JMenuItem();
+    graphMenuMinimalPathVertices = new javax.swing.JMenuItem();
     userMenu = new javax.swing.JMenu();
     userMenuSearchById = new javax.swing.JMenuItem();
     userMenuSearchByEmail = new javax.swing.JMenuItem();
@@ -112,6 +114,14 @@ public class JMenu extends javax.swing.JFrame {
       }
     });
     graphMenu.add(graphMenuIsComplete);
+
+    graphMenuMinimalPathVertices.setText("Calcular Melhor Caminho entre Usuários");
+    graphMenuMinimalPathVertices.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        graphMenuMinimalPathVerticesActionPerformed(evt);
+      }
+    });
+    graphMenu.add(graphMenuMinimalPathVertices);
 
     jMenuBar1.add(graphMenu);
 
@@ -249,6 +259,14 @@ public class JMenu extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, "O grafo não é completo.");
   }//GEN-LAST:event_graphMenuIsCompleteActionPerformed
 
+  private void graphMenuMinimalPathVerticesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuMinimalPathVerticesActionPerformed
+    PathPersonToPersonForm form = new PathPersonToPersonForm();
+    form.setTitle("Melhor Caminho entre Usuários.");
+    form.setStore(this.store);
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_graphMenuMinimalPathVerticesActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -292,6 +310,7 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenuItem fileMenuOpenJson;
   private javax.swing.JMenu graphMenu;
   private javax.swing.JMenuItem graphMenuIsComplete;
+  private javax.swing.JMenuItem graphMenuMinimalPathVertices;
   private javax.swing.JMenuItem graphMenuView;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JMenuBar jMenuBar1;
