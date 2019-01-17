@@ -100,6 +100,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userMenuSearchByEmailActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="userMenuCompareCompanyPeopleAndPersonContacts">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Company People x Person Contacts"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userMenuCompareCompanyPeopleAndPersonContactsActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

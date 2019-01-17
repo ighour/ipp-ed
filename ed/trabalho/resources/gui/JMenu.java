@@ -9,6 +9,7 @@ import ed.trabalho.helpers.Data;
 import ed.trabalho.helpers.Store;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
+import ed.trabalho.resources.form.CompanyPeopleAndPersonContactsForm;
 import ed.trabalho.resources.form.FindPersonByEmailForm;
 import ed.trabalho.resources.form.FindPersonByIdForm;
 import ed.trabalho.resources.form.NotReachableUsersByUserForm;
@@ -67,6 +68,7 @@ public class JMenu extends javax.swing.JFrame {
     userMenu = new javax.swing.JMenu();
     userMenuSearchById = new javax.swing.JMenuItem();
     userMenuSearchByEmail = new javax.swing.JMenuItem();
+    userMenuCompareCompanyPeopleAndPersonContacts = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
 
@@ -162,6 +164,14 @@ public class JMenu extends javax.swing.JFrame {
       }
     });
     userMenu.add(userMenuSearchByEmail);
+
+    userMenuCompareCompanyPeopleAndPersonContacts.setText("Company People x Person Contacts");
+    userMenuCompareCompanyPeopleAndPersonContacts.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userMenuCompareCompanyPeopleAndPersonContactsActionPerformed(evt);
+      }
+    });
+    userMenu.add(userMenuCompareCompanyPeopleAndPersonContacts);
 
     jMenuBar1.add(userMenu);
 
@@ -303,6 +313,14 @@ public class JMenu extends javax.swing.JFrame {
     form.setVisible(true);
   }//GEN-LAST:event_graphMenuNotReachableUsersByUserActionPerformed
 
+  private void userMenuCompareCompanyPeopleAndPersonContactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuCompareCompanyPeopleAndPersonContactsActionPerformed
+    CompanyPeopleAndPersonContactsForm form = new CompanyPeopleAndPersonContactsForm();
+    form.setTitle("Company People Related to User Contacts");
+    form.setStore(this.store);
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_userMenuCompareCompanyPeopleAndPersonContactsActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -354,6 +372,7 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JMenu userMenu;
+  private javax.swing.JMenuItem userMenuCompareCompanyPeopleAndPersonContacts;
   private javax.swing.JMenuItem userMenuSearchByEmail;
   private javax.swing.JMenuItem userMenuSearchById;
   // End of variables declaration//GEN-END:variables
