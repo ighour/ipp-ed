@@ -103,7 +103,6 @@ public class FindPersonByIdForm extends Base {
       //Open person view
       PersonViewEdit personView = new PersonViewEdit();
       personView.setTitle("User: " + result.getId() + " (ID)");
-      personView.setStore(store);
       personView.setPerson(result);
       personView.pack();
       personView.setVisible(true);

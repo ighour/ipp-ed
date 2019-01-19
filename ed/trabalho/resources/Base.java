@@ -19,11 +19,10 @@ public abstract class Base extends javax.swing.JFrame {
   protected Store store;
   
   /**
-   * Set store access to component.
-   * @param store 
+   * Initiates with Store singleton.
    */
-  public void setStore(Store store){
-    this.store = store;
+  public Base(){
+    this.store = Store.getInstance();
   }
   
   /**

@@ -323,7 +323,6 @@ public abstract class BasePerson extends Base {
     try {
       MentionCreate form = new MentionCreate();
       form.setTitle("Mention an User");
-      form.setStore(this.store);
       form.setData(this);
       form.pack();
       form.setVisible(true);
@@ -361,7 +360,6 @@ public abstract class BasePerson extends Base {
     try {
       ContactCreate form = new ContactCreate();
       form.setTitle("Add User as Contact");
-      form.setStore(this.store);
       form.setData(this);
       form.pack();
       form.setVisible(true);

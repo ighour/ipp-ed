@@ -102,7 +102,6 @@ public class FindPersonByEmailForm extends Base {
       //Open person view
       PersonViewEdit personView = new PersonViewEdit();
       personView.setTitle("User: " + result.getEmail() + " (Email)");
-      personView.setStore(store);
       personView.setPerson(result);
       personView.pack();
       personView.setVisible(true);

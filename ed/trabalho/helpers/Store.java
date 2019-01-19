@@ -16,6 +16,7 @@ import java.util.Iterator;
 /**
  * Stores all data of application.
  * Also some helper functions interacting with network and lists.
+ * Singleton pattern to use same store everytime.
  * @author igu
  */
 public class Store {
@@ -35,13 +36,14 @@ public class Store {
   private OrderedListADT<Person> peopleByEmail;
   
   /**
-   * Instantiates the store with network and people lists.
+   * Instantiates the store.
+   * Avoids outside instanciation.
    */
-  public Store(){
+  private Store(){
     this.network = new SocialNetwork<>();
     this.peopleById = new PersonIdOrderedList();
     this.peopleByEmail = new PersonEmailOrderedList();
-  }
+  };
 
   /**
    * Get Network.
@@ -99,4 +101,18 @@ public class Store {
     return true;
   }
   
+  /**
+   * Inner class containing the instance.
+   */
+  private static class Singleton {
+    private static final Store INSTANCE = new Store();
+  }
+  
+  /**
+   * Returns the unique instance of Store.
+   * @return 
+   */
+  public static Store getInstance(){
+    return Singleton.INSTANCE;
+  }
 }

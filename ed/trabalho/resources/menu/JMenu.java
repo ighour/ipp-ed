@@ -6,7 +6,6 @@
 package ed.trabalho.resources.menu;
 
 import ed.trabalho.helpers.Data;
-import ed.trabalho.helpers.Store;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.resources.Base;
@@ -23,7 +22,6 @@ import estg.ed.exceptions.NotComparableException;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  * Menu for application using Swing.
@@ -35,9 +33,6 @@ public class JMenu extends Base {
    */
   public JMenu() {
     initComponents();
-    
-    //Instantiates the store
-    this.setStore(new Store());
   }
 
   /**
@@ -271,7 +266,6 @@ public class JMenu extends Base {
   private void userMenuSearchByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSearchByIdActionPerformed
     FindPersonByIdForm form = new FindPersonByIdForm();
     form.setTitle("Find by ID");
-    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_userMenuSearchByIdActionPerformed
@@ -279,7 +273,6 @@ public class JMenu extends Base {
   private void userMenuSearchByEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSearchByEmailActionPerformed
     FindPersonByEmailForm form = new FindPersonByEmailForm();
     form.setTitle("Find by Email");
-    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_userMenuSearchByEmailActionPerformed
@@ -296,7 +289,6 @@ public class JMenu extends Base {
   private void graphMenuMinimalPathVerticesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuMinimalPathVerticesActionPerformed
     PathPersonToPersonForm form = new PathPersonToPersonForm();
     form.setTitle("Best Path between Users.");
-    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_graphMenuMinimalPathVerticesActionPerformed
@@ -304,7 +296,6 @@ public class JMenu extends Base {
   private void graphMenuRechableUsersByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuRechableUsersByUserActionPerformed
     ReachableUsersByUserForm form = new ReachableUsersByUserForm();
     form.setTitle("Reachable Users by User");
-    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_graphMenuRechableUsersByUserActionPerformed
@@ -312,7 +303,6 @@ public class JMenu extends Base {
   private void graphMenuNotReachableUsersByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuNotReachableUsersByUserActionPerformed
     NotReachableUsersByUserForm form = new NotReachableUsersByUserForm();
     form.setTitle("Not Reachable Users by User");
-    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_graphMenuNotReachableUsersByUserActionPerformed
@@ -320,7 +310,6 @@ public class JMenu extends Base {
   private void userMenuCompareCompanyPeopleAndPersonContactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuCompareCompanyPeopleAndPersonContactsActionPerformed
     CompanyPeopleAndPersonContactsForm form = new CompanyPeopleAndPersonContactsForm();
     form.setTitle("Company People Related to User Contacts");
-    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_userMenuCompareCompanyPeopleAndPersonContactsActionPerformed
@@ -328,7 +317,6 @@ public class JMenu extends Base {
   private void userMenuSkillsOrderedByCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSkillsOrderedByCostActionPerformed
     SkillsOrderedByCostForm form = new SkillsOrderedByCostForm();
     form.setTitle("Users with Skill Ordered by Cost From user");
-    form.setStore(this.store);
     form.pack();
     form.setVisible(true);
   }//GEN-LAST:event_userMenuSkillsOrderedByCostActionPerformed
@@ -336,7 +324,6 @@ public class JMenu extends Base {
   private void userMenuAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuAddUserActionPerformed
       PersonCreate personView = new PersonCreate();
       personView.setTitle("New User");
-      personView.setStore(this.store);
       personView.setPerson();
       personView.pack();
       personView.setVisible(true);
