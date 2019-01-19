@@ -315,4 +315,102 @@ public abstract class BasePerson extends Base {
       this.message("Error deleting academic formation.");
     }
   }
+  
+  /**
+   * Process submit of mention create.
+   */
+  protected void submitMentionCreate(){
+    try {
+      MentionCreate form = new MentionCreate();
+      form.setTitle("Mention an User");
+      form.setStore(this.store);
+      form.setData(this);
+      form.pack();
+      form.setVisible(true);
+    }
+    catch(Exception e){
+      this.message("Error creating a mention.");
+    }
+  }
+    
+  /**
+   * Process submit of mention delete.
+   * @param index
+   */
+  protected void submitMentionDelete(int index){
+    try {
+      if(index != -1){
+        this.person.getMentionList().remove(index);
+        this.loadMentions();
+        
+        this.message("User is no more mentioned by you.");
+      }
+      else{
+        this.message("Please select a person first.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error deleting a mention.");
+    }
+  }
+  
+  /**
+   * Process submit of contact create.
+   */
+  protected void submitContactCreate(){
+    try {
+      ContactCreate form = new ContactCreate();
+      form.setTitle("Add User as Contact");
+      form.setStore(this.store);
+      form.setData(this);
+      form.pack();
+      form.setVisible(true);
+    }
+    catch(Exception e){
+      this.message("Error adding an user.");
+    }
+  }
+    
+  /**
+   * Process submit of contact delete.
+   * @param index
+   */
+  protected void submitContactDelete(int index){
+    try {
+      if(index != -1){
+        //Get contact
+        Person contact = this.person.getContactList().get(index);
+        
+        //Update network (remove edge)
+        this.store.getNetwork().removeEdge(this.person, contact);
+        
+        //Remove from user list
+        this.person.getContactList().remove(index);
+        
+        //Load view list
+        this.loadContacts();
+        
+        this.message("User was removed from your contact list.");
+      }
+      else{
+        this.message("Please select a person first.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error removing user from your contact list.");
+      
+      //Re-add user if was error
+      try{
+        //Get contact
+        Person contact = this.person.getContactList().get(index);
+        
+        //Update network (add edge)
+        this.store.getNetwork().addEdge(this.person, contact, contact.getVisualizations());
+        
+        //Add to user list
+        this.person.getContactList().add(contact, this.person.getContactList().size());
+      }
+      catch(Exception ex){}
+    }
+  }
 }

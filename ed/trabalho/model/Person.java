@@ -151,6 +151,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get list of contacts (list of other people).
+   * 
    * @return 
    */
   public DynamicArrayContract<Person> getContactList() {
@@ -217,6 +218,24 @@ public class Person implements Comparable<Person> {
       Person contact = this.contactList.get(i);
       
       if(contact.getId() == person.getId())
+        return true;
+    }
+    
+    return false;
+  }
+  
+  /**
+   * Check if desired Person is in mention list.
+   * @param person
+   * @return 
+   */
+  public boolean isMention(Person person) {
+    int size = this.mentionList.size();
+    
+    for(int i = 0; i < size; i++){
+      Person mention = this.mentionList.get(i);
+      
+      if(mention.getId() == person.getId())
         return true;
     }
     

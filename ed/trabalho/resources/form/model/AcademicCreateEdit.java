@@ -41,7 +41,7 @@ public class AcademicCreateEdit extends Base {
       this.person = personInfo.getPerson();
       this.personInfo = personInfo;
       this.academicIndex = -1;
-      submitSkill.setText("Create");
+      submitAcademic.setText("Create");
   }
   
   /**
@@ -53,7 +53,7 @@ public class AcademicCreateEdit extends Base {
     this.person = personInfo.getPerson();
     this.personInfo = personInfo;
     this.academicIndex = academicIndex;
-    submitSkill.setText("Update");
+    submitAcademic.setText("Update");
     this.populateResource();
   }
   
@@ -81,7 +81,7 @@ public class AcademicCreateEdit extends Base {
 
     inputYear = new javax.swing.JTextField();
     jLabel2 = new javax.swing.JLabel();
-    submitSkill = new javax.swing.JButton();
+    submitAcademic = new javax.swing.JButton();
     jLabel3 = new javax.swing.JLabel();
     inputDescription = new javax.swing.JTextField();
 
@@ -89,10 +89,10 @@ public class AcademicCreateEdit extends Base {
 
     jLabel2.setText("Year");
 
-    submitSkill.setText("Create");
-    submitSkill.addActionListener(new java.awt.event.ActionListener() {
+    submitAcademic.setText("Create");
+    submitAcademic.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        submitSkillActionPerformed(evt);
+        submitAcademicActionPerformed(evt);
       }
     });
 
@@ -117,7 +117,7 @@ public class AcademicCreateEdit extends Base {
             .addGap(45, 45, 45))))
       .addGroup(layout.createSequentialGroup()
         .addGap(177, 177, 177)
-        .addComponent(submitSkill)
+        .addComponent(submitAcademic)
         .addGap(0, 0, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -132,14 +132,14 @@ public class AcademicCreateEdit extends Base {
           .addComponent(jLabel3)
           .addComponent(inputDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-        .addComponent(submitSkill)
+        .addComponent(submitAcademic)
         .addGap(33, 33, 33))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-    private void submitSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSkillActionPerformed
+    private void submitAcademicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitAcademicActionPerformed
       //Check is valid
       if(inputYear.getText().isEmpty()){
         this.message("You need to put an year first.");
@@ -224,7 +224,7 @@ public class AcademicCreateEdit extends Base {
       //Dispose the frame and show message
       this.dispose();
       this.message(resultMessage);
-    }//GEN-LAST:event_submitSkillActionPerformed
+    }//GEN-LAST:event_submitAcademicActionPerformed
 
     /**
      * @param args the command line arguments
@@ -393,6 +393,6 @@ public class AcademicCreateEdit extends Base {
   private javax.swing.JTextField inputYear;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
-  private javax.swing.JButton submitSkill;
+  private javax.swing.JButton submitAcademic;
   // End of variables declaration//GEN-END:variables
 }

@@ -41,7 +41,7 @@ public class ProfessionalCreateEdit extends Base {
       this.person = personInfo.getPerson();
       this.personInfo = personInfo;
       this.professionalIndex = -1;
-      submitSkill.setText("Create");
+      submitProfessional.setText("Create");
   }
   
   /**
@@ -53,7 +53,7 @@ public class ProfessionalCreateEdit extends Base {
     this.person = personInfo.getPerson();
     this.personInfo = personInfo;
     this.professionalIndex = professionalIndex;
-    submitSkill.setText("Update");
+    submitProfessional.setText("Update");
     this.populateResource();
   }
   
@@ -83,7 +83,7 @@ public class ProfessionalCreateEdit extends Base {
 
     inputYear = new javax.swing.JTextField();
     jLabel2 = new javax.swing.JLabel();
-    submitSkill = new javax.swing.JButton();
+    submitProfessional = new javax.swing.JButton();
     jLabel3 = new javax.swing.JLabel();
     inputRole = new javax.swing.JTextField();
     jLabel4 = new javax.swing.JLabel();
@@ -93,10 +93,10 @@ public class ProfessionalCreateEdit extends Base {
 
     jLabel2.setText("Year");
 
-    submitSkill.setText("Create");
-    submitSkill.addActionListener(new java.awt.event.ActionListener() {
+    submitProfessional.setText("Create");
+    submitProfessional.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        submitSkillActionPerformed(evt);
+        submitProfessionalActionPerformed(evt);
       }
     });
 
@@ -110,7 +110,7 @@ public class ProfessionalCreateEdit extends Base {
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addGap(140, 140, 140)
-        .addComponent(submitSkill)
+        .addComponent(submitProfessional)
         .addContainerGap(178, Short.MAX_VALUE))
       .addGroup(layout.createSequentialGroup()
         .addGap(32, 32, 32)
@@ -141,14 +141,14 @@ public class ProfessionalCreateEdit extends Base {
           .addComponent(jLabel4)
           .addComponent(inputCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-        .addComponent(submitSkill)
+        .addComponent(submitProfessional)
         .addGap(32, 32, 32))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-    private void submitSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSkillActionPerformed
+    private void submitProfessionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProfessionalActionPerformed
       //Check is valid
       if(inputYear.getText().isEmpty()){
         this.message("You need to put an year first.");
@@ -246,7 +246,7 @@ public class ProfessionalCreateEdit extends Base {
       //Dispose the frame and show message
       this.dispose();
       this.message(resultMessage);
-    }//GEN-LAST:event_submitSkillActionPerformed
+    }//GEN-LAST:event_submitProfessionalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,6 +353,6 @@ public class ProfessionalCreateEdit extends Base {
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
-  private javax.swing.JButton submitSkill;
+  private javax.swing.JButton submitProfessional;
   // End of variables declaration//GEN-END:variables
 }

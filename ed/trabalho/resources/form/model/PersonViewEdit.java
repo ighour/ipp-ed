@@ -160,6 +160,10 @@ public class PersonViewEdit extends BasePerson {
     mentionsList = new javax.swing.JList<>();
     jScrollPane5 = new javax.swing.JScrollPane();
     contactList = new javax.swing.JList<>();
+    submitContactCreate = new javax.swing.JButton();
+    submitContactDelete = new javax.swing.JButton();
+    submitMentionDelete = new javax.swing.JButton();
+    submitMentionCreate = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -342,70 +346,71 @@ public class PersonViewEdit extends BasePerson {
     });
     jScrollPane5.setViewportView(contactList);
 
+    submitContactCreate.setText("Create");
+    submitContactCreate.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitContactCreateActionPerformed(evt);
+      }
+    });
+
+    submitContactDelete.setText("Delete");
+    submitContactDelete.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitContactDeleteActionPerformed(evt);
+      }
+    });
+
+    submitMentionDelete.setText("Delete");
+    submitMentionDelete.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitMentionDeleteActionPerformed(evt);
+      }
+    });
+
+    submitMentionCreate.setText("Create");
+    submitMentionCreate.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitMentionCreateActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
+        .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel6)
               .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(jLabel6)
-                  .addComponent(jLabel11)
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                      .addComponent(jLabel13)
+                      .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                      .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                      .addGap(268, 268, 268))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3))
+                      .addGap(42, 42, 42)
+                      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(inputName)
+                        .addComponent(inputAge, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))))
                   .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                          .addComponent(jLabel13)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                          .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                          .addGap(268, 268, 268))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                          .addGap(42, 42, 42)
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputName)
-                            .addComponent(inputAge, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                      .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(46, 46, 46)
-                        .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addComponent(submitSaveName)
-                      .addComponent(submitSaveEmail)
-                      .addComponent(submitSaveAge))))
-                .addGap(39, 39, 39))
-              .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)))
-          .addGroup(layout.createSequentialGroup()
-            .addGap(27, 27, 27)
+                    .addComponent(jLabel4)
+                    .addGap(46, 46, 46)
+                    .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(submitSaveName)
+                  .addComponent(submitSaveEmail)
+                  .addComponent(submitSaveAge))))
+            .addGap(48, 48, 48)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(jLabel12)
-              .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                  .addComponent(jLabel7)
-                  .addGap(76, 76, 76)
-                  .addComponent(inputCountMentions, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createSequentialGroup()
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                      .addGap(169, 169, 169)
-                      .addComponent(inputVisualizations, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5))
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(submitSaveVisualizations))))))
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
-            .addGap(9, 9, 9)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(jLabel9)
               .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(jLabel8)
               .addGroup(layout.createSequentialGroup()
@@ -414,19 +419,48 @@ public class PersonViewEdit extends BasePerson {
                 .addComponent(submitAcademicEdit)
                 .addGap(18, 18, 18)
                 .addComponent(submitAcademicDelete))))
-          .addGroup(layout.createSequentialGroup()
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(layout.createSequentialGroup()
-            .addGap(18, 18, 18)
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(jLabel10)
+              .addComponent(jLabel1)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                  .addGap(169, 169, 169)
+                  .addComponent(inputVisualizations, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel5))
+              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+              .addComponent(submitSaveVisualizations))
+            .addGroup(layout.createSequentialGroup()
+              .addGap(169, 169, 169)
+              .addComponent(inputCountMentions, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+          .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(jLabel11)
+              .addComponent(jLabel12)
+              .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(submitContactCreate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submitContactDelete))
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(submitMentionCreate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submitMentionDelete))
+              .addComponent(jScrollPane4))
+            .addGap(48, 48, 48)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel9)
+              .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addGroup(layout.createSequentialGroup()
                 .addComponent(submitProfessionalCreate)
                 .addGap(18, 18, 18)
                 .addComponent(submitProfessionalEdit)
                 .addGap(18, 18, 18)
                 .addComponent(submitProfessionalDelete))
+              .addComponent(jLabel10)
               .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addGroup(layout.createSequentialGroup()
                 .addComponent(submitSkillCreate)
@@ -434,12 +468,12 @@ public class PersonViewEdit extends BasePerson {
                 .addComponent(submitSkillEdit)
                 .addGap(18, 18, 18)
                 .addComponent(submitSkillDelete)))))
-        .addContainerGap(23, Short.MAX_VALUE))
+        .addContainerGap(32, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel6)
           .addComponent(jLabel8))
@@ -466,56 +500,56 @@ public class PersonViewEdit extends BasePerson {
               .addComponent(submitSaveEmail)))
           .addGroup(layout.createSequentialGroup()
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(jScrollPane7)))
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(submitAcademicCreate)
+          .addComponent(submitAcademicEdit)
+          .addComponent(submitAcademicDelete))
+        .addGap(26, 26, 26)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(jLabel11)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(submitAcademicCreate)
-              .addComponent(submitAcademicEdit)
-              .addComponent(submitAcademicDelete))
-            .addGap(18, 18, 18)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
             .addComponent(jLabel9)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(submitProfessionalCreate)
-              .addComponent(submitProfessionalEdit)
-              .addComponent(submitProfessionalDelete))
-            .addGap(25, 25, 25)
-            .addComponent(jLabel10))
-          .addGroup(layout.createSequentialGroup()
-            .addGap(28, 28, 28)
-            .addComponent(jLabel11)
-            .addGap(18, 18, 18)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(66, 66, 66)
-            .addComponent(jLabel12)))
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(submitProfessionalCreate)
+          .addComponent(submitProfessionalEdit)
+          .addComponent(submitProfessionalDelete)
+          .addComponent(submitMentionCreate)
+          .addComponent(submitMentionDelete))
+        .addGap(27, 27, 27)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel10)
+          .addComponent(jLabel12))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(submitSkillCreate)
-              .addComponent(submitSkillEdit)
-              .addComponent(submitSkillDelete)))
-          .addGroup(layout.createSequentialGroup()
-            .addGap(34, 34, 34)
-            .addComponent(jLabel1)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel5)
-              .addComponent(inputVisualizations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(submitSaveVisualizations))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel7)
-              .addComponent(inputCountMentions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(submitSkillCreate)
+          .addComponent(submitSkillEdit)
+          .addComponent(submitSkillDelete)
+          .addComponent(submitContactCreate)
+          .addComponent(submitContactDelete))
+        .addGap(46, 46, 46)
+        .addComponent(jLabel1)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel5)
+          .addComponent(inputVisualizations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(submitSaveVisualizations))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel7)
+          .addComponent(inputCountMentions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap())
     );
 
     pack();
@@ -593,6 +627,22 @@ public class PersonViewEdit extends BasePerson {
         // TODO add your handling code here:
     }//GEN-LAST:event_contactListValueChanged
 
+  private void submitContactCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitContactCreateActionPerformed
+    this.submitContactCreate();
+  }//GEN-LAST:event_submitContactCreateActionPerformed
+
+  private void submitContactDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitContactDeleteActionPerformed
+    this.submitContactDelete(contactList.getSelectedIndex());
+  }//GEN-LAST:event_submitContactDeleteActionPerformed
+
+  private void submitMentionDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitMentionDeleteActionPerformed
+    this.submitMentionDelete(mentionsList.getSelectedIndex());
+  }//GEN-LAST:event_submitMentionDeleteActionPerformed
+
+  private void submitMentionCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitMentionCreateActionPerformed
+    this.submitMentionCreate();
+  }//GEN-LAST:event_submitMentionCreateActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -664,6 +714,10 @@ public class PersonViewEdit extends BasePerson {
   private javax.swing.JButton submitAcademicCreate;
   private javax.swing.JButton submitAcademicDelete;
   private javax.swing.JButton submitAcademicEdit;
+  private javax.swing.JButton submitContactCreate;
+  private javax.swing.JButton submitContactDelete;
+  private javax.swing.JButton submitMentionCreate;
+  private javax.swing.JButton submitMentionDelete;
   private javax.swing.JButton submitProfessionalCreate;
   private javax.swing.JButton submitProfessionalDelete;
   private javax.swing.JButton submitProfessionalEdit;
