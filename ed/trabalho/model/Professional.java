@@ -68,7 +68,7 @@ public class Professional {
    */
   @Override
   public String toString() {
-      return "Company: "+this.company +" ||Role: "+ this.role +" ||Year: "+ this.year;
+      return this.company + " / " + this.role + " / "+ this.year;
   }
 
 }

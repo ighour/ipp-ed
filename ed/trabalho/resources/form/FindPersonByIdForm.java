@@ -30,6 +30,14 @@ public class FindPersonByIdForm extends javax.swing.JFrame {
     initComponents();
   }
   
+ /**
+  * Show a message.
+  * @param message 
+  */
+  private void message(String message){
+    JOptionPane.showMessageDialog(null, message);
+  }
+  
   /**
    * Set store access to component.
    * @param store 
@@ -50,6 +58,8 @@ public class FindPersonByIdForm extends javax.swing.JFrame {
     labelPersonId = new javax.swing.JLabel();
     submitButton = new javax.swing.JButton();
     inputPersonId = new javax.swing.JTextField();
+
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
     labelPersonId.setText("ID");
 
@@ -100,7 +110,7 @@ public class FindPersonByIdForm extends javax.swing.JFrame {
   private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
     //Check input is valid
     if(inputPersonId.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Parâmetro inválido.");
+      this.message("Need to input ID.");
       return;
     }
     
@@ -114,20 +124,23 @@ public class FindPersonByIdForm extends javax.swing.JFrame {
       
       //Open person view
       PersonInfoFrame personView = new PersonInfoFrame();
-      personView.setTitle("Usuário: " + result.getId() + " (ID)");
+      personView.setTitle("User: " + result.getId() + " (ID)");
       personView.setStore(store);
       personView.setData(result);
       personView.pack();
       personView.setVisible(true);
+      
+      //Dispose frame
+      this.dispose();
     }
     catch(ElementNotFoundException e){
-      JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
+      this.message("User was not found.");
     }
     catch(NullPointerException e){
-      JOptionPane.showMessageDialog(null, "Arquivo JSON não carregado.");
+      this.message("JSON file was not loaded.");
     }
     catch(Exception e){
-      JOptionPane.showMessageDialog(null, "Parâmetro inválido.");
+      this.message("Invalid parameter.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 

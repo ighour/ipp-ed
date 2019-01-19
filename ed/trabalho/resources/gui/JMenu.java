@@ -42,6 +42,14 @@ public class JMenu extends javax.swing.JFrame {
     //Instantiates the store
     this.store = new Store();
   }
+  
+ /**
+  * Show a message.
+  * @param message 
+  */
+  private void message(String message){
+    JOptionPane.showMessageDialog(null, message);
+  }
 
   /**
    * This method is called from within the constructor to initialize the form.
@@ -55,7 +63,6 @@ public class JMenu extends javax.swing.JFrame {
     fileChooser = new javax.swing.JFileChooser();
     jScrollPane1 = new javax.swing.JScrollPane();
     consoleTextArea = new javax.swing.JTextArea();
-    jLabel1 = new javax.swing.JLabel();
     jMenuBar1 = new javax.swing.JMenuBar();
     fileMenu = new javax.swing.JMenu();
     fileMenuOpenJson = new javax.swing.JMenuItem();
@@ -82,12 +89,9 @@ public class JMenu extends javax.swing.JFrame {
     consoleTextArea.setRows(5);
     jScrollPane1.setViewportView(consoleTextArea);
 
-    jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-    jLabel1.setText("Grafo Social");
+    fileMenu.setText("File");
 
-    fileMenu.setText("Arquivo");
-
-    fileMenuOpenJson.setText("Abrir JSON");
+    fileMenuOpenJson.setText("Open JSON");
     fileMenuOpenJson.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         fileMenuOpenJsonActionPerformed(evt);
@@ -95,7 +99,7 @@ public class JMenu extends javax.swing.JFrame {
     });
     fileMenu.add(fileMenuOpenJson);
 
-    fileMenuExit.setText("Sair");
+    fileMenuExit.setText("Exit");
     fileMenuExit.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         fileMenuExitActionPerformed(evt);
@@ -105,9 +109,9 @@ public class JMenu extends javax.swing.JFrame {
 
     jMenuBar1.add(fileMenu);
 
-    graphMenu.setText("Grafo");
+    graphMenu.setText("Graph");
 
-    graphMenuView.setText("Visualizar");
+    graphMenuView.setText("View");
     graphMenuView.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         graphMenuViewActionPerformed(evt);
@@ -115,7 +119,7 @@ public class JMenu extends javax.swing.JFrame {
     });
     graphMenu.add(graphMenuView);
 
-    graphMenuIsComplete.setText("Verificar se é Completo");
+    graphMenuIsComplete.setText("Check if it is Complete");
     graphMenuIsComplete.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         graphMenuIsCompleteActionPerformed(evt);
@@ -123,7 +127,7 @@ public class JMenu extends javax.swing.JFrame {
     });
     graphMenu.add(graphMenuIsComplete);
 
-    graphMenuMinimalPathVertices.setText("Calcular Melhor Caminho entre Usuários");
+    graphMenuMinimalPathVertices.setText("Calculate Best Path Between Users");
     graphMenuMinimalPathVertices.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         graphMenuMinimalPathVerticesActionPerformed(evt);
@@ -149,9 +153,9 @@ public class JMenu extends javax.swing.JFrame {
 
     jMenuBar1.add(graphMenu);
 
-    userMenu.setText("Usuário");
+    userMenu.setText(" Users");
 
-    userMenuSearchById.setText("Procurar por ID");
+    userMenuSearchById.setText("Find by ID");
     userMenuSearchById.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         userMenuSearchByIdActionPerformed(evt);
@@ -159,7 +163,7 @@ public class JMenu extends javax.swing.JFrame {
     });
     userMenu.add(userMenuSearchById);
 
-    userMenuSearchByEmail.setText("Procurar por Email");
+    userMenuSearchByEmail.setText("Find by Email");
     userMenuSearchByEmail.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         userMenuSearchByEmailActionPerformed(evt);
@@ -191,19 +195,11 @@ public class JMenu extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jScrollPane1)
-      .addGroup(layout.createSequentialGroup()
-        .addGap(765, 765, 765)
-        .addComponent(jLabel1)
-        .addContainerGap(814, Short.MAX_VALUE))
+      .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1799, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jLabel1)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 939, javax.swing.GroupLayout.PREFERRED_SIZE))
+      .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
     );
 
     pack();
@@ -229,11 +225,11 @@ public class JMenu extends javax.swing.JFrame {
         data = Data.readJson(file.getAbsolutePath());
       }
       catch(IOException ex){
-        consoleTextArea.setText("Erro ao acessar o arquivo " + file.getAbsolutePath());
+        this.message("Error opening file " + file.getAbsolutePath());
         return;
       }
       catch(Exception e){
-        consoleTextArea.setText("Erro carregando o arquivo. É um JSON válido?");
+        this.message("Error loading this file. Is it a valid JSON file?");
         return;
       }
          
@@ -242,16 +238,17 @@ public class JMenu extends javax.swing.JFrame {
         Data.populate(data, this.store);
         
       } catch (ElementNotFoundException | NotComparableException ex) {
-        consoleTextArea.setText("Erro populando a rede com os dados inseridos.");
+        this.message("Error constructing the graph with provided data.");
         return;
       }
 
       //Success
-      consoleTextArea.setText("Arquivo JSON carregado e grafo populado com sucesso.\n\nLista de pessoas por ID:\t" + this.store.getPeopleById().toString() + "\n\nLista de pessoas por Email:\t" + this.store.getPeopleByEmail().toString());
+      this.message("Successfully loaded JSON file and created Graph.");
+      consoleTextArea.setText("Lista de pessoas por ID:\t" + this.store.getPeopleById().toString() + "\n\nLista de pessoas por Email:\t" + this.store.getPeopleByEmail().toString());
     }
     //Cancelled file input
     else{
-      consoleTextArea.setText("Acesso a arquivo cancelado pelo utilizador.");
+      consoleTextArea.setText("File load cancelled by user.");
     }
   }//GEN-LAST:event_fileMenuOpenJsonActionPerformed
 
@@ -266,17 +263,16 @@ public class JMenu extends javax.swing.JFrame {
       viewer.create(this.store.getNetwork());
       viewer.showFrame();
 
-      consoleTextArea.setText("Visualização do grafo construída com sucesso.");
+      consoleTextArea.setText("Graph view successfully builded.");
     }
     catch(Exception e){
-      consoleTextArea.setText("Erro ao criar a visualização do grafo.");
-      throw e;
+      this.message("Error creating graph view.");
     }
   }//GEN-LAST:event_graphMenuViewActionPerformed
 
   private void userMenuSearchByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSearchByIdActionPerformed
     FindPersonByIdForm form = new FindPersonByIdForm();
-    form.setTitle("Procurar por ID");
+    form.setTitle("Find by ID");
     form.setStore(this.store);
     form.pack();
     form.setVisible(true);
@@ -284,7 +280,7 @@ public class JMenu extends javax.swing.JFrame {
 
   private void userMenuSearchByEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSearchByEmailActionPerformed
     FindPersonByEmailForm form = new FindPersonByEmailForm();
-    form.setTitle("Procurar por Email");
+    form.setTitle("Find by Email");
     form.setStore(this.store);
     form.pack();
     form.setVisible(true);
@@ -292,16 +288,16 @@ public class JMenu extends javax.swing.JFrame {
 
   private void graphMenuIsCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuIsCompleteActionPerformed
     if(this.store.getNetwork().size() == 0)
-      JOptionPane.showMessageDialog(null, "O grafo está vazio (sem vértices).");
+      this.message("Graph is empty (no vertices).");
     else if(this.store.graphIsComplete())
-      JOptionPane.showMessageDialog(null, "O grafo é completo (todos os vértices se conectam).");
+      this.message("Graph is complete (all vertices are connected with each other).");
     else
-      JOptionPane.showMessageDialog(null, "O grafo não é completo.");
+      this.message("Graph is not complete.");
   }//GEN-LAST:event_graphMenuIsCompleteActionPerformed
 
   private void graphMenuMinimalPathVerticesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuMinimalPathVerticesActionPerformed
     PathPersonToPersonForm form = new PathPersonToPersonForm();
-    form.setTitle("Melhor Caminho entre Usuários.");
+    form.setTitle("Best Path between Users.");
     form.setStore(this.store);
     form.pack();
     form.setVisible(true);
@@ -386,7 +382,6 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenuItem graphMenuNotReachableUsersByUser;
   private javax.swing.JMenuItem graphMenuRechableUsersByUser;
   private javax.swing.JMenuItem graphMenuView;
-  private javax.swing.JLabel jLabel1;
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JMenu userMenu;

@@ -92,7 +92,7 @@ public class Viewer {
    * Show the view on a new JFrame.
    */
   public void showFrame(){
-    JFrame frame = new JFrame("Grafo Social");
+    JFrame frame = new JFrame("Graph Viewer");
     frame.getContentPane().add(vv);
     frame.pack();
     frame.setVisible(true); 

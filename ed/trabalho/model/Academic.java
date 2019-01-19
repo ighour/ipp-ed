@@ -53,6 +53,6 @@ public class Academic {
    */
   @Override
   public String toString() {
-      return "Description: "+this.description + " || Year: "+this.year;
+      return this.description + " / " + this.year;
   }
 }

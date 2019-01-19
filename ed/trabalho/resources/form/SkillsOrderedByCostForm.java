@@ -10,16 +10,11 @@ import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.helpers.Store;
 import ed.trabalho.model.Person;
-import ed.trabalho.model.Professional;
-import estg.ed.array.DynamicArray;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.VertexIsNotAccessibleException;
-import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.PriorityQueueADT;
 import estg.ed.tree.binary.ArrayPriorityMinQueue;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,6 +33,14 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
    */
   public SkillsOrderedByCostForm() {
     initComponents();
+  }
+  
+ /**
+  * Show a message.
+  * @param message 
+  */
+  private void message(String message){
+    JOptionPane.showMessageDialog(null, message);
   }
   
   /**
@@ -66,6 +69,8 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
     labelPersonId3 = new javax.swing.JLabel();
     inputUserEmail = new javax.swing.JTextField();
     inputUserID = new javax.swing.JTextField();
+
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
     submitButton.setText("Search");
     submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -168,15 +173,15 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
   private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
     //Can use only one of input per person (ID OR Email)
     if(inputUserID.getText().isEmpty() && inputUserEmail.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Need to insert user email or ID.");
+      this.message("Need to insert user email or ID.");
       return;
     }
     else if(!inputUserID.getText().isEmpty() && !inputUserEmail.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Need to inser user email or ID, not both.");
+      this.message("Need to insert user email or ID, not both.");
       return;
     }
     else if(inputSkill.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Need to insert skill name.");
+      this.message("Need to insert skill name.");
       return;
     }
     
@@ -197,7 +202,7 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
       }
     }
     catch(ElementNotFoundException e){
-      JOptionPane.showMessageDialog(null, "User was not found.");
+      this.message("User was not found.");
       return;
     }
     
@@ -228,10 +233,10 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
         }
       }
       
-      JOptionPane.showMessageDialog(null, resultQueue.toString());
+      this.message(resultQueue.toString());
     }
     catch (ElementNotFoundException | VertexIsNotAccessibleException ex) {
-      JOptionPane.showMessageDialog(null, "There was an error processing the action.");
+      this.message("There was an error processing the action.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 

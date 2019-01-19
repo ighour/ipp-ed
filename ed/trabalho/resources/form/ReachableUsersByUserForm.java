@@ -33,6 +33,14 @@ public class ReachableUsersByUserForm extends javax.swing.JFrame {
     initComponents();
   }
   
+ /**
+  * Show a message.
+  * @param message 
+  */
+  private void message(String message){
+    JOptionPane.showMessageDialog(null, message);
+  }
+  
   /**
    * Set store access to component.
    * @param store 
@@ -57,6 +65,8 @@ public class ReachableUsersByUserForm extends javax.swing.JFrame {
     jLabel2 = new javax.swing.JLabel();
     labelPersonId1 = new javax.swing.JLabel();
     inputFromEmail = new javax.swing.JTextField();
+
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
     labelPersonId.setText("ID");
 
@@ -138,11 +148,11 @@ public class ReachableUsersByUserForm extends javax.swing.JFrame {
   private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
     //Can use only one of input per person (ID OR Email)
     if(inputFromID.getText().isEmpty() && inputFromEmail.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Necessita inserir o ID ou Email do usuário de origem.");
+      this.message("Need to insert ID or Email of From user.");
       return;
     }
     else if(!inputFromID.getText().isEmpty() && !inputFromEmail.getText().isEmpty()){
-      JOptionPane.showMessageDialog(null, "Deve inserir o ID ou Email do usuário de origem, não ambos.");
+      this.message("Need to insert ID or Email of From user, not both.");
       return;
     }
     
@@ -163,7 +173,7 @@ public class ReachableUsersByUserForm extends javax.swing.JFrame {
       }
     }
     catch(ElementNotFoundException e){
-      JOptionPane.showMessageDialog(null, "Não foi encontrado usuário de origem com os dados especificados.");
+      this.message("From user was not found.");
       return;
     }
            
@@ -177,7 +187,7 @@ public class ReachableUsersByUserForm extends javax.swing.JFrame {
       resultView.showFrame();
     }
     catch(ElementNotFoundException e){
-      JOptionPane.showMessageDialog(null, "There was a problem constructing reachable users by user.");
+      this.message("Error processing the action.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 

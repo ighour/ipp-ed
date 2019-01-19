@@ -14,7 +14,7 @@ public class Skill {
   /**
    * Skill name.
    */
-  private final String skill;
+  private String skill;
 
   /**
    * Instantiate with parameters.
@@ -30,5 +30,22 @@ public class Skill {
    */
   public String getSkill() {
     return skill;
+  }
+  
+  /**
+   * Sets the skill name.
+   * @param skill 
+   */
+  public void setSkill(String skill) {
+    this.skill = skill;
+  }
+  
+  /**
+   * Return a string representation of a Skill
+   * @return a string representation of a Skill
+   */
+  @Override
+  public String toString() {
+      return this.skill;
   }
 }
