@@ -3,49 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ed.trabalho.resources.form;
+package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.PersonEmailOrderedList;
-import ed.trabalho.helpers.Store;
+import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.model.Person;
-import ed.trabalho.resources.models.PersonViewEdit;
+import ed.trabalho.resources.Base;
+import ed.trabalho.resources.form.model.PersonViewEdit;
 import estg.ed.exceptions.ElementNotFoundException;
-import javax.swing.JOptionPane;
 
 /**
- * Form to retrieve Person info by email input.
+ * Form to retrieve Person info by id input.
  * @author igu
  */
-public class FindPersonByEmailForm extends javax.swing.JFrame {
-
-  /**
-   * Stores with all application data.
-   */
-  private Store store;
+public class FindPersonByIdForm extends Base {
   
   /**
    * Creates new form FindPersonByIdForm
    */
-  public FindPersonByEmailForm() {
+  public FindPersonByIdForm() {
     initComponents();
   }
   
- /**
-  * Show a message.
-  * @param message 
-  */
-  private void message(String message){
-    JOptionPane.showMessageDialog(null, message);
-  }
-  
-  /**
-   * Set store access to component.
-   * @param store 
-   */
-  public void setStore(Store store){
-    this.store = store;
-  }
-
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,11 +35,11 @@ public class FindPersonByEmailForm extends javax.swing.JFrame {
 
     labelPersonId = new javax.swing.JLabel();
     submitButton = new javax.swing.JButton();
-    inputPersonEmail = new javax.swing.JTextField();
+    inputPersonId = new javax.swing.JTextField();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-    labelPersonId.setText("Email");
+    labelPersonId.setText("ID");
 
     submitButton.setText("Buscar");
     submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -70,9 +48,9 @@ public class FindPersonByEmailForm extends javax.swing.JFrame {
       }
     });
 
-    inputPersonEmail.addActionListener(new java.awt.event.ActionListener() {
+    inputPersonId.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        inputPersonEmailActionPerformed(evt);
+        inputPersonIdActionPerformed(evt);
       }
     });
 
@@ -81,13 +59,13 @@ public class FindPersonByEmailForm extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(46, 46, 46)
+        .addGap(59, 59, 59)
         .addComponent(labelPersonId)
-        .addGap(42, 42, 42)
-        .addComponent(inputPersonEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+        .addGap(49, 49, 49)
+        .addComponent(inputPersonId, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
         .addComponent(submitButton)
-        .addGap(47, 47, 47))
+        .addGap(71, 71, 71))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,42 +73,42 @@ public class FindPersonByEmailForm extends javax.swing.JFrame {
         .addGap(50, 50, 50)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(labelPersonId)
-          .addComponent(inputPersonEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(inputPersonId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(submitButton))
-        .addContainerGap(73, Short.MAX_VALUE))
+        .addContainerGap(77, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void inputPersonEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPersonEmailActionPerformed
+  private void inputPersonIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPersonIdActionPerformed
     // TODO add your handling code here:
-  }//GEN-LAST:event_inputPersonEmailActionPerformed
+  }//GEN-LAST:event_inputPersonIdActionPerformed
 
   private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
     //Check input is valid
-    if(inputPersonEmail.getText().isEmpty()){
-      this.message("Email cannot be empty.");
+    if(inputPersonId.getText().isEmpty()){
+      this.message("Need to input ID.");
       return;
     }
     
-    //Search by Email
+    //Search by ID
     try {
-      String email = inputPersonEmail.getText();
+      int id = Integer.valueOf(inputPersonId.getText());
       
-      PersonEmailOrderedList list = (PersonEmailOrderedList) this.store.getPeopleByEmail();
+      PersonIdOrderedList list = (PersonIdOrderedList) this.store.getPeopleById();
       
-      Person result = list.searchByEmail(email);
+      Person result = list.searchById(id);
       
       //Open person view
       PersonViewEdit personView = new PersonViewEdit();
-      personView.setTitle("User: " + result.getEmail() + " (Email)");
+      personView.setTitle("User: " + result.getId() + " (ID)");
       personView.setStore(store);
       personView.setPerson(result);
       personView.pack();
       personView.setVisible(true);
       
-      //Close frame
+      //Dispose frame
       this.dispose();
     }
     catch(ElementNotFoundException e){
@@ -161,27 +139,26 @@ public class FindPersonByEmailForm extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(FindPersonByEmailForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(FindPersonByIdForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(FindPersonByEmailForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(FindPersonByIdForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(FindPersonByEmailForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(FindPersonByIdForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(FindPersonByEmailForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(FindPersonByIdForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
-    //</editor-fold>
     //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new FindPersonByEmailForm().setVisible(false);
+        new FindPersonByIdForm().setVisible(false);
       }
     });
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JTextField inputPersonEmail;
+  private javax.swing.JTextField inputPersonId;
   private javax.swing.JLabel labelPersonId;
   private javax.swing.JButton submitButton;
   // End of variables declaration//GEN-END:variables

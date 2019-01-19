@@ -1,4 +1,4 @@
-package ed.trabalho.resources.models;
+package ed.trabalho.resources.form.model;
 
 import ed.trabalho.model.Person;
 import ed.trabalho.model.Skill;
@@ -19,7 +19,7 @@ public class SkillCreateEdit extends javax.swing.JFrame {
    * The view frame of person.
    * To manipulate data in lists.
    */
-  private PersonBase personInfo; 
+  private BasePerson personInfo; 
   
   /**
    * The skill index to edit.
@@ -45,7 +45,7 @@ public class SkillCreateEdit extends javax.swing.JFrame {
    * Set data for creating element.
    * @param personInfo
    */
-  public void setData(PersonBase personInfo) {
+  public void setData(BasePerson personInfo) {
       this.person = personInfo.getPerson();
       this.personInfo = personInfo;
       this.skillIndex = -1;
@@ -57,7 +57,7 @@ public class SkillCreateEdit extends javax.swing.JFrame {
    * @param personInfo
    * @param skillIndex
    */
-  public void setData(PersonBase personInfo, int skillIndex) {
+  public void setData(BasePerson personInfo, int skillIndex) {
     this.person = personInfo.getPerson();
     this.personInfo = personInfo;
     this.skillIndex = skillIndex;

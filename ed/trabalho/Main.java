@@ -5,7 +5,7 @@
  */
 package ed.trabalho;
 
-import ed.trabalho.resources.gui.JMenu;
+import ed.trabalho.resources.menu.JMenu;
 import javax.swing.JFrame;
 
 /**

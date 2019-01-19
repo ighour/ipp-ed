@@ -1,40 +1,82 @@
-package ed.trabalho.resources.models;
+package ed.trabalho.resources.form.model;
 
 import ed.trabalho.model.Person;
+import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.exceptions.EmptyCollectionException;
 import java.util.Iterator;
 
 /**
- * View or Edit a person.
- * Also, view all person attributes.
+ * Create a person.
  * @author igu
  */
-public class PersonViewEdit extends PersonBase {  
+public class PersonCreate extends BasePerson {
   /**
-   * Shows and edit a person.
+   * Creates new form PersonInfoFrame
    */
-  public PersonViewEdit() {
+  public PersonCreate() {
     initComponents();
   }
-
+  
   /**
-   * Set person data to form/view. 
-   * @param person
+   * Create an "empty" person.
+   * Using the last person id found plus one.
+   * If list is empty, put ID 1.
    */
-  public void setPerson(Person person){
-    this.person = person;
+  public final void setPerson(){
+    //Need to load store before
+    if(this.store == null){
+      this.message("Error creating person. Store was not loaded yet.");
+      return;
+    }
+    
+    //Get id
+    int id;
+    try {
+      id = this.store.getPeopleById().last().getId() + 1;
+      
+    } catch (EmptyCollectionException ex) {
+      id = 0;
+    }
+    
+    //Create person
+    Person newPerson = new Person(id, "", 0, "", 0);
+    
+    //Add to store
+    try {
+      this.store.getPeopleById().add(newPerson);
+      this.store.getPeopleByEmail().add(newPerson);
+      this.store.getNetwork().addVertex(newPerson);
+    }
+    catch(Exception e){
+      //Removes from list and graph (if needed)
+      try {
+        this.store.getPeopleById().remove(newPerson);
+      } catch (EmptyCollectionException | ElementNotFoundException ex) {}
+      
+      try {
+        this.store.getPeopleByEmail().remove(newPerson);
+      } catch (EmptyCollectionException | ElementNotFoundException ex) {}
+      
+      try {
+        this.store.getNetwork().removeVertex(newPerson);
+      } catch (ElementNotFoundException ex) {}
+
+      this.message("Error adding new user.");
+      return;
+    }
+    
+    //Save as current
+    this.person = newPerson;
+    
+    //Update view
     this.inputID.setText(String.valueOf(person.getId()));
     this.inputName.setText(person.getName());
     this.inputAge.setText(String.valueOf(person.getAge()));
     this.inputEmail.setText(person.getEmail());
     this.inputVisualizacoes.setText(String.valueOf(person.getVisualizations()));
     this.inputCountMentions.setText(String.valueOf(person.getMentions()));
-    this.loadSkill();
-    this.loadProfessional();
-    this.loadContacts();
-    this.loadMentions();
-    this.loadAcademic();
   }
-  
+    
   /**
    * Loads all the skills of a certain person.
    */
@@ -684,14 +726,18 @@ public class PersonViewEdit extends PersonBase {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(PersonViewEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(PersonCreate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(PersonViewEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(PersonCreate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(PersonViewEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(PersonCreate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(PersonViewEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(PersonCreate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     //</editor-fold>
     //</editor-fold>
     //</editor-fold>
@@ -700,7 +746,7 @@ public class PersonViewEdit extends PersonBase {
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new PersonViewEdit().setVisible(true);
+        new PersonCreate().setVisible(true);
       }
     });
   }

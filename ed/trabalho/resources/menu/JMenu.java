@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ed.trabalho.resources.gui;
+package ed.trabalho.resources.menu;
 
 import ed.trabalho.helpers.Data;
 import ed.trabalho.helpers.Store;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
-import ed.trabalho.resources.form.CompanyPeopleAndPersonContactsForm;
-import ed.trabalho.resources.form.FindPersonByEmailForm;
-import ed.trabalho.resources.form.FindPersonByIdForm;
-import ed.trabalho.resources.form.NotReachableUsersByUserForm;
-import ed.trabalho.resources.form.PathPersonToPersonForm;
-import ed.trabalho.resources.form.ReachableUsersByUserForm;
-import ed.trabalho.resources.form.SkillsOrderedByCostForm;
-import ed.trabalho.resources.models.PersonCreate;
+import ed.trabalho.resources.Base;
+import ed.trabalho.resources.form.intermediate.CompanyPeopleAndPersonContactsForm;
+import ed.trabalho.resources.form.intermediate.FindPersonByEmailForm;
+import ed.trabalho.resources.form.intermediate.FindPersonByIdForm;
+import ed.trabalho.resources.form.intermediate.NotReachableUsersByUserForm;
+import ed.trabalho.resources.form.intermediate.PathPersonToPersonForm;
+import ed.trabalho.resources.form.intermediate.ReachableUsersByUserForm;
+import ed.trabalho.resources.form.intermediate.SkillsOrderedByCostForm;
+import ed.trabalho.resources.form.model.PersonCreate;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
 import java.io.File;
@@ -28,12 +29,7 @@ import javax.swing.JOptionPane;
  * Menu for application using Swing.
  * @author igu
  */
-public class JMenu extends javax.swing.JFrame { 
-  /**
-   * Store with all application data.
-   */
-  private final Store store;
-  
+public class JMenu extends Base { 
   /**
    * Creates new form JMenu
    */
@@ -41,15 +37,7 @@ public class JMenu extends javax.swing.JFrame {
     initComponents();
     
     //Instantiates the store
-    this.store = new Store();
-  }
-  
- /**
-  * Show a message.
-  * @param message 
-  */
-  private void message(String message){
-    JOptionPane.showMessageDialog(null, message);
+    this.setStore(new Store());
   }
 
   /**

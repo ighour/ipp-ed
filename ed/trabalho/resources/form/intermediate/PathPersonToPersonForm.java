@@ -3,51 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ed.trabalho.resources.form;
+package ed.trabalho.resources.form.intermediate;
 
 import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
-import ed.trabalho.helpers.Store;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
+import ed.trabalho.resources.Base;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.interfaces.NetworkADT;
 import java.util.Iterator;
-import javax.swing.JOptionPane;
 
 /**
  * Form to retrieve from and to people to calculate minimal path in graph.
  * @author igu
  */
-public class PathPersonToPersonForm extends javax.swing.JFrame {
-
-  /**
-   * Stores with all application data.
-   */
-  private Store store;
-  
+public class PathPersonToPersonForm extends Base {
   /**
    * Creates new form FindPersonByIdForm
    */
   public PathPersonToPersonForm() {
     initComponents();
-  }
-  
- /**
-  * Show a message.
-  * @param message 
-  */
-  private void message(String message){
-    JOptionPane.showMessageDialog(null, message);
-  }
-  
-  /**
-   * Set store access to component.
-   * @param store 
-   */
-  public void setStore(Store store){
-    this.store = store;
   }
 
   /**

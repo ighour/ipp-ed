@@ -3,50 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ed.trabalho.resources.form;
+package ed.trabalho.resources.form.intermediate;
 
 import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
-import ed.trabalho.helpers.Store;
-import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
+import ed.trabalho.resources.Base;
 import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.exceptions.EmptyCollectionException;
+import estg.ed.exceptions.NotComparableException;
 import estg.ed.interfaces.NetworkADT;
-import javax.swing.JOptionPane;
+import estg.ed.interfaces.OrderedListADT;
+import estg.ed.list.OrderedArrayList;
+import java.util.Iterator;
 
 /**
  * Form to retrieve reachable users from another user.
  * @author igu
  */
-public class ReachableUsersByUserForm extends javax.swing.JFrame {
-
-  /**
-   * Stores with all application data.
-   */
-  private Store store;
-  
+public class NotReachableUsersByUserForm extends Base {
   /**
    * Creates new form FindPersonByIdForm
    */
-  public ReachableUsersByUserForm() {
+  public NotReachableUsersByUserForm() {
     initComponents();
-  }
-  
- /**
-  * Show a message.
-  * @param message 
-  */
-  private void message(String message){
-    JOptionPane.showMessageDialog(null, message);
-  }
-  
-  /**
-   * Set store access to component.
-   * @param store 
-   */
-  public void setStore(Store store){
-    this.store = store;
   }
 
   /**
@@ -177,17 +158,30 @@ public class ReachableUsersByUserForm extends javax.swing.JFrame {
       return;
     }
            
-    //Construct a graph to show spaning tree from desired user
+    //Show users not reachable
     try {
+      //Get reachable users
       NetworkADT<Person> resultGraph = (SocialNetwork) this.store.getNetwork().mstNetwork(from);
+
+      //Create result list
+      OrderedListADT<Person> resultList = new OrderedArrayList();
+      Iterator it = this.store.getPeopleById().iterator();
+      while(it.hasNext()){
+        Person p = (Person) it.next();
+        resultList.add(p);
+      }
       
-      //Show as Jung Graph
-      Viewer resultView = new Viewer();
-      resultView.create(resultGraph);
-      resultView.showFrame();
+      //Remove reachable users from list
+      Iterator reachable = resultGraph.iteratorBFS(from);
+      while(reachable.hasNext()){
+        Person p = (Person) reachable.next();
+        resultList.remove(p);
+      }
+
+      this.message(resultList.toString());
     }
-    catch(ElementNotFoundException e){
-      this.message("Error processing the action.");
+    catch(ElementNotFoundException | NotComparableException | EmptyCollectionException e){
+      this.message("Error processing action.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 
@@ -216,14 +210,18 @@ public class ReachableUsersByUserForm extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(ReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(NotReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(ReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(NotReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(ReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(NotReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(ReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(NotReachableUsersByUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     //</editor-fold>
     //</editor-fold>
     //</editor-fold>
@@ -232,7 +230,7 @@ public class ReachableUsersByUserForm extends javax.swing.JFrame {
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new ReachableUsersByUserForm().setVisible(false);
+        new NotReachableUsersByUserForm().setVisible(false);
       }
     });
   }

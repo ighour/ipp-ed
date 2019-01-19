@@ -3,42 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ed.trabalho.resources.models;
+package ed.trabalho.resources.form.model;
 
-import ed.trabalho.helpers.Store;
+import ed.trabalho.resources.Base;
 import ed.trabalho.model.Person;
-import javax.swing.JOptionPane;
 
 /**
- * Base for person view frame.
+ * Base for person frame.
  * @author igu
  */
-public abstract class PersonBase extends javax.swing.JFrame {
+public abstract class BasePerson extends Base {
   /**
    * Person information.
    */
   protected Person person;
-  
-  /**
-   * Stores with all application data.
-   */
-  protected Store store;
-  
- /**
-  * Show a message.
-  * @param message 
-  */
-  protected void message(String message){
-    JOptionPane.showMessageDialog(null, message);
-  }
-  
-  /**
-   * Set store access to component.
-   * @param store 
-   */
-  public void setStore(Store store){
-    this.store = store;
-  }
   
   /**
    * Get the current person.

@@ -3,52 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ed.trabalho.resources.form;
+package ed.trabalho.resources.form.intermediate;
 
 import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.adt.PersonIdOrderedList;
-import ed.trabalho.adt.SocialNetwork;
-import ed.trabalho.helpers.Store;
 import ed.trabalho.model.Person;
+import ed.trabalho.model.Professional;
+import ed.trabalho.resources.Base;
+import estg.ed.array.DynamicArray;
 import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.exceptions.VertexIsNotAccessibleException;
-import estg.ed.interfaces.PriorityQueueADT;
-import estg.ed.tree.binary.ArrayPriorityMinQueue;
+import estg.ed.interfaces.DynamicArrayContract;
 import java.util.Iterator;
-import javax.swing.JOptionPane;
 
 /**
- * Form to list people with desired skill ordered by minimum path cost from desired person.
+ * Form to list company users with desired user in contacts list.
  * @author igu
  */
-public class SkillsOrderedByCostForm extends javax.swing.JFrame {
-
-  /**
-   * Stores with all application data.
-   */
-  private Store store;
-  
+public class CompanyPeopleAndPersonContactsForm extends Base {
   /**
    * Creates new form
    */
-  public SkillsOrderedByCostForm() {
+  public CompanyPeopleAndPersonContactsForm() {
     initComponents();
-  }
-  
- /**
-  * Show a message.
-  * @param message 
-  */
-  private void message(String message){
-    JOptionPane.showMessageDialog(null, message);
-  }
-  
-  /**
-   * Set store access to component.
-   * @param store 
-   */
-  public void setStore(Store store){
-    this.store = store;
   }
 
   /**
@@ -61,7 +37,7 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
   private void initComponents() {
 
     submitButton = new javax.swing.JButton();
-    inputSkill = new javax.swing.JTextField();
+    inputCompanyName = new javax.swing.JTextField();
     jLabel1 = new javax.swing.JLabel();
     jLabel3 = new javax.swing.JLabel();
     jLabel4 = new javax.swing.JLabel();
@@ -79,14 +55,14 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
       }
     });
 
-    inputSkill.addActionListener(new java.awt.event.ActionListener() {
+    inputCompanyName.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        inputSkillActionPerformed(evt);
+        inputCompanyNameActionPerformed(evt);
       }
     });
 
     jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-    jLabel1.setText("Skill");
+    jLabel1.setText("Company Name");
 
     jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
     jLabel3.setText("User");
@@ -135,11 +111,11 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                   .addComponent(jLabel1)
                   .addGap(33, 33, 33)
-                  .addComponent(inputSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                  .addComponent(inputCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))))
           .addGroup(layout.createSequentialGroup()
             .addGap(169, 169, 169)
             .addComponent(submitButton)))
-        .addContainerGap(141, Short.MAX_VALUE))
+        .addContainerGap(49, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +123,7 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
         .addGap(19, 19, 19)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel1)
-          .addComponent(inputSkill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(inputCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(32, 32, 32)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel3)
@@ -177,11 +153,11 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
       return;
     }
     else if(!inputUserID.getText().isEmpty() && !inputUserEmail.getText().isEmpty()){
-      this.message("Need to insert user email or ID, not both.");
+      this.message("Need to inser user email or ID, not both.");
       return;
     }
-    else if(inputSkill.getText().isEmpty()){
-      this.message("Need to insert skill name.");
+    else if(inputCompanyName.getText().isEmpty()){
+      this.message("Need to insert company name.");
       return;
     }
     
@@ -206,38 +182,32 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
       return;
     }
     
-    try {
-      //Skill
-      String skill = inputSkill.getText();      
+    //Get users list by company name
+    String companyName = inputCompanyName.getText();
+    
+    //Creates result list
+    DynamicArrayContract<Person> resultList = new DynamicArray<>();
+    
+    //Iterate in users list to search users who worked on desired company
+    Iterator it = this.store.getPeopleById().iterator();
+    while(it.hasNext()){
+      Person p = (Person) it.next();
       
-      //Get spawning tree of user
-      SocialNetwork resultGraph = (SocialNetwork) this.store.getNetwork().mstNetwork(user);
-      
-      //Create result in PriorityQueue
-      PriorityQueueADT<Person> resultQueue = new ArrayPriorityMinQueue<>();
-
-      //Iterate in user list
-      Iterator it = resultGraph.iteratorBFS(user);
-      
-      //Check user has skill
-      Person first = (Person) it.next();
-      if(first.hasSkill(skill))
-        resultQueue.enqueue(first, 0);
-      
-      while(it.hasNext()){
-        Person p = (Person) it.next();
+      //Iterate in professional list
+      DynamicArrayContract<Professional> professionalList = p.getProfessionalList();
+      for(int i = 0; i < professionalList.size(); i++){
+        Professional prof = professionalList.get(i);
         
-        if(p.hasSkill(skill)){
-          double cost = resultGraph.shortestPathWeight(user, p);
-          resultQueue.enqueue(p, cost);
-        }
+        //User has worked in desired company and has desired user as a contact
+        if(prof.getCompany().equals(companyName) && p.isContact(user))
+          resultList.add(p, resultList.size());
       }
-      
-      this.message(resultQueue.toString());
     }
-    catch (ElementNotFoundException | VertexIsNotAccessibleException ex) {
-      this.message("There was an error processing the action.");
-    }
+    
+    if(resultList.size() == 0)
+      this.message("There is no one from company '" + companyName + "' having user '" + user.toString() + "' as a contact.");
+    else
+      this.message(resultList.toString());
   }//GEN-LAST:event_submitButtonActionPerformed
 
   private void inputUserEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputUserEmailActionPerformed
@@ -248,9 +218,9 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
     // TODO add your handling code here:
   }//GEN-LAST:event_inputUserIDActionPerformed
 
-  private void inputSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSkillActionPerformed
+  private void inputCompanyNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputCompanyNameActionPerformed
     // TODO add your handling code here:
-  }//GEN-LAST:event_inputSkillActionPerformed
+  }//GEN-LAST:event_inputCompanyNameActionPerformed
 
   /**
    * @param args the command line arguments
@@ -269,18 +239,14 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(SkillsOrderedByCostForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(CompanyPeopleAndPersonContactsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(SkillsOrderedByCostForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(CompanyPeopleAndPersonContactsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(SkillsOrderedByCostForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(CompanyPeopleAndPersonContactsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(SkillsOrderedByCostForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(CompanyPeopleAndPersonContactsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
-    //</editor-fold>
-    //</editor-fold>
-    //</editor-fold>
-    //</editor-fold>
     //</editor-fold>
     //</editor-fold>
     //</editor-fold>
@@ -289,13 +255,13 @@ public class SkillsOrderedByCostForm extends javax.swing.JFrame {
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new SkillsOrderedByCostForm().setVisible(false);
+        new CompanyPeopleAndPersonContactsForm().setVisible(false);
       }
     });
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JTextField inputSkill;
+  private javax.swing.JTextField inputCompanyName;
   private javax.swing.JTextField inputUserEmail;
   private javax.swing.JTextField inputUserID;
   private javax.swing.JLabel jLabel1;
