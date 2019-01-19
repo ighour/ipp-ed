@@ -61,5 +61,14 @@ public class Professional {
   public String getRole() {
     return role;
   }
+  
+  /**
+   * Return a string representation of a Professional work
+   * @return a string representation of a Professional work
+   */
+  @Override
+  public String toString() {
+      return "Company: "+this.company +" ||Role: "+ this.role +" ||Year: "+ this.year;
+  }
 
 }

@@ -46,4 +46,13 @@ public class Academic {
   public String getDescription() {
     return description;
   }
+  
+  /**
+   * Returns a string representation of a Academic
+   * @return a string representation of a Academic
+   */
+  @Override
+  public String toString() {
+      return "Description: "+this.description + " || Year: "+this.year;
+  }
 }
