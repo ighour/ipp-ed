@@ -14,12 +14,12 @@ public class Academic {
   /**
    * Year of academic activity.
    */
-  private final int year;
+  private int year;
   
   /**
    * Description of activity.
    */
-  private final String description;
+  private String description;
 
   /**
    * Instantiate with parameters.
@@ -46,7 +46,23 @@ public class Academic {
   public String getDescription() {
     return description;
   }
-  
+
+  /**
+   * Set year.
+   * @param year 
+   */
+  public void setYear(int year) {
+    this.year = year;
+  }
+
+  /**
+   * Set description.
+   * @param description 
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   /**
    * Returns a string representation of a Academic
    * @return a string representation of a Academic

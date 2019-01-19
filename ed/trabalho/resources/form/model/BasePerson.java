@@ -8,7 +8,6 @@ package ed.trabalho.resources.form.model;
 import ed.trabalho.resources.Base;
 import ed.trabalho.model.Person;
 import java.util.Iterator;
-import javax.swing.JList;
 import javax.swing.JTextField;
 
 /**
@@ -198,12 +197,7 @@ public abstract class BasePerson extends Base {
       this.message("Error deleting skill.");
     }
   }
-  
-  
-  
-  
-  
-  
+
   /**
    * Process submit of professional create.
    */
@@ -260,6 +254,65 @@ public abstract class BasePerson extends Base {
     }
     catch(Exception e){
       this.message("Error deleting professional formation.");
+    }
+  }
+  
+  /**
+   * Process submit of academic create.
+   */
+  protected void submitAcademicCreate(){
+    try {
+      AcademicCreateEdit form = new AcademicCreateEdit();
+      form.setTitle("Create Academic Formation");
+      form.setData(this);
+      form.pack();
+      form.setVisible(true);
+    }
+    catch(Exception e){
+      this.message("Error creating academic formation.");
+    }
+  }
+  
+  /**
+   * Process submit of academic edit.
+   * @param index
+   */
+  protected void submitAcademicEdit(int index){
+    try {
+      if(index != -1){
+        AcademicCreateEdit form = new AcademicCreateEdit();
+        form.setTitle("Edit Academic Formation");
+        form.setData(this, index);
+        form.pack();
+        form.setVisible(true);
+      }
+      else{
+        this.message("Please select an academic formation first.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error editing academic formation.");
+    }
+  }
+  
+  /**
+   * Process submit of academic delete.
+   * @param index
+   */
+  protected void submitAcademicDelete(int index){
+    try {
+      if(index != -1){
+        this.person.getAcademicList().remove(index);
+        this.loadAcademic();
+        
+        this.message("Academic formation was deleted.");
+      }
+      else{
+        this.message("Please select an academic formation first.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error deleting academic formation.");
     }
   }
 }

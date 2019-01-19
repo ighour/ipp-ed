@@ -574,15 +574,15 @@ public class PersonViewEdit extends BasePerson {
     }//GEN-LAST:event_submitProfessionalDeleteActionPerformed
 
     private void submitAcademicCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitAcademicCreateActionPerformed
-        // TODO add your handling code here:
+      this.submitAcademicCreate();
     }//GEN-LAST:event_submitAcademicCreateActionPerformed
 
     private void submitAcademicEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitAcademicEditActionPerformed
-        // TODO add your handling code here:
+      this.submitAcademicEdit(academicList.getSelectedIndex());
     }//GEN-LAST:event_submitAcademicEditActionPerformed
 
     private void submitAcademicDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitAcademicDeleteActionPerformed
-        // TODO add your handling code here:
+      this.submitAcademicDelete(academicList.getSelectedIndex());
     }//GEN-LAST:event_submitAcademicDeleteActionPerformed
 
     private void mentionsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_mentionsListValueChanged

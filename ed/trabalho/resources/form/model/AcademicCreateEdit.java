@@ -1,14 +1,14 @@
 package ed.trabalho.resources.form.model;
 
 import ed.trabalho.model.Person;
-import ed.trabalho.model.Professional;
+import ed.trabalho.model.Academic;
 import ed.trabalho.resources.Base;
 
 /**
- * Create or Edit a Professional Formation.
+ * Create or Edit an Academic Formation.
  * @author jorge
  */
-public class ProfessionalCreateEdit extends Base {
+public class AcademicCreateEdit extends Base {
   
   /**
    * The current viewing person.
@@ -22,14 +22,14 @@ public class ProfessionalCreateEdit extends Base {
   private BasePerson personInfo; 
   
   /**
-   * The professional index to edit.
+   * The academic index to edit.
    */
-  private int professionalIndex;
+  private int academicIndex;
     
   /**
    * Instantiates
    */
-  public ProfessionalCreateEdit() {
+  public AcademicCreateEdit() {
       initComponents();
   }
     
@@ -40,19 +40,19 @@ public class ProfessionalCreateEdit extends Base {
   public void setData(BasePerson personInfo) {
       this.person = personInfo.getPerson();
       this.personInfo = personInfo;
-      this.professionalIndex = -1;
+      this.academicIndex = -1;
       submitSkill.setText("Create");
   }
   
   /**
    * Set data for editing element.
    * @param personInfo
-   * @param professionalIndex
+   * @param academicIndex
    */
-  public void setData(BasePerson personInfo, int professionalIndex) {
+  public void setData(BasePerson personInfo, int academicIndex) {
     this.person = personInfo.getPerson();
     this.personInfo = personInfo;
-    this.professionalIndex = professionalIndex;
+    this.academicIndex = academicIndex;
     submitSkill.setText("Update");
     this.populateResource();
   }
@@ -61,15 +61,13 @@ public class ProfessionalCreateEdit extends Base {
    * Populates the form with incoming data.
    */
   private void populateResource(){
-    Professional professional = this.person.getProfessionalList().get(this.professionalIndex);
+    Academic element = this.person.getAcademicList().get(this.academicIndex);
 
-    String year = String.valueOf(professional.getYear());
-    String role = professional.getRole();
-    String company = professional.getCompany();
+    String year = String.valueOf(element.getYear());
+    String description = element.getDescription();
     
     inputYear.setText(year);
-    inputRole.setText(role);
-    inputCompany.setText(company);
+    inputDescription.setText(description);
   }
     
   /**
@@ -85,9 +83,7 @@ public class ProfessionalCreateEdit extends Base {
     jLabel2 = new javax.swing.JLabel();
     submitSkill = new javax.swing.JButton();
     jLabel3 = new javax.swing.JLabel();
-    inputRole = new javax.swing.JTextField();
-    jLabel4 = new javax.swing.JLabel();
-    inputCompany = new javax.swing.JTextField();
+    inputDescription = new javax.swing.JTextField();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,30 +96,29 @@ public class ProfessionalCreateEdit extends Base {
       }
     });
 
-    jLabel3.setText("Role");
-
-    jLabel4.setText("Company");
+    jLabel3.setText("Description");
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(140, 140, 140)
-        .addComponent(submitSkill)
-        .addContainerGap(178, Short.MAX_VALUE))
-      .addGroup(layout.createSequentialGroup()
         .addGap(32, 32, 32)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(jLabel2)
-          .addComponent(jLabel3)
-          .addComponent(jLabel4))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(inputRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-          .addComponent(inputCompany)
-          .addComponent(inputYear, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(25, 25, 25))
+          .addComponent(jLabel3))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(inputYear, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(222, 222, 222))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(inputDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(45, 45, 45))))
+      .addGroup(layout.createSequentialGroup()
+        .addGap(177, 177, 177)
+        .addComponent(submitSkill)
+        .addGap(0, 0, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,14 +130,10 @@ public class ProfessionalCreateEdit extends Base {
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel3)
-          .addComponent(inputRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel4)
-          .addComponent(inputCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+          .addComponent(inputDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
         .addComponent(submitSkill)
-        .addGap(32, 32, 32))
+        .addGap(33, 33, 33))
     );
 
     pack();
@@ -154,12 +145,8 @@ public class ProfessionalCreateEdit extends Base {
         this.message("You need to put an year first.");
         return;
       }
-      else if(inputRole.getText().isEmpty()){
-        this.message("You need to put a role first.");
-        return;
-      }
-      else if(inputCompany.getText().isEmpty()){
-        this.message("You need to put a company first.");
+      else if(inputDescription.getText().isEmpty()){
+        this.message("You need to put a description first.");
         return;
       }
       
@@ -168,12 +155,10 @@ public class ProfessionalCreateEdit extends Base {
       
       //Transform values
       int year = 0;
-      String role = "";
-      String company = "";
+      String description = "";
       try{
         year = Integer.parseInt(inputYear.getText());
-        role = inputRole.getText();
-        company = inputCompany.getText();
+        description = inputDescription.getText();
       }
       catch(Exception e){
         this.message("Invalid parameter");
@@ -181,21 +166,21 @@ public class ProfessionalCreateEdit extends Base {
       }
 
       //Is creating
-      if(this.professionalIndex == -1){
+      if(this.academicIndex == -1){
         try{
           //Create element
-          Professional newElement = new Professional(year, role, company);
+          Academic newElement = new Academic(year, description);
           
           //Add to person
-          this.person.getProfessionalList().add(newElement, this.person.getProfessionalList().size());
+          this.person.getAcademicList().add(newElement, this.person.getAcademicList().size());
           
           //Updates the list
-          this.personInfo.loadProfessional();
+          this.personInfo.loadAcademic();
    
-          resultMessage = "Professional formation was created.";
+          resultMessage = "Academic formation was created.";
         }  
         catch(Exception e){
-          resultMessage = "Error creating formation record.";
+          resultMessage = "Error creating academic formation.";
         } 
       }
       
@@ -206,7 +191,7 @@ public class ProfessionalCreateEdit extends Base {
           boolean updated = false;
           
           //Get the original element
-          Professional element = this.person.getProfessionalList().get(this.professionalIndex);
+          Academic element = this.person.getAcademicList().get(this.academicIndex);
           
           //Check need to change
           if(year != element.getYear()){
@@ -216,30 +201,23 @@ public class ProfessionalCreateEdit extends Base {
             updated = true;
           }
           
-          if(!role.equals(element.getRole())){
+          if(!description.equals(element.getDescription())){
             //Update
-            element.setRole(role);
+            element.setDescription(description);
             
             updated = true;
-          }
-          
-          if(!company.equals(element.getCompany())){
-            //Update
-            element.setCompany(company);
-            
-            updated = true;
-          }
+          }   
           
           //Updates the list
           if(updated == true){
-            this.personInfo.loadProfessional();
-            resultMessage = "Professional formation was updated.";
+            this.personInfo.loadAcademic();
+            resultMessage = "Academic formation was updated.";
           }
           else
             resultMessage = "Nothing to update.";
         }  
         catch(Exception e){
-          resultMessage = "Error updating professional formation.";
+          resultMessage = "Error updating academic formation.";
         } 
       }
       
@@ -265,14 +243,78 @@ public class ProfessionalCreateEdit extends Base {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProfessionalCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AcademicCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProfessionalCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AcademicCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProfessionalCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AcademicCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProfessionalCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AcademicCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -341,18 +383,16 @@ public class ProfessionalCreateEdit extends Base {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProfessionalCreateEdit().setVisible(true);
+                new AcademicCreateEdit().setVisible(true);
             }
         });
     }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JTextField inputCompany;
-  private javax.swing.JTextField inputRole;
+  private javax.swing.JTextField inputDescription;
   private javax.swing.JTextField inputYear;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
-  private javax.swing.JLabel jLabel4;
   private javax.swing.JButton submitSkill;
   // End of variables declaration//GEN-END:variables
 }
