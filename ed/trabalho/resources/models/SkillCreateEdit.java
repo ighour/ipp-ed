@@ -1,14 +1,14 @@
-package ed.trabalho.resources.frame;
+package ed.trabalho.resources.models;
 
 import ed.trabalho.model.Person;
 import ed.trabalho.model.Skill;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Create or Edit a skill.
  * @author jorge
  */
-public class SkillFrame extends javax.swing.JFrame {
+public class SkillCreateEdit extends javax.swing.JFrame {
   
   /**
    * The current viewing person.
@@ -19,7 +19,7 @@ public class SkillFrame extends javax.swing.JFrame {
    * The view frame of person.
    * To manipulate data in lists.
    */
-  private PersonInfoFrame personInfo; 
+  private PersonBase personInfo; 
   
   /**
    * The skill index to edit.
@@ -29,7 +29,7 @@ public class SkillFrame extends javax.swing.JFrame {
   /**
    * Instantiates
    */
-  public SkillFrame() {
+  public SkillCreateEdit() {
       initComponents();
   }
   
@@ -45,7 +45,7 @@ public class SkillFrame extends javax.swing.JFrame {
    * Set data for creating element.
    * @param personInfo
    */
-  public void setData(PersonInfoFrame personInfo) {
+  public void setData(PersonBase personInfo) {
       this.person = personInfo.getPerson();
       this.personInfo = personInfo;
       this.skillIndex = -1;
@@ -57,7 +57,7 @@ public class SkillFrame extends javax.swing.JFrame {
    * @param personInfo
    * @param skillIndex
    */
-  public void setData(PersonInfoFrame personInfo, int skillIndex) {
+  public void setData(PersonBase personInfo, int skillIndex) {
     this.person = personInfo.getPerson();
     this.personInfo = personInfo;
     this.skillIndex = skillIndex;
@@ -205,14 +205,30 @@ public class SkillFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SkillFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SkillCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SkillFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SkillCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SkillFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SkillCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SkillFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SkillCreateEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -233,7 +249,7 @@ public class SkillFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SkillFrame().setVisible(true);
+                new SkillCreateEdit().setVisible(true);
             }
         });
     }

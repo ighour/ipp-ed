@@ -8,7 +8,7 @@ package ed.trabalho.resources.form;
 import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.helpers.Store;
 import ed.trabalho.model.Person;
-import ed.trabalho.resources.frame.PersonInfoFrame;
+import ed.trabalho.resources.models.PersonViewEdit;
 import estg.ed.exceptions.ElementNotFoundException;
 import javax.swing.JOptionPane;
 
@@ -123,10 +123,10 @@ public class FindPersonByEmailForm extends javax.swing.JFrame {
       Person result = list.searchByEmail(email);
       
       //Open person view
-      PersonInfoFrame personView = new PersonInfoFrame();
+      PersonViewEdit personView = new PersonViewEdit();
       personView.setTitle("User: " + result.getEmail() + " (Email)");
       personView.setStore(store);
-      personView.setData(result);
+      personView.setPerson(result);
       personView.pack();
       personView.setVisible(true);
       

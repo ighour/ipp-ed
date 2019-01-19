@@ -1,79 +1,86 @@
-package ed.trabalho.resources.frame;
+package ed.trabalho.resources.models;
 
-import ed.trabalho.helpers.Store;
 import ed.trabalho.model.Person;
+import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.exceptions.EmptyCollectionException;
 import java.util.Iterator;
-import javax.swing.JOptionPane;
 
 /**
- *
+ * Create a person.
  * @author igu
  */
-public class PersonInfoFrame extends javax.swing.JFrame {
-
-  /**
-   * Person information.
-   */
-  private Person person;
-  
-  /**
-   * Stores with all application data.
-   */
-  private Store store;
-  
+public class PersonCreate extends PersonBase {
   /**
    * Creates new form PersonInfoFrame
    */
-  public PersonInfoFrame() {
+  public PersonCreate() {
     initComponents();
-  }
-    
- /**
-  * Show a message.
-  * @param message 
-  */
-  private void message(String message){
-    JOptionPane.showMessageDialog(null, message);
   }
   
   /**
-   * Set store access to component.
-   * @param store 
+   * Create an "empty" person.
+   * Using the last person id found plus one.
+   * If list is empty, put ID 1.
    */
-  public void setStore(Store store){
-    this.store = store;
-  }
-  /**
-   * Set person data to form/view. 
-   * @param person
-   */
-  public void setData(Person person){
-    this.person = person;
+  public final void setPerson(){
+    //Need to load store before
+    if(this.store == null){
+      this.message("Error creating person. Store was not loaded yet.");
+      return;
+    }
+    
+    //Get id
+    int id;
+    try {
+      id = this.store.getPeopleById().last().getId() + 1;
+      
+    } catch (EmptyCollectionException ex) {
+      id = 0;
+    }
+    
+    //Create person
+    Person newPerson = new Person(id, "", 0, "", 0);
+    
+    //Add to store
+    try {
+      this.store.getPeopleById().add(newPerson);
+      this.store.getPeopleByEmail().add(newPerson);
+      this.store.getNetwork().addVertex(newPerson);
+    }
+    catch(Exception e){
+      //Removes from list and graph (if needed)
+      try {
+        this.store.getPeopleById().remove(newPerson);
+      } catch (EmptyCollectionException | ElementNotFoundException ex) {}
+      
+      try {
+        this.store.getPeopleByEmail().remove(newPerson);
+      } catch (EmptyCollectionException | ElementNotFoundException ex) {}
+      
+      try {
+        this.store.getNetwork().removeVertex(newPerson);
+      } catch (ElementNotFoundException ex) {}
+
+      this.message("Error adding new user.");
+      return;
+    }
+    
+    //Save as current
+    this.person = newPerson;
+    
+    //Update view
     this.inputID.setText(String.valueOf(person.getId()));
     this.inputName.setText(person.getName());
     this.inputAge.setText(String.valueOf(person.getAge()));
     this.inputEmail.setText(person.getEmail());
     this.inputVisualizacoes.setText(String.valueOf(person.getVisualizations()));
     this.inputCountMentions.setText(String.valueOf(person.getMentions()));
-    this.loadSkill();
-    this.loadProfessional();
-    this.loadContacts();
-    this.loadMentions();
-    this.loadAcademic();
   }
-  
-  /**
-   * Get the current person.
-   * To manipulate in forms.
-   * @return 
-   */
-  public Person getPerson(){
-    return this.person;
-  }
-  
+    
   /**
    * Loads all the skills of a certain person.
    */
+  @Override
   public void loadSkill() {
     int size = this.person.getSkillList().size();
     
@@ -88,6 +95,7 @@ public class PersonInfoFrame extends javax.swing.JFrame {
   /**
    * Loads all the professional information of a certain person.
    */
+  @Override
   public void loadProfessional() {
     int size = this.person.getProfessionalList().size();
     
@@ -102,6 +110,7 @@ public class PersonInfoFrame extends javax.swing.JFrame {
   /**
    * Loads all the contacts of a certain person.
    */
+  @Override
   public void loadContacts() {
     int size = this.person.getContactList().size();
     
@@ -116,6 +125,7 @@ public class PersonInfoFrame extends javax.swing.JFrame {
   /**
    * Loads all the mentions of a certain person.
    */
+  @Override
   public void loadMentions() {
     int size = this.person.getMentionList().size();
     
@@ -130,6 +140,7 @@ public class PersonInfoFrame extends javax.swing.JFrame {
   /**
    * Loads all the academic information of a certain person.
    */
+  @Override
   public void loadAcademic() {
     int size = this.person.getAcademicList().size();
     
@@ -621,7 +632,7 @@ public class PersonInfoFrame extends javax.swing.JFrame {
   }//GEN-LAST:event_submitSaveVisualizationsActionPerformed
 
     private void submitSkillCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSkillCreateActionPerformed
-      SkillFrame form = new SkillFrame();
+      SkillCreateEdit form = new SkillCreateEdit();
       form.setTitle("Create Skill");
       form.setData(this);
       form.pack();
@@ -630,7 +641,7 @@ public class PersonInfoFrame extends javax.swing.JFrame {
 
     private void submitSkillEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSkillEditActionPerformed
       if(skillList.getSelectedValue() != null){
-        SkillFrame form = new SkillFrame();
+        SkillCreateEdit form = new SkillCreateEdit();
         form.setTitle("Edit Skill");
         form.setData(this, skillList.getSelectedIndex());
         form.pack();
@@ -715,20 +726,27 @@ public class PersonInfoFrame extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(PersonInfoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(PersonCreate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(PersonInfoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(PersonCreate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(PersonInfoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(PersonCreate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(PersonInfoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(PersonCreate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new PersonInfoFrame().setVisible(true);
+        new PersonCreate().setVisible(true);
       }
     });
   }

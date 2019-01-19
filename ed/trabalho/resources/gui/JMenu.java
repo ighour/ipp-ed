@@ -16,6 +16,7 @@ import ed.trabalho.resources.form.NotReachableUsersByUserForm;
 import ed.trabalho.resources.form.PathPersonToPersonForm;
 import ed.trabalho.resources.form.ReachableUsersByUserForm;
 import ed.trabalho.resources.form.SkillsOrderedByCostForm;
+import ed.trabalho.resources.models.PersonCreate;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
 import java.io.File;
@@ -74,6 +75,7 @@ public class JMenu extends javax.swing.JFrame {
     graphMenuRechableUsersByUser = new javax.swing.JMenuItem();
     graphMenuNotReachableUsersByUser = new javax.swing.JMenuItem();
     userMenu = new javax.swing.JMenu();
+    userMenuAddUser = new javax.swing.JMenuItem();
     userMenuSearchById = new javax.swing.JMenuItem();
     userMenuSearchByEmail = new javax.swing.JMenuItem();
     userMenuCompareCompanyPeopleAndPersonContacts = new javax.swing.JMenuItem();
@@ -154,6 +156,14 @@ public class JMenu extends javax.swing.JFrame {
     jMenuBar1.add(graphMenu);
 
     userMenu.setText(" Users");
+
+    userMenuAddUser.setText("New User");
+    userMenuAddUser.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userMenuAddUserActionPerformed(evt);
+      }
+    });
+    userMenu.add(userMenuAddUser);
 
     userMenuSearchById.setText("Find by ID");
     userMenuSearchById.addActionListener(new java.awt.event.ActionListener() {
@@ -335,6 +345,15 @@ public class JMenu extends javax.swing.JFrame {
     form.setVisible(true);
   }//GEN-LAST:event_userMenuSkillsOrderedByCostActionPerformed
 
+  private void userMenuAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuAddUserActionPerformed
+      PersonCreate personView = new PersonCreate();
+      personView.setTitle("New User");
+      personView.setStore(this.store);
+      personView.setPerson();
+      personView.pack();
+      personView.setVisible(true);
+  }//GEN-LAST:event_userMenuAddUserActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -385,6 +404,7 @@ public class JMenu extends javax.swing.JFrame {
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JMenu userMenu;
+  private javax.swing.JMenuItem userMenuAddUser;
   private javax.swing.JMenuItem userMenuCompareCompanyPeopleAndPersonContacts;
   private javax.swing.JMenuItem userMenuSearchByEmail;
   private javax.swing.JMenuItem userMenuSearchById;

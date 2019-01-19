@@ -84,6 +84,14 @@
             <Property name="text" type="java.lang.String" value=" Users"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="userMenuAddUser">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New User"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userMenuAddUserActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="userMenuSearchById">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Find by ID"/>
