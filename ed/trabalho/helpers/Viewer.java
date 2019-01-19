@@ -64,7 +64,7 @@ public class Viewer {
     for(int i = 0; i < size; i++)
       for(int j = 0; j < size; j++)
         //Has edge
-        if(matrix.get(i).get(j) != Double.POSITIVE_INFINITY){
+        if(matrix.get(i).get(j) != Double.NEGATIVE_INFINITY){
           //Generate link
           ViewNode link = new ViewNode(matrix.get(i).get(j), vertices.get(j).getVisualizations());
           this.viewGraph.addEdge(link, vertices.get(i), vertices.get(j));

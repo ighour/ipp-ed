@@ -19,10 +19,21 @@ import estg.ed.tree.binary.ArrayPriorityMinQueue;
  */
 public class SocialNetwork<T> extends Network<T> implements NetworkADT<T> {
   /**
+   * Instantiates network.
+   * Uses Double.NEGATIVE_INFINITY as default value when no edge exists between vertices.
+   * Because sometimes the edge value can be POSITIVE_INFINITY (0 visualizations = 1/0).
+   */
+  public SocialNetwork(){
+    super();
+    this.NO_EDGE_VALUE = Double.NEGATIVE_INFINITY;
+  }
+
+  /**
    * Returns a minimum spanning tree of the network from desired element.
    * Preference is to less weighted edge.
    * Uses recursion.
    * Similar to iterator BFS, but using greedy technic to select next vertex instead.
+   * Returns a instance of SocialNetwork, instead of Network.
    * @param vertex
    * @return an instance of SocialNetwork
    * @throws estg.ed.exceptions.ElementNotFoundException 
@@ -65,10 +76,20 @@ public class SocialNetwork<T> extends Network<T> implements NetworkADT<T> {
     return resultGraph;
   }
   
+  /**
+   * Get the network adjacency matrix.
+   * To use in Jung Graph Visualization.
+   * @return 
+   */
   public DynamicArrayContract<DynamicArrayContract<Double>> adjacencyMatrix(){
     return this.adjMatrix;
   }
   
+  /**
+   * Get the network vertices.
+   * To use in Jung Graph Visualization.
+   * @return 
+   */
   public DynamicArrayContract<T> vertices(){
     return this.vertices;
   }
