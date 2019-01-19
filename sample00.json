@@ -1,0 +1,443 @@
+{
+  "grafoSocial": [
+    {
+        "id": "0",   "nome": "teste0",   "idade": "20",    "email": "teste0@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "2017",   "formacao": "MGP"},
+            {"ano": "2015",   "formacao": "MEI"},
+            {"ano": "2006",   "formacao": "CTeSP DWDM"},
+            {"ano": "2003",   "formacao": "LSIRC"},
+            {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2001",   "cargo": "Estagiário",                 "empresa": "A"},
+            {"ano": "2004",   "cargo": "Freelancer",                 "empresa": "C"},
+            {"ano": "2010",   "cargo": "Gestor de IT",               "empresa": "E"},
+            {"ano": "2018",   "cargo": "CEO",                        "empresa": "G"}
+        ],
+        "skills": [
+            "Java", 
+            "Netbeans",
+            "PHP",
+            "C#",
+            "Docker"
+        ],
+        "contacts": [
+            {"userid": "1"},
+            {"userid": "4"},
+            {"userid": "7"}
+        ],
+        "mencoes": [
+            {"userid": "6"}
+        ],
+        "visualizacoes": "500"
+    },
+
+    {
+        "id": "1",   "nome": "teste1",   "idade": "40",    "email": "teste1@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "2015",   "formacao": "MEI"},
+            {"ano": "2009",   "formacao": "CTeSP CRSI"},
+            {"ano": "2004",   "formacao": "Direito"},
+            {"ano": "1999",   "formacao": "LEI"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2001",   "cargo": "Consultor",                 "empresa": "Beabe"},
+            {"ano": "2004",   "cargo": "Freelancer",                 "empresa": "C"}
+        ],
+        "skills": [
+            "ReactJS", 
+            "Netbeans",
+            "Python"
+        ],
+        "contacts": [
+            {"userid": "3"}
+        ],
+        "mencoes": [
+            {"userid": "0"}
+        ],
+        "visualizacoes": "12"
+    },
+
+    {
+        "id": "2",   "nome": "teste2",   "idade": "62",    "email": "teste2@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2001",   "cargo": "Estagiário",                 "empresa": "A"}
+        ],
+        "skills": [
+            "C#"
+        ],
+        "contacts": [
+            {"userid": "0"},
+            {"userid": "8"}
+        ],
+        "mencoes": [
+            {"userid": "0"}
+        ],
+        "visualizacoes": "2"
+    },
+
+    {
+        "id": "3",   "nome": "teste3",   "idade": "42",    "email": "teste3@teste.pt",
+        "formacaoAcademica": [],
+        "cargosProfissionais": [],
+        "skills": [],
+        "contacts": [
+            {"userid": "9"}
+        ],
+        "mencoes": [],
+        "visualizacoes": "0"
+    },
+
+    {
+        "id": "4",   "nome": "teste4",   "idade": "24",    "email": "teste4@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "2013",   "formacao": "Economia"},
+            {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2001",   "cargo": "Consultor",                 "empresa": "A"},
+            {"ano": "2014",   "cargo": "Diretor",                    "empresa": "B"},
+            {"ano": "2018",   "cargo": "CEO",                        "empresa": "Zeta"}
+        ],
+        "skills": [
+            "PHP",
+            "Laravel",
+            "VueJS",
+            "NodeJS"
+        ],
+        "contacts": [],
+        "mencoes": [
+            {"userid": "1"}
+        ],
+        "visualizacoes": "0"
+    },
+
+    {
+        "id": "5",   "nome": "teste5",   "idade": "60",    "email": "teste5@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "2017",   "formacao": "MGP"},
+            {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2001",   "cargo": "Estagiário",                 "empresa": "C"},
+            {"ano": "2010",   "cargo": "Gestor de IT",               "empresa": "B"},
+            {"ano": "2014",   "cargo": "Diretor",                    "empresa": "A"}
+        ],
+        "skills": [
+            "Java", 
+            "Netbeans",
+            "Laravel",
+            "Python",
+            "Docker"
+        ],
+        "contacts": [
+            {"userid": "1"},
+            {"userid": "4"},
+            {"userid": "12"}
+        ],
+        "mencoes": [
+            {"userid": "7"}
+        ],
+        "visualizacoes": "3000"
+    },
+
+    {
+        "id": "6",   "nome": "teste6",   "idade": "31",    "email": "teste6@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "2006",   "formacao": "CTeSP DWDM"},
+            {"ano": "2003",   "formacao": "LSIRC"},
+            {"ano": "1999",   "formacao": "LEI"},
+            {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2001",   "cargo": "Estagiário",                 "empresa": "G"},
+            {"ano": "2003",   "cargo": "Desenvolvedor",              "empresa": "F"},
+            {"ano": "2004",   "cargo": "Freelancer",                 "empresa": "C"},
+            {"ano": "2014",   "cargo": "Diretor",                    "empresa": "A"},
+            {"ano": "2018",   "cargo": "CEO",                        "empresa": "D"}
+        ],
+        "skills": [
+            "ReactJS", 
+            "C",
+            "Netbeans",
+            "PHP",
+            "Laravel",
+            "C#",
+            "NodeJS"
+        ],
+        "contacts": [
+            {"userid": "1"},
+            {"userid": "4"}
+        ],
+        "mencoes": [],
+        "visualizacoes": "153"
+    },
+
+    {
+        "id": "7",   "nome": "teste7",   "idade": "27",    "email": "teste7@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "2017",   "formacao": "MGP"},
+            {"ano": "1999",   "formacao": "Solicitadoria"},
+            {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2001",   "cargo": "Diretor",                    "empresa": "A"},
+            {"ano": "2003",   "cargo": "Desenvolvedor",              "empresa": "B"},
+            {"ano": "2014",   "cargo": "CEO",                        "empresa": "F"},
+            {"ano": "2018",   "cargo": "Desenvolvedor",              "empresa": "G"}
+        ],
+        "skills": [],
+        "contacts": [
+            {"userid": "0"},
+            {"userid": "2"},
+            {"userid": "13"}
+        ],
+        "mencoes": [
+            {"userid": "1"},
+            {"userid": "4"}
+        ],
+        "visualizacoes": "276"
+    },
+
+    {
+        "id": "8",   "nome": "teste8",   "idade": "37",    "email": "teste8@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "2009",   "formacao": "CTeSP CRSI"},
+            {"ano": "2006",   "formacao": "CTeSP DWDM"},
+            {"ano": "2003",   "formacao": "LSIRC"},
+            {"ano": "1999",   "formacao": "LEI"},
+            {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2001",   "cargo": "Estagiário",                 "empresa": "A"},
+            {"ano": "2003",   "cargo": "Desenvolvedor",              "empresa": "B"},
+            {"ano": "2010",   "cargo": "Gestor de IT",               "empresa": "E"},
+            {"ano": "2014",   "cargo": "Diretor",                    "empresa": "F"},
+            {"ano": "2018",   "cargo": "CEO",                        "empresa": "G"}
+        ],
+        "skills": [
+            "Java", 
+            "C",
+            "Netbeans",
+            "PHP",
+            "Docker"
+        ],
+        "contacts": [
+            {"userid": "3"},
+            {"userid": "2"}
+        ],
+        "mencoes": [
+            {"userid": "2"}
+        ],
+        "visualizacoes": "921"
+    },
+
+    {
+        "id": "9",   "nome": "teste9",   "idade": "42",    "email": "teste9@teste.pt",
+        "formacaoAcademica": [
+            {"ano": "2006",   "formacao": "CTeSP DWDM"},
+            {"ano": "2003",   "formacao": "LSIRC"},
+            {"ano": "1999",   "formacao": "LEI"},
+            {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+            {"ano": "2008",   "cargo": "Gestor de IT",               "empresa": "D"},
+            {"ano": "2010",   "cargo": "Gestor de IT",               "empresa": "E"},
+            {"ano": "2014",   "cargo": "Diretor",                    "empresa": "F"},
+            {"ano": "2018",   "cargo": "CEO",                        "empresa": "G"}
+        ],
+        "skills": [
+            "PHP",
+            "Laravel",
+            "C#",
+            "Python",
+            "Docker"
+        ],
+        "contacts": [
+            {"userid": "3"},
+            {"userid": "11"}
+        ],
+        "mencoes": [
+            {"userid": "7"}
+        ],
+        "visualizacoes": "72"
+    },
+
+    {
+        "id": "10",   "nome": "teste10",   "idade": "20",    "email": "teste10@teste.pt",
+        "formacaoAcademica": [
+          {"ano": "2017",   "formacao": "MGP"},
+          {"ano": "2015",   "formacao": "MEI"},
+          {"ano": "2012",   "formacao": "LSIG"},
+          {"ano": "2009",   "formacao": "CTeSP CRSI"},
+          {"ano": "2006",   "formacao": "CTeSP DWDM"}
+        ],
+        "cargosProfissionais": [
+          {"ano": "2001",   "cargo": "Estagiário",                 "empresa": "A"},
+          {"ano": "2003",   "cargo": "Desenvolvedor",              "empresa": "B"},
+          {"ano": "2004",   "cargo": "Freelancer",                 "empresa": "C"},
+          {"ano": "2008",   "cargo": "Gestor de IT",               "empresa": "D"}
+        ],
+        "skills": [
+          "Java", 
+          "C",
+          "Netbeans",
+          "PHP",
+          "Laravel"
+        ],
+        "contacts": [
+          {"userid": "8"}
+        ],
+        "mencoes": [
+          {"userid": "2"},
+          {"userid": "6"}
+        ],
+        "visualizacoes": "999"
+    },
+
+    {
+        "id": "11",   "nome": "teste11",   "idade": "70",    "email": "teste11@teste.pt",
+        "formacaoAcademica": [
+          {"ano": "2017",   "formacao": "MEI"},
+          {"ano": "2015",   "formacao": "Direito"},
+          {"ano": "2012",   "formacao": "Medicina"},
+          {"ano": "2009",   "formacao": "LEI"},
+          {"ano": "2006",   "formacao": "CTeSP DWDM"},
+          {"ano": "2003",   "formacao": "LSIG"},
+          {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+          {"ano": "2003",   "cargo": "CEO",              "empresa": "A"},
+          {"ano": "2004",   "cargo": "Estagiário",                 "empresa": "G"},
+          {"ano": "2008",   "cargo": "Gestor de IT",               "empresa": "Xeta"},
+          {"ano": "2010",   "cargo": "Diretor",               "empresa": "F"}
+        ],
+        "skills": [
+          "Java", 
+          "Kotlin",
+          "Netbeans",
+          "Eclipse",
+          "Android",
+          "C#",
+          "Go",
+          "Elixir"
+        ],
+        "contacts": [
+          {"userid": "1"},
+          {"userid": "9"},
+          {"userid": "12"},
+          {"userid": "14"}
+        ],
+        "mencoes": [
+          {"userid": "3"},
+          {"userid": "7"},
+          {"userid": "1"},
+          {"userid": "9"}
+        ],
+        "visualizacoes": "9723"
+    },
+
+    {
+        "id": "12",   "nome": "teste12",   "idade": "16",    "email": "teste12@teste.pt",
+        "formacaoAcademica": [
+          {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+          {"ano": "2001",   "cargo": "Estagiário",                 "empresa": "F"}
+        ],
+        "skills": [
+          "Java"
+        ],
+        "contacts": [
+          {"userid": "5"}
+        ],
+        "mencoes": [
+          {"userid": "2"}
+        ],
+        "visualizacoes": "4"
+    },
+
+    {
+        "id": "13",   "nome": "teste13",   "idade": "32",    "email": "teste13@teste.pt",
+        "formacaoAcademica": [
+          {"ano": "2017",   "formacao": "MGP"},
+          {"ano": "2015",   "formacao": "MEI"},
+          {"ano": "1999",   "formacao": "LEI"},
+          {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+          {"ano": "2001",   "cargo": "Estagiário",                 "empresa": "C"},
+          {"ano": "2003",   "cargo": "CEO",                        "empresa": "D"},
+          {"ano": "2014",   "cargo": "Estagiário",                 "empresa": "A"},
+          {"ano": "2018",   "cargo": "CEO",                        "empresa": "Corona"}
+        ],
+        "skills": [
+          "SQL", 
+          "C",
+          "VueJS",
+          "PWA",
+          "Docker"
+        ],
+        "contacts": [
+          {"userid": "2"}
+        ],
+        "mencoes": [
+          {"userid": "11"}
+        ],
+        "visualizacoes": "612"
+    },
+
+    {
+        "id": "14",   "nome": "teste14",   "idade": "30",    "email": "teste14@teste.pt",
+        "formacaoAcademica": [
+          {"ano": "2017",   "formacao": "MGP"},
+          {"ano": "2015",   "formacao": "MEI"},
+          {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [
+          {"ano": "2001",   "cargo": "Desenvolvedor",                 "empresa": "C"},
+          {"ano": "2003",   "cargo": "Desenvolvedor",                 "empresa": "E"},
+          {"ano": "2014",   "cargo": "Desenvolvedor",                 "empresa": "A"},
+          {"ano": "2018",   "cargo": "Desenvolvedor",                 "empresa": "G"}
+        ],
+        "skills": [
+          "Java", 
+          "C",
+          "Netbeans",
+          "PHP",
+          "Laravel",
+          "C#",
+          "Python",
+          "Docker",
+          "NoSQL",
+          "PWA",
+          "Hacking"
+        ],
+        "contacts": [
+          {"userid": "9"},
+          {"userid": "12"},
+          {"userid": "15"}
+        ],
+        "mencoes": [],
+        "visualizacoes": "17983"
+      },
+
+      {
+        "id": "15",   "nome": "teste15",   "idade": "35",    "email": "teste15@teste.pt",
+        "formacaoAcademica": [
+          {"ano": "1998",   "formacao": "12"}
+        ],
+        "cargosProfissionais": [],
+        "skills": [
+          "Hacking"
+        ],
+        "contacts": [],
+        "mencoes": [],
+        "visualizacoes": "0"
+      }
+  ]
+}
