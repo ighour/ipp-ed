@@ -88,7 +88,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="169" pref="169" max="-2" attributes="0"/>
-                                          <Component id="inputVisualizacoes" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <Component id="inputVisualizations" min="-2" pref="96" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -234,7 +234,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputVisualizacoes" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="inputVisualizations" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="submitSaveVisualizations" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -317,7 +317,7 @@
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="inputVisualizacoes">
+    <Component class="javax.swing.JTextField" name="inputVisualizations">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>

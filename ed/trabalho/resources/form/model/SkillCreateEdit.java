@@ -2,13 +2,13 @@ package ed.trabalho.resources.form.model;
 
 import ed.trabalho.model.Person;
 import ed.trabalho.model.Skill;
-import javax.swing.JOptionPane;
+import ed.trabalho.resources.Base;
 
 /**
  * Create or Edit a skill.
  * @author jorge
  */
-public class SkillCreateEdit extends javax.swing.JFrame {
+public class SkillCreateEdit extends Base {
   
   /**
    * The current viewing person.
@@ -31,14 +31,6 @@ public class SkillCreateEdit extends javax.swing.JFrame {
    */
   public SkillCreateEdit() {
       initComponents();
-  }
-  
- /**
-  * Show a message.
-  * @param message 
-  */
-  private void message(String message){
-    JOptionPane.showMessageDialog(null, message);
   }
     
   /**
@@ -138,12 +130,22 @@ public class SkillCreateEdit extends javax.swing.JFrame {
       
       //Message to show at end
       String resultMessage;
+      
+      //Transform values
+      String skillName = "";
+      try{
+        skillName = inputSkill.getText();
+      }
+      catch(Exception e){
+        this.message("Invalid parameter");
+        return;
+      }
 
       //Is creating
       if(this.skillIndex == -1){
         try{
           //Create new skill
-          Skill newSkill = new Skill(inputSkill.getText());
+          Skill newSkill = new Skill(skillName);
           
           //Add to person
           this.person.getSkillList().add(newSkill, this.person.getSkillList().size());
@@ -161,22 +163,27 @@ public class SkillCreateEdit extends javax.swing.JFrame {
       //Is editing
       else {
         try{
+          //Check has updated
+          boolean updated = false;
+          
           //Get the original skill
           Skill skill = this.person.getSkillList().get(this.skillIndex);
           
           //Check need to change
-          if(inputSkill.getText().equals(skill.getSkill())){
-            this.message("Nothing to change.");
-            return;
+          if(!skillName.equals(skill.getSkill())){
+            //Update the skill
+            skill.setSkill(skillName);
+            
+            updated = true;
           }
           
-          //Update the skill
-          skill.setSkill(inputSkill.getText());
-          
           //Updates the list
-          this.personInfo.loadSkill();
-
-          resultMessage = "Skill was updated.";
+          if(updated == true){
+            this.personInfo.loadSkill();
+            resultMessage = "Skill was updated.";
+          }
+          else
+            resultMessage = "Nothing to update.";
         }  
         catch(Exception e){
           resultMessage = "Error updating the skill.";

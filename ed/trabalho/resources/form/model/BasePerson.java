@@ -7,6 +7,9 @@ package ed.trabalho.resources.form.model;
 
 import ed.trabalho.resources.Base;
 import ed.trabalho.model.Person;
+import java.util.Iterator;
+import javax.swing.JList;
+import javax.swing.JTextField;
 
 /**
  * Base for person frame.
@@ -51,4 +54,212 @@ public abstract class BasePerson extends Base {
    * Loads all the academic information of a certain person.
    */
   public abstract void loadAcademic();
+  
+  /**
+   * Process submit of name.
+   * @param field 
+   */
+  protected void submitName(JTextField field){
+    try{
+      if(!field.getText().isEmpty() && !field.getText().equals(this.person.getName())){
+        this.person.setName(field.getText());
+        
+        this.message("Name was updated.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error updating name.");
+    }
+  }
+  
+  /**
+   * Process submit of age.
+   * @param field 
+   */
+  protected void submitAge(JTextField field){
+    try{
+      if(!field.getText().isEmpty() && !Integer.valueOf(field.getText()).equals(this.person.getAge())){
+        this.person.setAge(Integer.valueOf(field.getText()));
+        
+        this.message("Age was updated.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error updating age.");
+    }
+  }
+  
+  /**
+   * Process submit of email.
+   * Also, updates on peopleByEmail list.
+   * @param field 
+   */
+  protected void submitEmail(JTextField field){
+    try{
+      if(!field.getText().isEmpty() && !field.getText().equals(this.person.getEmail())){
+        this.person.setEmail(field.getText());
+        
+        //Update person index on peopleByEmail list
+        this.store.getPeopleByEmail().remove(this.person);
+        this.store.getPeopleByEmail().add(this.person);
+        
+        this.message("Email was updated.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error updating email.");
+    }
+  }
+  
+  /**
+   * Process submit of visualizations.
+   * Also, updates edges on network.
+   * @param field 
+   */
+  protected void submitVisualizations(JTextField field){
+    try{
+      if(!field.getText().isEmpty() && !Integer.valueOf(field.getText()).equals(this.person.getVisualizations())){
+        this.person.setVisualizations(Integer.valueOf(field.getText()));
+        
+        //Update edges on network
+        Iterator list = this.store.getPeopleById().iterator();
+        while(list.hasNext()){
+          Person p = (Person) list.next();
+          
+          //Current Person is a contact of P
+          //Update edge weight
+          if(p.isContact(this.person))
+            this.store.getNetwork().addEdge(p, this.person, Integer.valueOf(field.getText()));
+        }
+        
+        this.message("Visualizations were updated.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error updating visualizations.");
+    }
+  }
+  
+  /**
+   * Process submit of skill create.
+   */
+  protected void submitSkillCreate(){
+    try {
+      SkillCreateEdit form = new SkillCreateEdit();
+      form.setTitle("Create Skill");
+      form.setData(this);
+      form.pack();
+      form.setVisible(true);
+    }
+    catch(Exception e){
+      this.message("Error creating skill.");
+    }
+  }
+  
+  /**
+   * Process submit of skill edit.
+   * @param index
+   */
+  protected void submitSkillEdit(int index){
+    try {
+      if(index != -1){
+        SkillCreateEdit form = new SkillCreateEdit();
+        form.setTitle("Edit Skill");
+        form.setData(this, index);
+        form.pack();
+        form.setVisible(true);
+      }
+      else{
+        this.message("Please select a skill first.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error editing skill.");
+    }
+  }
+  
+  /**
+   * Process submit of skill delete.
+   * @param index
+   */
+  protected void submitSkillDelete(int index){
+    try {
+      if(index != -1){
+        this.person.getSkillList().remove(index);
+        this.loadSkill();
+        
+        this.message("Skill was deleted.");
+      }
+      else{
+        this.message("Please select a skill first.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error deleting skill.");
+    }
+  }
+  
+  
+  
+  
+  
+  
+  /**
+   * Process submit of professional create.
+   */
+  protected void submitProfessionalCreate(){
+    try {
+      ProfessionalCreateEdit form = new ProfessionalCreateEdit();
+      form.setTitle("Create Professional Formation");
+      form.setData(this);
+      form.pack();
+      form.setVisible(true);
+    }
+    catch(Exception e){
+      this.message("Error creating professional formation.");
+    }
+  }
+  
+  /**
+   * Process submit of professional edit.
+   * @param index
+   */
+  protected void submitProfessionalEdit(int index){
+    try {
+      if(index != -1){
+        ProfessionalCreateEdit form = new ProfessionalCreateEdit();
+        form.setTitle("Edit Professional Formation");
+        form.setData(this, index);
+        form.pack();
+        form.setVisible(true);
+      }
+      else{
+        this.message("Please select a professional formation first.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error editing professional formation.");
+    }
+  }
+  
+  /**
+   * Process submit of professional delete.
+   * @param index
+   */
+  protected void submitProfessionalDelete(int index){
+    try {
+      if(index != -1){
+        this.person.getProfessionalList().remove(index);
+        this.loadProfessional();
+        
+        this.message("Professional formation was deleted.");
+      }
+      else{
+        this.message("Please select a professional formation first.");
+      }
+    }
+    catch(Exception e){
+      this.message("Error deleting professional formation.");
+    }
+  }
 }

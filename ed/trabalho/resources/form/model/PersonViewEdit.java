@@ -1,7 +1,6 @@
 package ed.trabalho.resources.form.model;
 
 import ed.trabalho.model.Person;
-import java.util.Iterator;
 
 /**
  * View or Edit a person.
@@ -26,7 +25,7 @@ public class PersonViewEdit extends BasePerson {
     this.inputName.setText(person.getName());
     this.inputAge.setText(String.valueOf(person.getAge()));
     this.inputEmail.setText(person.getEmail());
-    this.inputVisualizacoes.setText(String.valueOf(person.getVisualizations()));
+    this.inputVisualizations.setText(String.valueOf(person.getVisualizations()));
     this.inputCountMentions.setText(String.valueOf(person.getMentions()));
     this.loadSkill();
     this.loadProfessional();
@@ -130,7 +129,7 @@ public class PersonViewEdit extends BasePerson {
     jLabel6 = new javax.swing.JLabel();
     jLabel7 = new javax.swing.JLabel();
     inputCountMentions = new javax.swing.JTextField();
-    inputVisualizacoes = new javax.swing.JTextField();
+    inputVisualizations = new javax.swing.JTextField();
     jLabel8 = new javax.swing.JLabel();
     jLabel9 = new javax.swing.JLabel();
     jScrollPane3 = new javax.swing.JScrollPane();
@@ -398,7 +397,7 @@ public class PersonViewEdit extends BasePerson {
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                       .addGap(169, 169, 169)
-                      .addComponent(inputVisualizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                      .addComponent(inputVisualizations, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5))
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(submitSaveVisualizations))))))
@@ -510,7 +509,7 @@ public class PersonViewEdit extends BasePerson {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(jLabel5)
-              .addComponent(inputVisualizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(inputVisualizations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(submitSaveVisualizations))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -523,104 +522,31 @@ public class PersonViewEdit extends BasePerson {
   }// </editor-fold>//GEN-END:initComponents
 
   private void submitSaveNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSaveNameActionPerformed
-    try{
-      if(!inputName.getText().isEmpty() && !inputName.getText().equals(this.person.getName())){
-        this.person.setName(inputName.getText());
-        
-        this.message("Name was updated.");
-      }
-    }
-    catch(Exception e){
-      this.message("Error updating name.");
-    }
+    this.submitName(inputName);
   }//GEN-LAST:event_submitSaveNameActionPerformed
 
   private void submitSaveAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSaveAgeActionPerformed
-    try{
-      if(!inputAge.getText().isEmpty() && !Integer.valueOf(inputAge.getText()).equals(this.person.getAge())){
-        this.person.setAge(Integer.valueOf(inputAge.getText()));
-        
-        this.message("Age was updated.");
-      }
-    }
-    catch(Exception e){
-      this.message("Error updating age.");
-    }
+    this.submitAge(inputAge);
   }//GEN-LAST:event_submitSaveAgeActionPerformed
 
   private void submitSaveEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSaveEmailActionPerformed
-    try{
-      if(!inputEmail.getText().isEmpty() && !inputEmail.getText().equals(this.person.getEmail())){
-        this.person.setEmail(inputEmail.getText());
-        
-        //Update person index on peopleByEmail list
-        this.store.getPeopleByEmail().remove(this.person);
-        this.store.getPeopleByEmail().add(this.person);
-        
-        this.message("Email was updated.");
-      }
-    }
-    catch(Exception e){
-      this.message("Error updating email.");
-    }
+    this.submitEmail(inputEmail);
   }//GEN-LAST:event_submitSaveEmailActionPerformed
 
   private void submitSaveVisualizationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSaveVisualizationsActionPerformed
-    try{
-      if(!inputVisualizacoes.getText().isEmpty() && !Integer.valueOf(inputVisualizacoes.getText()).equals(this.person.getVisualizations())){
-        this.person.setVisualizations(Integer.valueOf(inputVisualizacoes.getText()));
-        
-        //Update edges on network
-        Iterator list = this.store.getPeopleById().iterator();
-        while(list.hasNext()){
-          Person p = (Person) list.next();
-          
-          //Current Person is a contact of P
-          //Update edge weight
-          if(p.isContact(this.person))
-            this.store.getNetwork().addEdge(p, this.person, Integer.valueOf(inputVisualizacoes.getText()));
-        }
-        
-        this.message("Visualizations were updated.");
-      }
-    }
-    catch(Exception e){
-      this.message("Error updating visualizations.");
-    }
+    this.submitVisualizations(inputVisualizations);
   }//GEN-LAST:event_submitSaveVisualizationsActionPerformed
 
     private void submitSkillCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSkillCreateActionPerformed
-      SkillCreateEdit form = new SkillCreateEdit();
-      form.setTitle("Create Skill");
-      form.setData(this);
-      form.pack();
-      form.setVisible(true);
+      this.submitSkillCreate();
     }//GEN-LAST:event_submitSkillCreateActionPerformed
 
     private void submitSkillEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSkillEditActionPerformed
-      if(skillList.getSelectedValue() != null){
-        SkillCreateEdit form = new SkillCreateEdit();
-        form.setTitle("Edit Skill");
-        form.setData(this, skillList.getSelectedIndex());
-        form.pack();
-        form.setVisible(true);
-      }
-      else{
-        this.message("Please select a skill first.");
-      }
+      this.submitSkillEdit(skillList.getSelectedIndex());
     }//GEN-LAST:event_submitSkillEditActionPerformed
 
     private void submitSkillDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSkillDeleteActionPerformed
-      if(skillList.getSelectedValue() != null){
-        int deleteIndex = skillList.getSelectedIndex();
-        this.person.getSkillList().remove(deleteIndex);
-        this.loadSkill();
-        
-        this.message("Skill was deleted.");
-      }
-      else{
-        this.message("Please select a skill first.");
-      }
+      this.submitSkillDelete(skillList.getSelectedIndex());
     }//GEN-LAST:event_submitSkillDeleteActionPerformed
 
     private void skillListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_skillListValueChanged
@@ -636,15 +562,15 @@ public class PersonViewEdit extends BasePerson {
     }//GEN-LAST:event_professionalListValueChanged
 
     private void submitProfessionalCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProfessionalCreateActionPerformed
-        // TODO add your handling code here:
+      this.submitProfessionalCreate();
     }//GEN-LAST:event_submitProfessionalCreateActionPerformed
 
     private void submitProfessionalEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProfessionalEditActionPerformed
-        // TODO add your handling code here:
+      this.submitProfessionalEdit(professionalList.getSelectedIndex());
     }//GEN-LAST:event_submitProfessionalEditActionPerformed
 
     private void submitProfessionalDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProfessionalDeleteActionPerformed
-        // TODO add your handling code here:
+      this.submitProfessionalDelete(professionalList.getSelectedIndex());
     }//GEN-LAST:event_submitProfessionalDeleteActionPerformed
 
     private void submitAcademicCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitAcademicCreateActionPerformed
@@ -713,7 +639,7 @@ public class PersonViewEdit extends BasePerson {
   private javax.swing.JTextField inputEmail;
   private javax.swing.JTextField inputID;
   private javax.swing.JTextField inputName;
-  private javax.swing.JTextField inputVisualizacoes;
+  private javax.swing.JTextField inputVisualizations;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel10;
   private javax.swing.JLabel jLabel11;

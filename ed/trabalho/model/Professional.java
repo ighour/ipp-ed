@@ -14,17 +14,17 @@ public class Professional {
   /**
    * Year of professional activity.
    */
-  private final int year;
+  private int year;
   
   /**
    * Company name.
    */
-  private final String company;
+  private String company;
   
   /**
    * Role name at company.
    */
-  private final String role;
+  private String role;
 
   /**
    * Instantiate with parameters.
@@ -61,7 +61,31 @@ public class Professional {
   public String getRole() {
     return role;
   }
-  
+
+  /**
+   * Set year.
+   * @param year 
+   */
+  public void setYear(int year) {
+    this.year = year;
+  }
+
+  /**
+   * Set company.
+   * @param company 
+   */
+  public void setCompany(String company) {
+    this.company = company;
+  }
+
+  /**
+   * Set role.
+   * @param role 
+   */
+  public void setRole(String role) {
+    this.role = role;
+  }
+    
   /**
    * Return a string representation of a Professional work
    * @return a string representation of a Professional work
