@@ -19,6 +19,7 @@ import ed.trabalho.resources.form.intermediate.ReachableUsersByUserForm;
 import ed.trabalho.resources.form.intermediate.SkillsOrderedByCostForm;
 import ed.trabalho.resources.form.intermediate.SpawningTreeOfUserForm;
 import ed.trabalho.resources.form.model.PersonCreate;
+import ed.trabalho.store.BaseStore;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -277,7 +278,7 @@ public class JMenu extends Base {
       }
 
       //Success
-      if(Base.storeType == 1)
+      if(BaseStore.getStoreType().equals("CONSTANT"))
         this.message("Successfully loaded JSON file and created Graph using weight: 1 (constant).");
       else
         this.message("Successfully loaded JSON file and created Graph using weight: 1/visualizations (of contact).");
@@ -296,7 +297,7 @@ public class JMenu extends Base {
     try{
       //Generate view
       Viewer viewer = new Viewer();
-      viewer.create(this.store.getNetwork(), Base.storeType);
+      viewer.create(this.store.getNetwork(), BaseStore.getStoreType());
       viewer.showFrame("Social Network");
 
       consoleTextArea.setText("Graph view successfully builded.");
@@ -387,22 +388,22 @@ public class JMenu extends Base {
   }//GEN-LAST:event_extraMenuMentionContactMediaActionPerformed
 
   private void extraMenuWeightConstantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuWeightConstantActionPerformed
-    if(Base.storeType == 1){
+    if(BaseStore.getStoreType().equals("CONSTANT")){
       this.message("Graph is already of that type.");
     }
     else{
-      this.setStoreType(1);
+      BaseStore.setStoreTypeConstant();
       this.message("Graph was reset and weight type has changed to constant (1).");
     }
   }//GEN-LAST:event_extraMenuWeightConstantActionPerformed
 
   private void extraMenuWeightDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuWeightDefaultActionPerformed
-    if(Base.storeType != 1){
+    if(BaseStore.getStoreType().equals("DEFAULT")){
       this.message("Graph is already of that type.");
     }
     else{
-      this.setStoreType(0);
-      this.message("Graph was reset and weight type has changed to 1/visualizations (of contact).");
+      BaseStore.setStoreTypeDefault();
+      this.message("Graph was reset and weight type has changed to default (1/visualizations).");
     }
   }//GEN-LAST:event_extraMenuWeightDefaultActionPerformed
 

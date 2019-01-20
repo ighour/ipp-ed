@@ -5,18 +5,15 @@
  */
 package ed.trabalho.store;
 
-import ed.trabalho.exceptions.UserIsAlreadyAContactException;
 import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
 
 /**
  * Stores all data of application.
- * Add methods to handle network, list and peoples.
- * Singleton pattern to use same store everytime.
  * Uses 1 (constant) as weight.
  * @author igu
  */
-public class StoreNoWeight extends Store {
+public class StoreNoWeight extends BaseStore {
   /**
    * Instantiates the store.
    * Avoids outside instanciation.
@@ -33,28 +30,14 @@ public class StoreNoWeight extends Store {
   }
   
   /**
-   * Returns the unique instance of Store.
-   * @return 
-   */
-  public static StoreNoWeight getInstance(){
-    return Singleton.INSTANCE;
-  }
-  
-  /**
-   * Add a contact to an user.
-   * Add to user contact list.
-   * Create edge in network between users.
-   * Edges are always 1.
+   * Implements the weight when adding and edge.
+   * Uses 1 (constant).
    * @param from
-   * @param to
-   * @throws ElementNotFoundException 
-   * @throws ed.trabalho.exceptions.UserIsAlreadyAContactException 
+   * @param to 
+   * @throws estg.ed.exceptions.ElementNotFoundException 
    */
   @Override
-  public void addUserContact(Person from, Person to) throws ElementNotFoundException, UserIsAlreadyAContactException{
-    super.addUserContact(from, to);
-    
-    //Add edge to network (override)
+  protected void addNetworkEdge(Person from, Person to) throws ElementNotFoundException {
     this.network.addEdge(from, to, 1);
   }
 }

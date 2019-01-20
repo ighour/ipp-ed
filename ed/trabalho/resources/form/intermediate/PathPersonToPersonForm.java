@@ -9,6 +9,7 @@ import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
+import ed.trabalho.store.BaseStore;
 import estg.ed.exceptions.ElementNotFoundException;
 import java.util.Iterator;
 
@@ -262,7 +263,7 @@ public class PathPersonToPersonForm extends Base {
       
       //Show as Jung Graph
       Viewer resultView = new Viewer();
-      resultView.create(resultGraph, Base.storeType);
+      resultView.create(resultGraph, BaseStore.getStoreType());
       resultView.showFrame("Minimal Path Graph");
     }
     catch(ElementNotFoundException e){

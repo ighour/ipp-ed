@@ -5,7 +5,6 @@
  */
 package ed.trabalho.helpers;
 
-import ed.trabalho.store.Store;
 import com.google.gson.Gson;
 import ed.trabalho.exceptions.UserIsAlreadyAContactException;
 import ed.trabalho.exceptions.UserIsAlreadyAddedException;
@@ -20,6 +19,7 @@ import ed.trabalho.model.Academic;
 import ed.trabalho.model.Person;
 import ed.trabalho.model.Professional;
 import ed.trabalho.model.Skill;
+import ed.trabalho.store.BaseStore;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
 import estg.ed.interfaces.DynamicArrayContract;
@@ -56,7 +56,7 @@ public abstract class Data {
    * @throws ed.trabalho.exceptions.UserIsAlreadyAContactException
    * @throws ed.trabalho.exceptions.UserIsAlreadyAddedException
    */
-  public static void populate(Pessoa[] source, Store store) throws ElementNotFoundException, NotComparableException, UserIsAlreadyMentionedException, UserIsAlreadyAContactException, UserIsAlreadyAddedException{
+  public static void populate(Pessoa[] source, BaseStore store) throws ElementNotFoundException, NotComparableException, UserIsAlreadyMentionedException, UserIsAlreadyAContactException, UserIsAlreadyAddedException{
     //Clear store before (needed if loaded another JSON)
     store.clearStore();
 
@@ -81,7 +81,7 @@ public abstract class Data {
    * @param store
    * @return 
    */
-  private static Person addPerson(Pessoa p, Store store) throws NotComparableException, UserIsAlreadyAddedException{
+  private static Person addPerson(Pessoa p, BaseStore store) throws NotComparableException, UserIsAlreadyAddedException{
     //Parse "Pessoa" (converted JSON data) to "Person" (model)
     Person newPerson = new Person(p.getId(), p.getNome(), p.getIdade(), p.getEmail(), p.getVisualizacoes());
 
@@ -116,7 +116,7 @@ public abstract class Data {
    * @param store
    * @throws ElementNotFoundException 
    */
-  private static void addRelations(int id, Pessoa[] source, Person[] peopleList, Store store) throws ElementNotFoundException, NotComparableException, UserIsAlreadyMentionedException, UserIsAlreadyAContactException, UserIsAlreadyAddedException{
+  private static void addRelations(int id, Pessoa[] source, Person[] peopleList, BaseStore store) throws ElementNotFoundException, NotComparableException, UserIsAlreadyMentionedException, UserIsAlreadyAContactException, UserIsAlreadyAddedException{
     /* Add Mentions */
     
     //Get mentions from source data

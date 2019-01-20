@@ -38,9 +38,9 @@ public class Viewer {
   /**
    * Create a view of input network.
    * @param source 
-   * @param graphType 0 = default (1/visualizations); 1 = constant (1)
+   * @param storeType DEFAULT | CONSTANT
    */
-  public void create(SocialNetwork source, int graphType){
+  public void create(SocialNetwork source, String storeType){
     //Get matrix
     DynamicArrayContract<DynamicArrayContract<Double>> matrix = source.adjacencyMatrix();
     
@@ -66,7 +66,7 @@ public class Viewer {
           ViewNode link;
           
           //Is 1
-          if(graphType == 1)
+          if(storeType.equals("CONSTANT"))
             link = new ViewNodeConstant(matrix.get(i).get(j));
           //Is 1/visualizations
           else
