@@ -19,8 +19,6 @@ import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.NetworkADT;
 import estg.ed.interfaces.OrderedListADT;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Base of store.
@@ -47,8 +45,9 @@ public abstract class BaseStore {
   
   /**
    * Selects the store type.
-   * 0 (default) => 1/visualizations (contact) is the weight.
+   * 0 (default) => 1/visualizations (of contact) is the weight.
    * 1 => 1 (constant) is the weight.
+   * 2 => 1/mentions (of contact) is the weight.
    */
   protected static int storeType;
   
@@ -68,15 +67,19 @@ public abstract class BaseStore {
    * @return 
    */
   public static BaseStore getInstance(){
-    if(BaseStore.storeType == 1)
-      return StoreNoWeight.Singleton.INSTANCE;
-    else
-      return StoreVisualization.Singleton.INSTANCE;
+    switch (BaseStore.storeType) {
+      case 1:
+        return StoreNoWeight.Singleton.INSTANCE;
+      case 2:
+        return StoreMentions.Singleton.INSTANCE;
+      default:
+        return StoreVisualization.Singleton.INSTANCE;
+    }
   }
   
   /**
    * Set store type to default.
-   * 1/visualizations (contact) is the weight.
+   * 1/visualizations (of contact) is the weight.
    */
   public static void setStoreTypeDefault(){
     if(BaseStore.storeType != 0)
@@ -90,6 +93,15 @@ public abstract class BaseStore {
   public static void setStoreTypeConstant(){
     if(BaseStore.storeType != 1)
       BaseStore.setStoreType(1);
+  }
+  
+  /**
+   * Set store type to mentions.
+   * 1/mentions (of contact) is the weight.
+   */
+  public static void setStoreTypeMentions(){
+    if(BaseStore.storeType != 2)
+      BaseStore.setStoreType(2);
   }
   
   private static void setStoreType(int type){
@@ -132,13 +144,16 @@ public abstract class BaseStore {
   }
   
   private static double getEdgeValue(Person from, Person to){
-    //Is constant
-    if(BaseStore.storeType == 1)
-      return 1.0;
-    
-    //Is default
-    else
-      return 1 / (double) to.getVisualizations();
+    switch(BaseStore.storeType){
+      //Constant
+      case 1: return 1.0;
+      
+      //Mentions
+      case 2: return 1 / (double) BaseStore.getNumberOfMentionsToUser(to);
+      
+      //Visualizations
+      default: return 1 / (double) to.getVisualizations();
+    } 
   }
   
   /**
@@ -146,10 +161,37 @@ public abstract class BaseStore {
    * @return 
    */
   public static String getStoreType(){
-    if(BaseStore.storeType == 1)
-      return "CONSTANT";
-    else
-      return "DEFAULT";
+    switch(BaseStore.storeType){
+      //Constant
+      case 1: return "CONSTANT";
+      
+      //Mentions
+      case 2: return "MENTIONS";
+      
+      //Visualizations
+      default: return "DEFAULT";
+    }
+  }
+  
+  /**
+   * Get number of mentions to user.
+   * @param user
+   * @return 
+   */
+  public static int getNumberOfMentionsToUser(Person user){
+    //Get new user To count of mentions
+    int count = 0;
+    
+    Iterator it = BaseStore.getInstance().peopleById.iterator();
+    while(it.hasNext()){
+      Person m = (Person) it.next();
+      
+      //Has mentioned the user
+      if(m.isMention(user))
+        count++;
+    }
+    
+    return count;
   }
   
   /**

@@ -8,6 +8,7 @@ package ed.trabalho.helpers;
 import com.google.common.base.Function;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
+import ed.trabalho.store.BaseStore;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -38,10 +39,9 @@ public class Viewer {
   /**
    * Create a view of input network.
    * @param source 
-   * @param storeType DEFAULT | CONSTANT
+   * @param storeType DEFAULT | CONSTANT | MENTIONS
    */
   public void create(SocialNetwork source, String storeType){
-    System.out.println(storeType);
     //Get matrix
     DynamicArrayContract<DynamicArrayContract<Double>> matrix = source.adjacencyMatrix();
     
@@ -69,6 +69,9 @@ public class Viewer {
           //Is 1
           if(storeType.equals("CONSTANT"))
             link = new ViewNodeConstant(matrix.get(i).get(j));
+          //Is 1/mentions
+          else if(storeType.equals("MENTIONS"))
+            link = new ViewNodeMentions(matrix.get(i).get(j), BaseStore.getNumberOfMentionsToUser(vertices.get(j)));
           //Is 1/visualizations
           else
             link = new ViewNodeVisualization(matrix.get(i).get(j), vertices.get(j).getVisualizations());
@@ -151,6 +154,24 @@ public class Viewer {
     @Override
     public String toString(){
       return "";
+    }
+  }
+  
+  /**
+   * View Node to store edge info.
+   * Uses 1/mentions.
+   */
+  class ViewNodeMentions extends ViewNode {
+    public int mentions;
+    
+    public ViewNodeMentions(double weight, int mentions){
+      super(weight);
+      this.mentions = mentions;
+    }
+    
+    @Override
+    public String toString(){
+      return "1 / " + this.mentions;
     }
   }
 }

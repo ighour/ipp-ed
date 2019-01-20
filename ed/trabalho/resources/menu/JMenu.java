@@ -68,6 +68,7 @@ public class JMenu extends Base {
     extraMenuMentionContactMedia = new javax.swing.JMenuItem();
     extraMenuSpawningTreeUser = new javax.swing.JMenuItem();
     extraMenuWeightDefault = new javax.swing.JMenuItem();
+    extraMenuWeightMentions = new javax.swing.JMenuItem();
     extraMenuWeightConstant = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
@@ -214,6 +215,14 @@ public class JMenu extends Base {
     });
     extraMenu.add(extraMenuWeightDefault);
 
+    extraMenuWeightMentions.setText("Change Weights to 1/Mentions");
+    extraMenuWeightMentions.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        extraMenuWeightMentionsActionPerformed(evt);
+      }
+    });
+    extraMenu.add(extraMenuWeightMentions);
+
     extraMenuWeightConstant.setText("Change Weights To 1");
     extraMenuWeightConstant.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,7 +307,14 @@ public class JMenu extends Base {
       //Generate view
       Viewer viewer = new Viewer();
       viewer.create(this.getStore().getNetwork(), BaseStore.getStoreType());
-      viewer.showFrame("Social Network");
+      
+      String title;
+      switch(BaseStore.getStoreType()){
+        case "CONSTANT": title = "Social Network (Edges = 1)"; break;
+        case "MENTIONS": title = "Social Network (Edges = 1 / mentions of the contact)"; break;
+        default: title = "Social Network (Edges = 1 / visualizations of the contact)";
+      }
+      viewer.showFrame(title);
 
       consoleTextArea.setText("Graph view successfully builded.");
     }
@@ -407,6 +423,16 @@ public class JMenu extends Base {
     }
   }//GEN-LAST:event_extraMenuWeightDefaultActionPerformed
 
+  private void extraMenuWeightMentionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuWeightMentionsActionPerformed
+    if(BaseStore.getStoreType().equals("MENTIONS")){
+      this.message("Graph is already of that type.");
+    }
+    else{
+      BaseStore.setStoreTypeMentions();
+      this.message("Graph weight type has changed to mentions (1/mentions).");
+    }
+  }//GEN-LAST:event_extraMenuWeightMentionsActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -449,6 +475,7 @@ public class JMenu extends Base {
   private javax.swing.JMenuItem extraMenuSpawningTreeUser;
   private javax.swing.JMenuItem extraMenuWeightConstant;
   private javax.swing.JMenuItem extraMenuWeightDefault;
+  private javax.swing.JMenuItem extraMenuWeightMentions;
   private javax.swing.JFileChooser fileChooser;
   private javax.swing.JMenu fileMenu;
   private javax.swing.JMenuItem fileMenuExit;
