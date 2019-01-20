@@ -41,6 +41,7 @@ public class Viewer {
    * @param storeType DEFAULT | CONSTANT
    */
   public void create(SocialNetwork source, String storeType){
+    System.out.println(storeType);
     //Get matrix
     DynamicArrayContract<DynamicArrayContract<Double>> matrix = source.adjacencyMatrix();
     

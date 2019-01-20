@@ -6,8 +6,6 @@
 package ed.trabalho.resources;
 
 import ed.trabalho.store.BaseStore;
-import ed.trabalho.store.StoreVisualization;
-import ed.trabalho.store.StoreNoWeight;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,16 +13,8 @@ import javax.swing.JOptionPane;
  * @author igu
  */
 public abstract class Base extends javax.swing.JFrame {
-  /**
-   * Stores with all application data.
-   */
-  protected BaseStore store;
-  
-  /**
-   * Initiates with Store singleton.
-   */
-  public Base(){
-    this.store = BaseStore.getInstance();
+  protected BaseStore getStore(){
+    return BaseStore.getInstance();
   }
   
   /**

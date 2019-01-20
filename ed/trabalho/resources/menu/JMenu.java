@@ -206,7 +206,7 @@ public class JMenu extends Base {
     });
     extraMenu.add(extraMenuSpawningTreeUser);
 
-    extraMenuWeightDefault.setText("Change Weights to 1/Visualizations (Will Reset)");
+    extraMenuWeightDefault.setText("Change Weights to 1/Visualizations");
     extraMenuWeightDefault.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         extraMenuWeightDefaultActionPerformed(evt);
@@ -214,7 +214,7 @@ public class JMenu extends Base {
     });
     extraMenu.add(extraMenuWeightDefault);
 
-    extraMenuWeightConstant.setText("Change Weights To 1 (Will Reset)");
+    extraMenuWeightConstant.setText("Change Weights To 1");
     extraMenuWeightConstant.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         extraMenuWeightConstantActionPerformed(evt);
@@ -270,7 +270,7 @@ public class JMenu extends Base {
          
       //Populate store with JSON data
       try {
-        Data.populate(data, this.store);
+        Data.populate(data, this.getStore());
         
       } catch (Exception ex) {
         this.message("Error constructing the graph with provided data.");
@@ -297,7 +297,7 @@ public class JMenu extends Base {
     try{
       //Generate view
       Viewer viewer = new Viewer();
-      viewer.create(this.store.getNetwork(), BaseStore.getStoreType());
+      viewer.create(this.getStore().getNetwork(), BaseStore.getStoreType());
       viewer.showFrame("Social Network");
 
       consoleTextArea.setText("Graph view successfully builded.");
@@ -322,9 +322,9 @@ public class JMenu extends Base {
   }//GEN-LAST:event_userMenuSearchByEmailActionPerformed
 
   private void graphMenuIsCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuIsCompleteActionPerformed
-    if(this.store.getPeopleCount() == 0)
+    if(this.getStore().getPeopleCount() == 0)
       this.message("Graph is empty (no vertices).");
-    else if(this.store.graphIsComplete())
+    else if(this.getStore().graphIsComplete())
       this.message("Graph is complete (all vertices are connected with each other).");
     else
       this.message("Graph is not complete.");
@@ -393,7 +393,7 @@ public class JMenu extends Base {
     }
     else{
       BaseStore.setStoreTypeConstant();
-      this.message("Graph was reset and weight type has changed to constant (1).");
+      this.message("Graph weight type has changed to constant (1).");
     }
   }//GEN-LAST:event_extraMenuWeightConstantActionPerformed
 
@@ -403,7 +403,7 @@ public class JMenu extends Base {
     }
     else{
       BaseStore.setStoreTypeDefault();
-      this.message("Graph was reset and weight type has changed to default (1/visualizations).");
+      this.message("Graph weight type has changed to default (1/visualizations).");
     }
   }//GEN-LAST:event_extraMenuWeightDefaultActionPerformed
 

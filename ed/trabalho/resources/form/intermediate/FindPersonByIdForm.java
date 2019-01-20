@@ -95,7 +95,7 @@ public class FindPersonByIdForm extends Base {
     try {
       int id = Integer.valueOf(inputPersonId.getText());
       
-      Person result = this.store.searchUserById(id);
+      Person result = this.getStore().searchUserById(id);
       
       //Open person view
       PersonViewEdit personView = new PersonViewEdit();

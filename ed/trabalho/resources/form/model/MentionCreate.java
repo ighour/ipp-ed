@@ -49,7 +49,7 @@ public class MentionCreate extends Base {
    */
   private void loadPeople() {
     //Total - 1 (avoid himself)
-    int size = this.store.getPeopleCount() - 1;
+    int size = this.getStore().getPeopleCount() - 1;
     
     //Avoid negative size
     if(size == -1)
@@ -58,7 +58,7 @@ public class MentionCreate extends Base {
     String[] list = new String[size];
     this.helperList = new Person[size];
     
-    Iterator it = this.store.getPeopleByIdIterator();
+    Iterator it = this.getStore().getPeopleByIdIterator();
     int count = 0;
     while(it.hasNext()){
       Person p = (Person) it.next();
@@ -154,7 +154,7 @@ public class MentionCreate extends Base {
         Person p = this.helperList[selectedIndex];
         
         //Add relation
-        this.store.addUserMention(this.person, p);
+        this.getStore().addUserMention(this.person, p);
 
         //Updates the list
         this.personInfo.loadMentions();

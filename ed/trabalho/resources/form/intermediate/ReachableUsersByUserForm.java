@@ -138,13 +138,13 @@ public class ReachableUsersByUserForm extends Base {
       //By id
       if(!inputFromID.getText().isEmpty()){
         int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.store.searchUserById(fromID);
+        from = this.getStore().searchUserById(fromID);
       }
       
       //By email
       else {
         String fromEmail = inputFromEmail.getText();
-        from = this.store.searchUserByEmail(fromEmail);
+        from = this.getStore().searchUserByEmail(fromEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -154,7 +154,7 @@ public class ReachableUsersByUserForm extends Base {
            
     //Construct a graph to show spaning tree from desired user
     try {
-      SocialNetwork resultGraph = this.store.getMstNetwork(from);
+      SocialNetwork resultGraph = this.getStore().getMstNetwork(from);
       
       //Remove himself
       resultGraph.removeVertex(from);

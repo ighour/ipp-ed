@@ -94,7 +94,7 @@ public class FindPersonByEmailForm extends Base {
     try {
       String email = inputPersonEmail.getText();
       
-      Person result = this.store.searchUserByEmail(email);
+      Person result = this.getStore().searchUserByEmail(email);
       
       //Open person view
       PersonViewEdit personView = new PersonViewEdit();

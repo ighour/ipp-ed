@@ -199,13 +199,13 @@ public class PathPersonToPersonForm extends Base {
       //By id
       if(!inputFromID.getText().isEmpty()){
         int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.store.searchUserById(fromID);
+        from = this.getStore().searchUserById(fromID);
       }
       
       //By email
       else {
         String fromEmail = inputFromEmail.getText();
-        from = this.store.searchUserByEmail(fromEmail);
+        from = this.getStore().searchUserByEmail(fromEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -220,13 +220,13 @@ public class PathPersonToPersonForm extends Base {
       //By id
       if(!inputToID.getText().isEmpty()){
         int toID = Integer.parseInt(inputToID.getText());
-        to = this.store.searchUserById(toID);
+        to = this.getStore().searchUserById(toID);
       }
       
       //By email
       else {
         String toEmail = inputToEmail.getText();
-        to = this.store.searchUserByEmail(toEmail);
+        to = this.getStore().searchUserByEmail(toEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -234,7 +234,7 @@ public class PathPersonToPersonForm extends Base {
     }
     
     //Get path
-    Iterator it = this.store.getIteratorShortestPath(from, to);
+    Iterator it = this.getStore().getIteratorShortestPath(from, to);
     
     //There is no path
     if(it.hasNext() == false){

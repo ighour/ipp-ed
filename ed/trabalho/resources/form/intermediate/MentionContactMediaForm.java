@@ -5,13 +5,9 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.SocialNetwork;
-import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import estg.ed.exceptions.ElementNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Form to retrieve the media of mention of an user compared to total.
@@ -139,13 +135,13 @@ public class MentionContactMediaForm extends Base {
       //By id
       if(!inputFromID.getText().isEmpty()){
         int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.store.searchUserById(fromID);
+        from = this.getStore().searchUserById(fromID);
       }
       
       //By email
       else {
         String fromEmail = inputFromEmail.getText();
-        from = this.store.searchUserByEmail(fromEmail);
+        from = this.getStore().searchUserByEmail(fromEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -156,16 +152,16 @@ public class MentionContactMediaForm extends Base {
     //Get media comparative
     try{
       //Get user mention media
-      double userMentionMedia = this.store.getMentionMedia(from);
+      double userMentionMedia = this.getStore().getMentionMedia(from);
       
       //Get total mention media
-      double totalMentionMedia = this.store.getMentionMedia();
+      double totalMentionMedia = this.getStore().getMentionMedia();
       
       //Get user contacyt media
-      double userContactMedia = this.store.getContactMedia(from);
+      double userContactMedia = this.getStore().getContactMedia(from);
       
       //Get total contacyt media
-      double totalContactMedia = this.store.getContactMedia();
+      double totalContactMedia = this.getStore().getContactMedia();
       
       //Show result
       this.message("User Mention Media: " + userMentionMedia + ".\nTotal Mention Media: " + totalMentionMedia + ".\n\nUser Contact Media: " + userContactMedia + ".\nTotal Contact Media: " + totalContactMedia + ".");

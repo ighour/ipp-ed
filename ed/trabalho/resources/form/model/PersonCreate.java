@@ -19,20 +19,20 @@ public class PersonCreate extends PersonViewEdit {
    */
   public final void setPerson(){
     //Need to load store before
-    if(this.store == null){
+    if(this.getStore() == null){
       this.message("Error creating person. Store was not loaded yet.");
       return;
     }
     
     //Get id
-    int id = this.store.getNextValidId();
+    int id = this.getStore().getNextValidId();
     
     //Create person
     Person newPerson = new Person(id, "", 0, "", 0);
     
     //Add to store
     try {
-      this.store.addUser(newPerson);
+      this.getStore().addUser(newPerson);
     }
     catch(Exception e){
       this.message("Error adding new user.");

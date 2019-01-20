@@ -78,7 +78,7 @@ public class SocialNetwork<T> extends Network<T> implements NetworkADT<T> {
   
   /**
    * Get the network adjacency matrix.
-   * To use in Jung Graph Visualization.
+   * To use in Jung Graph Visualization and copying data between networks.
    * @return 
    */
   public DynamicArrayContract<DynamicArrayContract<Double>> adjacencyMatrix(){
@@ -87,7 +87,7 @@ public class SocialNetwork<T> extends Network<T> implements NetworkADT<T> {
   
   /**
    * Get the network vertices.
-   * To use in Jung Graph Visualization.
+   * To use in Jung Graph Visualization and copying data between networks.
    * @return 
    */
   public DynamicArrayContract<T> vertices(){

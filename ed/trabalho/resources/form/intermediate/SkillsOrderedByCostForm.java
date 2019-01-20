@@ -169,13 +169,13 @@ public class SkillsOrderedByCostForm extends Base {
       //By id
       if(!inputUserID.getText().isEmpty()){
         int id = Integer.parseInt(inputUserID.getText());
-        user = this.store.searchUserById(id);
+        user = this.getStore().searchUserById(id);
       }
       
       //By email
       else {
         String email = inputUserEmail.getText();
-        user = this.store.searchUserByEmail(email);
+        user = this.getStore().searchUserByEmail(email);
       }
     }
     catch(ElementNotFoundException e){
@@ -188,7 +188,7 @@ public class SkillsOrderedByCostForm extends Base {
       String skill = inputSkill.getText();      
       
       //Get spawning tree of user
-      SocialNetwork resultGraph = this.store.getMstNetwork(user);
+      SocialNetwork resultGraph = this.getStore().getMstNetwork(user);
       
       //Create result in PriorityMaxQueue (preference is to less weight = 1/n)
       PriorityQueueADT<Person> resultQueue = new ArrayPriorityMinQueue<>();

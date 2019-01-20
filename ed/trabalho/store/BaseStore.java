@@ -15,9 +15,12 @@ import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.EmptyCollectionException;
 import estg.ed.exceptions.NotComparableException;
+import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.NetworkADT;
 import estg.ed.interfaces.OrderedListADT;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Base of store.
@@ -90,11 +93,52 @@ public abstract class BaseStore {
   }
   
   private static void setStoreType(int type){
-    //Clear old store
-    BaseStore.getInstance().clearStore();
+    //Get old store
+    BaseStore oldStore = BaseStore.getInstance();
     
     //Set new type
     BaseStore.storeType = type;
+    
+    //Get new store
+    BaseStore newStore = BaseStore.getInstance();
+    
+    //Clear new store
+    newStore.clearStore();
+    
+    //Copy lists and network base
+    newStore.peopleById = oldStore.peopleById;
+    newStore.peopleByEmail = oldStore.peopleByEmail;
+    newStore.network = oldStore.network;
+    
+    //Change edges values
+    SocialNetwork network = (SocialNetwork) newStore.network;
+    DynamicArrayContract<DynamicArrayContract<Double>> matrix = network.adjacencyMatrix();
+    DynamicArrayContract<Person> vertices = network.vertices();
+    for(int i = 0; i < network.size(); i++){
+      for(int j = 0; j < network.size(); j++){
+        //Has relation
+        if(matrix.get(i).get(j) != Double.NEGATIVE_INFINITY){
+          //Get edge value
+          double edgeValue = BaseStore.getEdgeValue(vertices.get(i), vertices.get(j));
+          
+          //Update
+          matrix.get(i).change(edgeValue, j);
+        }
+      }
+    }
+
+    //Clear old store
+    oldStore.clearStore();
+  }
+  
+  private static double getEdgeValue(Person from, Person to){
+    //Is constant
+    if(BaseStore.storeType == 1)
+      return 1.0;
+    
+    //Is default
+    else
+      return 1 / (double) to.getVisualizations();
   }
   
   /**

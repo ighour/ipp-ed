@@ -167,13 +167,13 @@ public class CompanyPeopleAndPersonContactsForm extends Base {
       //By id
       if(!inputUserID.getText().isEmpty()){
         int id = Integer.parseInt(inputUserID.getText());
-        user = this.store.searchUserById(id);
+        user = this.getStore().searchUserById(id);
       }
       
       //By email
       else {
         String email = inputUserEmail.getText();
-        user = this.store.searchUserByEmail(email);
+        user = this.getStore().searchUserByEmail(email);
       }
     }
     catch(ElementNotFoundException e){
@@ -188,7 +188,7 @@ public class CompanyPeopleAndPersonContactsForm extends Base {
     DynamicArrayContract<Person> resultList = new DynamicArray<>();
     
     //Iterate in users list to search users who worked on desired company
-    Iterator it = this.store.getPeopleByIdIterator();
+    Iterator it = this.getStore().getPeopleByIdIterator();
     while(it.hasNext()){
       Person p = (Person) it.next();
       

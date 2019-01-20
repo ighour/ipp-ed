@@ -143,13 +143,13 @@ public class NotReachableUsersByUserForm extends Base {
       //By id
       if(!inputFromID.getText().isEmpty()){
         int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.store.searchUserById(fromID);
+        from = this.getStore().searchUserById(fromID);
       }
       
       //By email
       else {
         String fromEmail = inputFromEmail.getText();
-        from = this.store.searchUserByEmail(fromEmail);
+        from = this.getStore().searchUserByEmail(fromEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -160,11 +160,11 @@ public class NotReachableUsersByUserForm extends Base {
     //Show users not reachable
     try {
       //Get reachable users
-      NetworkADT<Person> resultGraph = (SocialNetwork) this.store.getMstNetwork(from);
+      NetworkADT<Person> resultGraph = (SocialNetwork) this.getStore().getMstNetwork(from);
 
       //Create result list
       OrderedListADT<Person> resultList = new OrderedArrayList();
-      Iterator it = this.store.getPeopleByIdIterator();
+      Iterator it = this.getStore().getPeopleByIdIterator();
       while(it.hasNext()){
         Person p = (Person) it.next();
         resultList.add(p);

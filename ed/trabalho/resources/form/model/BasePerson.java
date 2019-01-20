@@ -7,7 +7,6 @@ package ed.trabalho.resources.form.model;
 
 import ed.trabalho.resources.Base;
 import ed.trabalho.model.Person;
-import java.util.Iterator;
 import javax.swing.JTextField;
 
 /**
@@ -96,7 +95,7 @@ public abstract class BasePerson extends Base {
   protected void submitEmail(JTextField field){
     try{
       if(!field.getText().isEmpty() && !field.getText().equals(this.person.getEmail())){
-        this.store.updateUserEmail(this.person, field.getText());
+        this.getStore().updateUserEmail(this.person, field.getText());
 
         this.message("Email was updated.");
       }
@@ -114,7 +113,7 @@ public abstract class BasePerson extends Base {
   protected void submitVisualizations(JTextField field){
     try{
       if(!field.getText().isEmpty() && !Integer.valueOf(field.getText()).equals(this.person.getVisualizations())){
-        this.store.updateUserVisualizations(this.person, Integer.valueOf(field.getText()));
+        this.getStore().updateUserVisualizations(this.person, Integer.valueOf(field.getText()));
   
         this.message("Visualizations were updated.");
       }
@@ -324,7 +323,7 @@ public abstract class BasePerson extends Base {
   protected void submitMentionDelete(int index){
     try {
       if(index != -1){
-        this.store.removeUserMention(this.person, index);
+        this.getStore().removeUserMention(this.person, index);
         this.loadMentions();
         
         this.message("User is no more mentioned by you.");
@@ -361,7 +360,7 @@ public abstract class BasePerson extends Base {
   protected void submitContactDelete(int index){
     try {
       if(index != -1){
-        this.store.removeUserContact(this.person, index);
+        this.getStore().removeUserContact(this.person, index);
         this.loadContacts();
         
         this.message("User was removed from your contact list.");

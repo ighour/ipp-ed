@@ -149,7 +149,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="extraMenuWeightDefault">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Change Weights to 1/Visualizations (Will Reset)"/>
+                <Property name="text" type="java.lang.String" value="Change Weights to 1/Visualizations"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extraMenuWeightDefaultActionPerformed"/>
@@ -157,7 +157,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="extraMenuWeightConstant">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Change Weights To 1 (Will Reset)"/>
+                <Property name="text" type="java.lang.String" value="Change Weights To 1"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extraMenuWeightConstantActionPerformed"/>
