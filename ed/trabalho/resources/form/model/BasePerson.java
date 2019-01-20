@@ -96,12 +96,8 @@ public abstract class BasePerson extends Base {
   protected void submitEmail(JTextField field){
     try{
       if(!field.getText().isEmpty() && !field.getText().equals(this.person.getEmail())){
-        this.person.setEmail(field.getText());
-        
-        //Update person index on peopleByEmail list
-        this.store.getPeopleByEmail().remove(this.person);
-        this.store.getPeopleByEmail().add(this.person);
-        
+        this.store.updateUserEmail(this.person, field.getText());
+
         this.message("Email was updated.");
       }
     }
@@ -118,19 +114,8 @@ public abstract class BasePerson extends Base {
   protected void submitVisualizations(JTextField field){
     try{
       if(!field.getText().isEmpty() && !Integer.valueOf(field.getText()).equals(this.person.getVisualizations())){
-        this.person.setVisualizations(Integer.valueOf(field.getText()));
-        
-        //Update edges on network
-        Iterator list = this.store.getPeopleById().iterator();
-        while(list.hasNext()){
-          Person p = (Person) list.next();
-          
-          //Current Person is a contact of P
-          //Update edge weight
-          if(p.isContact(this.person))
-            this.store.getNetwork().addEdge(p, this.person, Integer.valueOf(field.getText()));
-        }
-        
+        this.store.updateUserVisualizations(this.person, Integer.valueOf(field.getText()));
+  
         this.message("Visualizations were updated.");
       }
     }
@@ -339,7 +324,7 @@ public abstract class BasePerson extends Base {
   protected void submitMentionDelete(int index){
     try {
       if(index != -1){
-        this.person.getMentionList().remove(index);
+        this.store.removeUserMention(this.person, index);
         this.loadMentions();
         
         this.message("User is no more mentioned by you.");
@@ -376,16 +361,7 @@ public abstract class BasePerson extends Base {
   protected void submitContactDelete(int index){
     try {
       if(index != -1){
-        //Get contact
-        Person contact = this.person.getContactList().get(index);
-        
-        //Update network (remove edge)
-        this.store.getNetwork().removeEdge(this.person, contact);
-        
-        //Remove from user list
-        this.person.getContactList().remove(index);
-        
-        //Load view list
+        this.store.removeUserContact(this.person, index);
         this.loadContacts();
         
         this.message("User was removed from your contact list.");
@@ -396,19 +372,6 @@ public abstract class BasePerson extends Base {
     }
     catch(Exception e){
       this.message("Error removing user from your contact list.");
-      
-      //Re-add user if was error
-      try{
-        //Get contact
-        Person contact = this.person.getContactList().get(index);
-        
-        //Update network (add edge)
-        this.store.getNetwork().addEdge(this.person, contact, contact.getVisualizations());
-        
-        //Add to user list
-        this.person.getContactList().add(contact, this.person.getContactList().size());
-      }
-      catch(Exception ex){}
     }
   }
 }

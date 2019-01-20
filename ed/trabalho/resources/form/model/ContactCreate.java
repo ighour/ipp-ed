@@ -1,5 +1,6 @@
 package ed.trabalho.resources.form.model;
 
+import ed.trabalho.exceptions.UserIsAlreadyAContactException;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import estg.ed.exceptions.ElementNotFoundException;
@@ -49,7 +50,7 @@ public class ContactCreate extends Base {
    */
   private void loadPeople() {
     //Total - 1 (avoid himself)
-    int size = this.store.getPeopleById().size() - 1;
+    int size = this.store.getPeopleCount() - 1;
     
     //Avoid negative size
     if(size == -1)
@@ -58,7 +59,7 @@ public class ContactCreate extends Base {
     String[] list = new String[size];
     this.helperList = new Person[size];
     
-    Iterator it = this.store.getPeopleById().iterator();
+    Iterator it = this.store.getPeopleByIdIterator();
     int count = 0;
     while(it.hasNext()){
       Person p = (Person) it.next();
@@ -153,35 +154,19 @@ public class ContactCreate extends Base {
       
       //Try to create relation
       try{        
-        //Check if is valid
-        if(this.person.isContact(p)){
-          this.message("This user is already your contact.");
-          return;
-        }
-        
         //Add relation
-        this.person.getContactList().add(p, this.person.getContactList().size());
-        
-        //Update network (create relation)
-        this.store.getNetwork().addEdge(this.person, p, p.getVisualizations());
+        this.store.addUserContact(this.person, p);
 
         //Updates the list
         this.personInfo.loadContacts();
 
         resultMessage = "User is now your contact.";
-      }  
+      }
+      catch(UserIsAlreadyAContactException e){
+        resultMessage = "This user is already your contact.";
+      }
       catch(Exception e){
         resultMessage = "Error adding user as a contact.";
-        
-        //Try to remove eventual changes
-        try {
-          //Remove relation
-          this.person.getContactList().remove(p.getId());
-
-          //Remove edge
-          this.store.getNetwork().removeEdge(this.person, p);
-        }
-        catch(ElementNotFoundException | IndexOutOfBoundsException ex){}
       } 
        
       //Dispose the frame and show message

@@ -5,7 +5,6 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import ed.trabalho.resources.form.model.PersonViewEdit;
@@ -96,9 +95,7 @@ public class FindPersonByIdForm extends Base {
     try {
       int id = Integer.valueOf(inputPersonId.getText());
       
-      PersonIdOrderedList list = (PersonIdOrderedList) this.store.getPeopleById();
-      
-      Person result = list.searchById(id);
+      Person result = this.store.searchUserById(id);
       
       //Open person view
       PersonViewEdit personView = new PersonViewEdit();

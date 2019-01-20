@@ -1,5 +1,6 @@
 package ed.trabalho.resources.form.model;
 
+import ed.trabalho.exceptions.UserIsAlreadyMentionedException;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import java.util.Iterator;
@@ -48,7 +49,7 @@ public class MentionCreate extends Base {
    */
   private void loadPeople() {
     //Total - 1 (avoid himself)
-    int size = this.store.getPeopleById().size() - 1;
+    int size = this.store.getPeopleCount() - 1;
     
     //Avoid negative size
     if(size == -1)
@@ -57,7 +58,7 @@ public class MentionCreate extends Base {
     String[] list = new String[size];
     this.helperList = new Person[size];
     
-    Iterator it = this.store.getPeopleById().iterator();
+    Iterator it = this.store.getPeopleByIdIterator();
     int count = 0;
     while(it.hasNext()){
       Person p = (Person) it.next();
@@ -152,20 +153,17 @@ public class MentionCreate extends Base {
         //Get related person
         Person p = this.helperList[selectedIndex];
         
-        //Check if is valid
-        if(this.person.isMention(p)){
-          this.message("This user is already mentioned by you.");
-          return;
-        }
-        
         //Add relation
-        this.person.getMentionList().add(p, this.person.getMentionList().size());
+        this.store.addUserMention(this.person, p);
 
         //Updates the list
         this.personInfo.loadMentions();
 
         resultMessage = "User is now mentioned by you.";
-      }  
+      }
+      catch(UserIsAlreadyMentionedException e){
+        resultMessage = "This user is already mentioned by you.";
+      }
       catch(Exception e){
         resultMessage = "Error creating new mention.";
       } 

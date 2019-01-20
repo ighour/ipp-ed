@@ -5,14 +5,11 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.PersonEmailOrderedList;
-import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.interfaces.NetworkADT;
 import java.util.Iterator;
 
 /**
@@ -201,13 +198,13 @@ public class PathPersonToPersonForm extends Base {
       //By id
       if(!inputFromID.getText().isEmpty()){
         int fromID = Integer.parseInt(inputFromID.getText());
-        from = ((PersonIdOrderedList) this.store.getPeopleById()).searchById(fromID);
+        from = this.store.searchUserById(fromID);
       }
       
       //By email
       else {
         String fromEmail = inputFromEmail.getText();
-        from = ((PersonEmailOrderedList) this.store.getPeopleByEmail()).searchByEmail(fromEmail);
+        from = this.store.searchUserByEmail(fromEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -222,13 +219,13 @@ public class PathPersonToPersonForm extends Base {
       //By id
       if(!inputToID.getText().isEmpty()){
         int toID = Integer.parseInt(inputToID.getText());
-        to = ((PersonIdOrderedList) this.store.getPeopleById()).searchById(toID);
+        to = this.store.searchUserById(toID);
       }
       
       //By email
       else {
         String toEmail = inputToEmail.getText();
-        to = ((PersonEmailOrderedList) this.store.getPeopleByEmail()).searchByEmail(toEmail);
+        to = this.store.searchUserByEmail(toEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -236,7 +233,7 @@ public class PathPersonToPersonForm extends Base {
     }
     
     //Get path
-    Iterator it = this.store.getNetwork().iteratorShortestPath(from, to);
+    Iterator it = this.store.getIteratorShortestPath(from, to);
     
     //There is no path
     if(it.hasNext() == false){
@@ -246,7 +243,7 @@ public class PathPersonToPersonForm extends Base {
     
     //Construct a graph to show the path with the Jung
     try {
-      NetworkADT<Person> resultGraph = new SocialNetwork<>();
+      SocialNetwork resultGraph = new SocialNetwork();
       Person last = null;
       
       //Populate the view graph with users in minimum path
@@ -266,7 +263,7 @@ public class PathPersonToPersonForm extends Base {
       //Show as Jung Graph
       Viewer resultView = new Viewer();
       resultView.create(resultGraph);
-      resultView.showFrame();
+      resultView.showFrame("Minimal Path Graph");
     }
     catch(ElementNotFoundException e){
       this.message("Error processing action.");

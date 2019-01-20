@@ -5,7 +5,11 @@
  */
 package ed.trabalho.helpers;
 
+import ed.trabalho.store.Store;
 import com.google.gson.Gson;
+import ed.trabalho.exceptions.UserIsAlreadyAContactException;
+import ed.trabalho.exceptions.UserIsAlreadyAddedException;
+import ed.trabalho.exceptions.UserIsAlreadyMentionedException;
 import ed.trabalho.json.CargosProfissionais;
 import ed.trabalho.json.Contact;
 import ed.trabalho.json.FormacaoAcademica;
@@ -48,8 +52,11 @@ public abstract class Data {
    * @param store
    * @throws estg.ed.exceptions.ElementNotFoundException
    * @throws estg.ed.exceptions.NotComparableException
+   * @throws ed.trabalho.exceptions.UserIsAlreadyMentionedException
+   * @throws ed.trabalho.exceptions.UserIsAlreadyAContactException
+   * @throws ed.trabalho.exceptions.UserIsAlreadyAddedException
    */
-  public static void populate(Pessoa[] source, Store store) throws ElementNotFoundException, NotComparableException{
+  public static void populate(Pessoa[] source, Store store) throws ElementNotFoundException, NotComparableException, UserIsAlreadyMentionedException, UserIsAlreadyAContactException, UserIsAlreadyAddedException{
     //Clear store before (needed if loaded another JSON)
     store.clearStore();
 
@@ -74,7 +81,7 @@ public abstract class Data {
    * @param store
    * @return 
    */
-  private static Person addPerson(Pessoa p, Store store) throws NotComparableException{
+  private static Person addPerson(Pessoa p, Store store) throws NotComparableException, UserIsAlreadyAddedException{
     //Parse "Pessoa" (converted JSON data) to "Person" (model)
     Person newPerson = new Person(p.getId(), p.getNome(), p.getIdade(), p.getEmail(), p.getVisualizacoes());
 
@@ -94,13 +101,7 @@ public abstract class Data {
       skillList.add(new Skill(x), skillList.size());
 
     //Add newPerson to Network
-    store.getNetwork().addVertex(newPerson);
-    
-    //Add newPerson to peopleById list
-    store.getPeopleById().add(newPerson);
-    
-    //Add newPerson to peopleByEmail list
-    store.getPeopleByEmail().add(newPerson);
+    store.addUser(newPerson);
 
     //Return newPerson
     return newPerson;
@@ -115,7 +116,7 @@ public abstract class Data {
    * @param store
    * @throws ElementNotFoundException 
    */
-  private static void addRelations(int id, Pessoa[] source, Person[] peopleList, Store store) throws ElementNotFoundException, NotComparableException{
+  private static void addRelations(int id, Pessoa[] source, Person[] peopleList, Store store) throws ElementNotFoundException, NotComparableException, UserIsAlreadyMentionedException, UserIsAlreadyAContactException, UserIsAlreadyAddedException{
     /* Add Mentions */
     
     //Get mentions from source data
@@ -126,7 +127,11 @@ public abstract class Data {
       int mentionUid = sourceMention.getUserid();
       int uidIndex = getIndex(mentionUid, source);
       
-      addRelation(peopleList[id].getMentionList(), uidIndex, source, peopleList, store);
+      //Relation user was not created yet
+      if(peopleList[uidIndex] == null)
+        peopleList[uidIndex] = addPerson(source[uidIndex], store);
+      
+      store.addUserMention(peopleList[id], peopleList[uidIndex]);
     }
     
     /* Add Contacts */
@@ -139,42 +144,12 @@ public abstract class Data {
       int contactUid = sourceContact.getUserid();
       int uidIndex = getIndex(contactUid, source);
       
-      addRelation(peopleList[id].getContactList(), uidIndex, source, peopleList, store);
+      //Relation user was not created yet
+      if(peopleList[uidIndex] == null)
+        peopleList[uidIndex] = addPerson(source[uidIndex], store);
       
-      //Add edge in network
-      //Using 1 / visualizations for weight
-      //p (neighbor) -> owner
-      store.getNetwork().addEdge(peopleList[id], peopleList[uidIndex], 1 / (double) peopleList[uidIndex].getVisualizations());
+      store.addUserContact(peopleList[id], peopleList[uidIndex]);
     }
-  }
-
-  /**
-   * Add a person to another person relation.
-   * If the added person is not created yet, creates it.
-   * @param relationList
-   * @param relationIndex
-   * @param source
-   * @param peopleList
-   * @param store 
-   */
-  private static void addRelation(DynamicArrayContract<Person> relationList, int relationIndex, Pessoa[] source, Person[] peopleList, Store store) throws NotComparableException{
-    Person relationUser;
-
-    //User was not created
-    if(peopleList[relationIndex] == null){
-      //Create the user
-      relationUser = addPerson(source[relationIndex], store);
-
-      //Add to list
-      peopleList[relationIndex] = relationUser;
-    }
-
-    //User exists
-    else
-      relationUser = peopleList[relationIndex];
-
-    //Add to mention relation
-    relationList.add(relationUser, relationList.size());
   }
   
   /**

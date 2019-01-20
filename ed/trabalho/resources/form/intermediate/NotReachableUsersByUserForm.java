@@ -5,8 +5,6 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.PersonEmailOrderedList;
-import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
@@ -145,13 +143,13 @@ public class NotReachableUsersByUserForm extends Base {
       //By id
       if(!inputFromID.getText().isEmpty()){
         int fromID = Integer.parseInt(inputFromID.getText());
-        from = ((PersonIdOrderedList) this.store.getPeopleById()).searchById(fromID);
+        from = this.store.searchUserById(fromID);
       }
       
       //By email
       else {
         String fromEmail = inputFromEmail.getText();
-        from = ((PersonEmailOrderedList) this.store.getPeopleByEmail()).searchByEmail(fromEmail);
+        from = this.store.searchUserByEmail(fromEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -162,11 +160,11 @@ public class NotReachableUsersByUserForm extends Base {
     //Show users not reachable
     try {
       //Get reachable users
-      NetworkADT<Person> resultGraph = (SocialNetwork) this.store.getNetwork().mstNetwork(from);
+      NetworkADT<Person> resultGraph = (SocialNetwork) this.store.getMstNetwork(from);
 
       //Create result list
       OrderedListADT<Person> resultList = new OrderedArrayList();
-      Iterator it = this.store.getPeopleById().iterator();
+      Iterator it = this.store.getPeopleByIdIterator();
       while(it.hasNext()){
         Person p = (Person) it.next();
         resultList.add(p);

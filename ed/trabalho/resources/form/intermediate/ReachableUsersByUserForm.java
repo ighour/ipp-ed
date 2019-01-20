@@ -5,14 +5,11 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.PersonEmailOrderedList;
-import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.interfaces.NetworkADT;
 
 /**
  * Form to retrieve reachable users from another user.
@@ -140,13 +137,13 @@ public class ReachableUsersByUserForm extends Base {
       //By id
       if(!inputFromID.getText().isEmpty()){
         int fromID = Integer.parseInt(inputFromID.getText());
-        from = ((PersonIdOrderedList) this.store.getPeopleById()).searchById(fromID);
+        from = this.store.searchUserById(fromID);
       }
       
       //By email
       else {
         String fromEmail = inputFromEmail.getText();
-        from = ((PersonEmailOrderedList) this.store.getPeopleByEmail()).searchByEmail(fromEmail);
+        from = this.store.searchUserByEmail(fromEmail);
       }
     }
     catch(ElementNotFoundException e){
@@ -156,7 +153,7 @@ public class ReachableUsersByUserForm extends Base {
            
     //Construct a graph to show spaning tree from desired user
     try {
-      NetworkADT<Person> resultGraph = (SocialNetwork) this.store.getNetwork().mstNetwork(from);
+      SocialNetwork resultGraph = this.store.getMstNetwork(from);
       
       //Remove himself
       resultGraph.removeVertex(from);
@@ -164,7 +161,7 @@ public class ReachableUsersByUserForm extends Base {
       //Show as Jung Graph
       Viewer resultView = new Viewer();
       resultView.create(resultGraph);
-      resultView.showFrame();
+      resultView.showFrame("Reachable Users Graph");
     }
     catch(ElementNotFoundException e){
       this.message("Error processing the action.");

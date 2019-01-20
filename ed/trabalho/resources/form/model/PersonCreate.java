@@ -6,8 +6,6 @@
 package ed.trabalho.resources.form.model;
 
 import ed.trabalho.model.Person;
-import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.exceptions.EmptyCollectionException;
 
 /**
  * Extends PersonViewEdit frame to create a person before loading data.
@@ -27,37 +25,16 @@ public class PersonCreate extends PersonViewEdit {
     }
     
     //Get id
-    int id;
-    try {
-      id = this.store.getPeopleById().last().getId() + 1;
-      
-    } catch (EmptyCollectionException ex) {
-      id = 0;
-    }
+    int id = this.store.getNextValidId();
     
     //Create person
     Person newPerson = new Person(id, "", 0, "", 0);
     
     //Add to store
     try {
-      this.store.getPeopleById().add(newPerson);
-      this.store.getPeopleByEmail().add(newPerson);
-      this.store.getNetwork().addVertex(newPerson);
+      this.store.addUser(newPerson);
     }
     catch(Exception e){
-      //Removes from list and graph (if needed)
-      try {
-        this.store.getPeopleById().remove(newPerson);
-      } catch (EmptyCollectionException | ElementNotFoundException ex) {}
-      
-      try {
-        this.store.getPeopleByEmail().remove(newPerson);
-      } catch (EmptyCollectionException | ElementNotFoundException ex) {}
-      
-      try {
-        this.store.getNetwork().removeVertex(newPerson);
-      } catch (ElementNotFoundException ex) {}
-
       this.message("Error adding new user.");
       return;
     }

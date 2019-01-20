@@ -5,7 +5,7 @@
  */
 package ed.trabalho.resources;
 
-import ed.trabalho.helpers.Store;
+import ed.trabalho.store.Store;
 import javax.swing.JOptionPane;
 
 /**

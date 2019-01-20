@@ -16,7 +16,6 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import estg.ed.interfaces.DynamicArrayContract;
-import estg.ed.interfaces.NetworkADT;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
@@ -38,12 +37,9 @@ public class Viewer {
   
   /**
    * Create a view of input network.
-   * @param originalNetwork 
+   * @param source 
    */
-  public void create(NetworkADT<Person> originalNetwork){
-    //Convert accessible network
-    SocialNetwork<Person> source = (SocialNetwork<Person>) originalNetwork;
-
+  public void create(SocialNetwork source){
     //Get matrix
     DynamicArrayContract<DynamicArrayContract<Double>> matrix = source.adjacencyMatrix();
     
@@ -90,9 +86,10 @@ public class Viewer {
   
   /**
    * Show the view on a new JFrame.
+   * @param title
    */
-  public void showFrame(){
-    JFrame frame = new JFrame("Graph Viewer");
+  public void showFrame(String title){
+    JFrame frame = new JFrame(title);
     frame.getContentPane().add(vv);
     frame.pack();
     frame.setVisible(true); 

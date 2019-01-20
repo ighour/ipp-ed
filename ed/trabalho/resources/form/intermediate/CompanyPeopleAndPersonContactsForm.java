@@ -5,8 +5,6 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.PersonEmailOrderedList;
-import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.model.Person;
 import ed.trabalho.model.Professional;
 import ed.trabalho.resources.Base;
@@ -169,13 +167,13 @@ public class CompanyPeopleAndPersonContactsForm extends Base {
       //By id
       if(!inputUserID.getText().isEmpty()){
         int id = Integer.parseInt(inputUserID.getText());
-        user = ((PersonIdOrderedList) this.store.getPeopleById()).searchById(id);
+        user = this.store.searchUserById(id);
       }
       
       //By email
       else {
         String email = inputUserEmail.getText();
-        user = ((PersonEmailOrderedList) this.store.getPeopleByEmail()).searchByEmail(email);
+        user = this.store.searchUserByEmail(email);
       }
     }
     catch(ElementNotFoundException e){
@@ -190,7 +188,7 @@ public class CompanyPeopleAndPersonContactsForm extends Base {
     DynamicArrayContract<Person> resultList = new DynamicArray<>();
     
     //Iterate in users list to search users who worked on desired company
-    Iterator it = this.store.getPeopleById().iterator();
+    Iterator it = this.store.getPeopleByIdIterator();
     while(it.hasNext()){
       Person p = (Person) it.next();
       

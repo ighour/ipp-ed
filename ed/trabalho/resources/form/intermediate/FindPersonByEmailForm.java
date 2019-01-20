@@ -5,7 +5,6 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.PersonEmailOrderedList;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import ed.trabalho.resources.form.model.PersonViewEdit;
@@ -95,9 +94,7 @@ public class FindPersonByEmailForm extends Base {
     try {
       String email = inputPersonEmail.getText();
       
-      PersonEmailOrderedList list = (PersonEmailOrderedList) this.store.getPeopleByEmail();
-      
-      Person result = list.searchByEmail(email);
+      Person result = this.store.searchUserByEmail(email);
       
       //Open person view
       PersonViewEdit personView = new PersonViewEdit();

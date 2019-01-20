@@ -5,8 +5,6 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.PersonEmailOrderedList;
-import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
@@ -14,7 +12,6 @@ import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.PriorityQueueADT;
-import estg.ed.tree.binary.ArrayPriorityMaxQueue;
 import estg.ed.tree.binary.ArrayPriorityMinQueue;
 import java.util.Iterator;
 
@@ -172,13 +169,13 @@ public class SkillsOrderedByCostForm extends Base {
       //By id
       if(!inputUserID.getText().isEmpty()){
         int id = Integer.parseInt(inputUserID.getText());
-        user = ((PersonIdOrderedList) this.store.getPeopleById()).searchById(id);
+        user = this.store.searchUserById(id);
       }
       
       //By email
       else {
         String email = inputUserEmail.getText();
-        user = ((PersonEmailOrderedList) this.store.getPeopleByEmail()).searchByEmail(email);
+        user = this.store.searchUserByEmail(email);
       }
     }
     catch(ElementNotFoundException e){
@@ -191,7 +188,7 @@ public class SkillsOrderedByCostForm extends Base {
       String skill = inputSkill.getText();      
       
       //Get spawning tree of user
-      SocialNetwork resultGraph = (SocialNetwork) this.store.getNetwork().mstNetwork(user);
+      SocialNetwork resultGraph = this.store.getMstNetwork(user);
       
       //Create result in PriorityMaxQueue (preference is to less weight = 1/n)
       PriorityQueueADT<Person> resultQueue = new ArrayPriorityMinQueue<>();

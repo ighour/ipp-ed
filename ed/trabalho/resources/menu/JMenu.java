@@ -17,8 +17,6 @@ import ed.trabalho.resources.form.intermediate.PathPersonToPersonForm;
 import ed.trabalho.resources.form.intermediate.ReachableUsersByUserForm;
 import ed.trabalho.resources.form.intermediate.SkillsOrderedByCostForm;
 import ed.trabalho.resources.form.model.PersonCreate;
-import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.exceptions.NotComparableException;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -230,14 +228,13 @@ public class JMenu extends Base {
       try {
         Data.populate(data, this.store);
         
-      } catch (ElementNotFoundException | NotComparableException ex) {
+      } catch (Exception ex) {
         this.message("Error constructing the graph with provided data.");
         return;
       }
 
       //Success
       this.message("Successfully loaded JSON file and created Graph.");
-      consoleTextArea.setText("Lista de pessoas por ID:\t" + this.store.getPeopleById().toString() + "\n\nLista de pessoas por Email:\t" + this.store.getPeopleByEmail().toString());
     }
     //Cancelled file input
     else{
@@ -254,7 +251,7 @@ public class JMenu extends Base {
       //Generate view
       Viewer viewer = new Viewer();
       viewer.create(this.store.getNetwork());
-      viewer.showFrame();
+      viewer.showFrame("Social Network");
 
       consoleTextArea.setText("Graph view successfully builded.");
     }
@@ -278,7 +275,7 @@ public class JMenu extends Base {
   }//GEN-LAST:event_userMenuSearchByEmailActionPerformed
 
   private void graphMenuIsCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuIsCompleteActionPerformed
-    if(this.store.getNetwork().size() == 0)
+    if(this.store.getPeopleCount() == 0)
       this.message("Graph is empty (no vertices).");
     else if(this.store.graphIsComplete())
       this.message("Graph is complete (all vertices are connected with each other).");
