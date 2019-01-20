@@ -6,6 +6,7 @@
 package ed.trabalho.resources;
 
 import ed.trabalho.store.Store;
+import ed.trabalho.store.StoreNoWeight;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,10 +20,39 @@ public abstract class Base extends javax.swing.JFrame {
   protected Store store;
   
   /**
+   * Selects the store type.
+   * 0 (default) => 1/visualizations (contact) is the weight.
+   * 1 => 1 (constant) is the weight.
+   */
+  protected static int storeType;
+  
+  /**
    * Initiates with Store singleton.
    */
   public Base(){
-    this.store = Store.getInstance();
+    if(Base.storeType == 1)
+      this.store = StoreNoWeight.getInstance();
+    else
+      this.store = Store.getInstance();
+  }
+  
+  /**
+   * Changes the store type.
+   * @param type 
+   */
+  protected void setStoreType(int type){
+    //Clear old store
+    this.store.clearStore();
+    
+    //Set new type
+    if(type == 1){
+      Base.storeType = type;
+      this.store = StoreNoWeight.getInstance();
+    }
+    else{
+      Base.storeType = 0;
+      this.store = Store.getInstance();
+    }
   }
   
   /**

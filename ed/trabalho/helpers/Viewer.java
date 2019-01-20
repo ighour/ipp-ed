@@ -38,8 +38,9 @@ public class Viewer {
   /**
    * Create a view of input network.
    * @param source 
+   * @param graphType 0 = default (1/visualizations); 1 = constant (1)
    */
-  public void create(SocialNetwork source){
+  public void create(SocialNetwork source, int graphType){
     //Get matrix
     DynamicArrayContract<DynamicArrayContract<Double>> matrix = source.adjacencyMatrix();
     
@@ -62,7 +63,15 @@ public class Viewer {
         //Has edge
         if(matrix.get(i).get(j) != Double.NEGATIVE_INFINITY){
           //Generate link
-          ViewNode link = new ViewNode(matrix.get(i).get(j), vertices.get(j).getVisualizations());
+          ViewNode link;
+          
+          //Is 1
+          if(graphType == 1)
+            link = new ViewNodeConstant(matrix.get(i).get(j));
+          //Is 1/visualizations
+          else
+            link = new ViewNodeVisualization(matrix.get(i).get(j), vertices.get(j).getVisualizations());
+          
           this.viewGraph.addEdge(link, vertices.get(i), vertices.get(j));
         }
     
@@ -98,18 +107,49 @@ public class Viewer {
   /**
    * View Node to store edge info.
    */
-  class ViewNode {
+  abstract class ViewNode {
     public double weight;
+    
+    public ViewNode(double weight){
+      this.weight = weight;
+    }
+    
+    @Override
+    public String toString(){
+      return String.valueOf(this.weight);
+    }
+  }
+  
+  /**
+   * View Node to store edge info.
+   * Uses 1/visualizations.
+   */
+  class ViewNodeVisualization extends ViewNode {
     public int visualizations;
     
-    public ViewNode(double weight, int visualizations){
-      this.weight = weight;
+    public ViewNodeVisualization(double weight, int visualizations){
+      super(weight);
       this.visualizations = visualizations;
     }
     
     @Override
     public String toString(){
       return "1 / " + this.visualizations;
+    }
+  }
+  
+  /**
+   * View Node to store edge info.
+   * Uses 1.
+   */
+  class ViewNodeConstant extends ViewNode {
+    public ViewNodeConstant(double weight){
+      super(weight);
+    }
+    
+    @Override
+    public String toString(){
+      return "";
     }
   }
 }

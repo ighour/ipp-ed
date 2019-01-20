@@ -262,7 +262,7 @@ public class PathPersonToPersonForm extends Base {
       
       //Show as Jung Graph
       Viewer resultView = new Viewer();
-      resultView.create(resultGraph);
+      resultView.create(resultGraph, Base.storeType);
       resultView.showFrame("Minimal Path Graph");
     }
     catch(ElementNotFoundException e){

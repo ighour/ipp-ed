@@ -157,7 +157,7 @@ public class SpawningTreeOfUserForm extends Base {
         
       //Show as Jung Graph
       Viewer resultView = new Viewer();
-      resultView.create(resultGraph);
+      resultView.create(resultGraph, Base.storeType);
       resultView.showFrame("Spawning Tree of an User");
     }
     catch(ElementNotFoundException e){

@@ -66,6 +66,8 @@ public class JMenu extends Base {
     extraMenu = new javax.swing.JMenu();
     extraMenuMentionContactMedia = new javax.swing.JMenuItem();
     extraMenuSpawningTreeUser = new javax.swing.JMenuItem();
+    extraMenuWeightDefault = new javax.swing.JMenuItem();
+    extraMenuWeightConstant = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
 
@@ -203,6 +205,22 @@ public class JMenu extends Base {
     });
     extraMenu.add(extraMenuSpawningTreeUser);
 
+    extraMenuWeightDefault.setText("Change Weights to 1/Visualizations (Will Reset)");
+    extraMenuWeightDefault.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        extraMenuWeightDefaultActionPerformed(evt);
+      }
+    });
+    extraMenu.add(extraMenuWeightDefault);
+
+    extraMenuWeightConstant.setText("Change Weights To 1 (Will Reset)");
+    extraMenuWeightConstant.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        extraMenuWeightConstantActionPerformed(evt);
+      }
+    });
+    extraMenu.add(extraMenuWeightConstant);
+
     jMenuBar1.add(extraMenu);
 
     setJMenuBar(jMenuBar1);
@@ -259,7 +277,10 @@ public class JMenu extends Base {
       }
 
       //Success
-      this.message("Successfully loaded JSON file and created Graph.");
+      if(Base.storeType == 1)
+        this.message("Successfully loaded JSON file and created Graph using weight: 1 (constant).");
+      else
+        this.message("Successfully loaded JSON file and created Graph using weight: 1/visualizations (of contact).");
     }
     //Cancelled file input
     else{
@@ -275,7 +296,7 @@ public class JMenu extends Base {
     try{
       //Generate view
       Viewer viewer = new Viewer();
-      viewer.create(this.store.getNetwork());
+      viewer.create(this.store.getNetwork(), Base.storeType);
       viewer.showFrame("Social Network");
 
       consoleTextArea.setText("Graph view successfully builded.");
@@ -365,6 +386,26 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_extraMenuMentionContactMediaActionPerformed
 
+  private void extraMenuWeightConstantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuWeightConstantActionPerformed
+    if(Base.storeType == 1){
+      this.message("Graph is already of that type.");
+    }
+    else{
+      this.setStoreType(1);
+      this.message("Graph was reset and weight type has changed to constant (1).");
+    }
+  }//GEN-LAST:event_extraMenuWeightConstantActionPerformed
+
+  private void extraMenuWeightDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuWeightDefaultActionPerformed
+    if(Base.storeType != 1){
+      this.message("Graph is already of that type.");
+    }
+    else{
+      this.setStoreType(0);
+      this.message("Graph was reset and weight type has changed to 1/visualizations (of contact).");
+    }
+  }//GEN-LAST:event_extraMenuWeightDefaultActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -405,6 +446,8 @@ public class JMenu extends Base {
   private javax.swing.JMenu extraMenu;
   private javax.swing.JMenuItem extraMenuMentionContactMedia;
   private javax.swing.JMenuItem extraMenuSpawningTreeUser;
+  private javax.swing.JMenuItem extraMenuWeightConstant;
+  private javax.swing.JMenuItem extraMenuWeightDefault;
   private javax.swing.JFileChooser fileChooser;
   private javax.swing.JMenu fileMenu;
   private javax.swing.JMenuItem fileMenuExit;

@@ -160,7 +160,7 @@ public class ReachableUsersByUserForm extends Base {
       
       //Show as Jung Graph
       Viewer resultView = new Viewer();
-      resultView.create(resultGraph);
+      resultView.create(resultGraph, Base.storeType);
       resultView.showFrame("Reachable Users Graph");
     }
     catch(ElementNotFoundException e){
