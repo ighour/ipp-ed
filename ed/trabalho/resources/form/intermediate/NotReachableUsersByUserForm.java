@@ -10,6 +10,7 @@ import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
+import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.EmptyCollectionException;
 import estg.ed.exceptions.NotComparableException;
@@ -177,8 +178,14 @@ public class NotReachableUsersByUserForm extends Base {
         Person p = (Person) reachable.next();
         resultList.remove(p);
       }
-
-      this.message(resultList.toString());
+      
+      //Show result in new frame
+      PeopleListView view = new PeopleListView();
+      view.setTitle("Not Reachable Users");
+      view.setDesc("List of users who were not reachable from user: " + from.toString());
+      view.loadPeople(resultList);
+      view.pack();
+      view.setVisible(true);
     }
     catch(ElementNotFoundException | NotComparableException | EmptyCollectionException e){
       this.message("Error processing action.");
