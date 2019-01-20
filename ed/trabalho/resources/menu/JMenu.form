@@ -131,6 +131,14 @@
             <Property name="text" type="java.lang.String" value="Extra"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="extraMenuMentionContactMedia">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mention/Contact Media (User x Total)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extraMenuMentionContactMediaActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="extraMenuSpawningTreeUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Spawning Tree of an User"/>

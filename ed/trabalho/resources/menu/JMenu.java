@@ -12,6 +12,7 @@ import ed.trabalho.resources.Base;
 import ed.trabalho.resources.form.intermediate.CompanyPeopleAndPersonContactsForm;
 import ed.trabalho.resources.form.intermediate.FindPersonByEmailForm;
 import ed.trabalho.resources.form.intermediate.FindPersonByIdForm;
+import ed.trabalho.resources.form.intermediate.MentionContactMediaForm;
 import ed.trabalho.resources.form.intermediate.NotReachableUsersByUserForm;
 import ed.trabalho.resources.form.intermediate.PathPersonToPersonForm;
 import ed.trabalho.resources.form.intermediate.ReachableUsersByUserForm;
@@ -63,6 +64,7 @@ public class JMenu extends Base {
     userMenuCompareCompanyPeopleAndPersonContacts = new javax.swing.JMenuItem();
     userMenuSkillsOrderedByCost = new javax.swing.JMenuItem();
     extraMenu = new javax.swing.JMenu();
+    extraMenuMentionContactMedia = new javax.swing.JMenuItem();
     extraMenuSpawningTreeUser = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
@@ -184,6 +186,14 @@ public class JMenu extends Base {
     jMenuBar1.add(userMenu);
 
     extraMenu.setText("Extra");
+
+    extraMenuMentionContactMedia.setText("Mention/Contact Media (User x Total)");
+    extraMenuMentionContactMedia.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        extraMenuMentionContactMediaActionPerformed(evt);
+      }
+    });
+    extraMenu.add(extraMenuMentionContactMedia);
 
     extraMenuSpawningTreeUser.setText("Spawning Tree of an User");
     extraMenuSpawningTreeUser.addActionListener(new java.awt.event.ActionListener() {
@@ -348,6 +358,13 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_extraMenuSpawningTreeUserActionPerformed
 
+  private void extraMenuMentionContactMediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuMentionContactMediaActionPerformed
+    MentionContactMediaForm form = new MentionContactMediaForm();
+    form.setTitle("Mention Media Comparative");
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_extraMenuMentionContactMediaActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -386,6 +403,7 @@ public class JMenu extends Base {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTextArea consoleTextArea;
   private javax.swing.JMenu extraMenu;
+  private javax.swing.JMenuItem extraMenuMentionContactMedia;
   private javax.swing.JMenuItem extraMenuSpawningTreeUser;
   private javax.swing.JFileChooser fileChooser;
   private javax.swing.JMenu fileMenu;

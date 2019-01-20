@@ -15,6 +15,7 @@ import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.EmptyCollectionException;
 import estg.ed.exceptions.NotComparableException;
+import estg.ed.interfaces.NetworkADT;
 import java.util.Iterator;
 
 /**
@@ -141,6 +142,96 @@ public class Store extends BaseStore {
     }
     
     return true;
+  }
+  
+  /**
+   * Get the media of contacts on network.
+   * @return 
+   */
+  public double getContactMedia(){
+    int total = 0;
+    
+    if(this.peopleById.size() == 0)
+      return 0;
+    
+    Iterator it = this.peopleById.iterator();
+    while(it.hasNext()){
+      Person p = (Person) it.next();
+      
+      total += p.getContactList().size();
+    }
+
+    return total / (double) this.peopleById.size();
+  }
+  
+  /**
+   * Get the media of contacts on reachable part of a network by a person.
+   * @param person
+   * @return 
+   * @throws estg.ed.exceptions.ElementNotFoundException 
+   */
+  public double getContactMedia(Person person) throws ElementNotFoundException{
+    //Only iterates on user's spawning tree
+    NetworkADT<Person> resultNetwork = this.network.mstNetwork(person);
+
+    if(resultNetwork.size() == 0)
+      return 0;
+    
+    int total = 0;
+    
+    Iterator it = resultNetwork.iteratorBFS(person);
+    while(it.hasNext()){
+      Person p = (Person) it.next();
+      
+      total += p.getContactList().size();
+    }
+
+    return total / (double) resultNetwork.size();
+  }
+  
+  /**
+   * Get the media of mentions on network.
+   * @return 
+   */
+  public double getMentionMedia(){
+    int total = 0;
+    
+    if(this.peopleById.size() == 0)
+      return 0;
+    
+    Iterator it = this.peopleById.iterator();
+    while(it.hasNext()){
+      Person p = (Person) it.next();
+      
+      total += p.getMentions();
+    }
+
+    return total / (double) this.peopleById.size();
+  }
+  
+  /**
+   * Get the media of mentions on reachable part of a network by a person.
+   * @param person
+   * @return 
+   * @throws estg.ed.exceptions.ElementNotFoundException 
+   */
+  public double getMentionMedia(Person person) throws ElementNotFoundException{
+    //Only iterates on user's spawning tree
+    NetworkADT<Person> resultNetwork = this.network.mstNetwork(person);
+
+    if(resultNetwork.size() == 0)
+      return 0;
+    
+    int total = 0;
+    
+    Iterator it = resultNetwork.iteratorBFS(person);
+    while(it.hasNext()){
+      Person p = (Person) it.next();
+      
+      total += p.getMentions();
+    }
+
+    return total / (double) resultNetwork.size();
   }
   
   /**
