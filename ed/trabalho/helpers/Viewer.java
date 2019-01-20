@@ -75,7 +75,7 @@ public class Viewer {
     this.vv.setPreferredSize(new Dimension(850,850)); //Sets the viewing area size
     
     //Set labels
-    this.vv.getRenderContext().setVertexLabelTransformer((Function<Person, String>) i -> {return i.toString();});
+    this.vv.getRenderContext().setVertexLabelTransformer((Function<Person, String>) i -> {return "[" + i.getId() + "]";});
     this.vv.getRenderContext().setEdgeLabelTransformer((Function<ViewNode, String>) i -> {return i.toString();});
   
     //Add graph mouse

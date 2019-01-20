@@ -16,6 +16,7 @@ import ed.trabalho.resources.form.intermediate.NotReachableUsersByUserForm;
 import ed.trabalho.resources.form.intermediate.PathPersonToPersonForm;
 import ed.trabalho.resources.form.intermediate.ReachableUsersByUserForm;
 import ed.trabalho.resources.form.intermediate.SkillsOrderedByCostForm;
+import ed.trabalho.resources.form.intermediate.SpawningTreeOfUserForm;
 import ed.trabalho.resources.form.model.PersonCreate;
 import java.io.File;
 import java.io.IOException;
@@ -61,6 +62,8 @@ public class JMenu extends Base {
     userMenuSearchByEmail = new javax.swing.JMenuItem();
     userMenuCompareCompanyPeopleAndPersonContacts = new javax.swing.JMenuItem();
     userMenuSkillsOrderedByCost = new javax.swing.JMenuItem();
+    extraMenu = new javax.swing.JMenu();
+    extraMenuSpawningTreeUser = new javax.swing.JMenuItem();
 
     fileChooser.setDialogTitle("Choose a File");
 
@@ -179,6 +182,18 @@ public class JMenu extends Base {
     userMenu.add(userMenuSkillsOrderedByCost);
 
     jMenuBar1.add(userMenu);
+
+    extraMenu.setText("Extra");
+
+    extraMenuSpawningTreeUser.setText("Spawning Tree of an User");
+    extraMenuSpawningTreeUser.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        extraMenuSpawningTreeUserActionPerformed(evt);
+      }
+    });
+    extraMenu.add(extraMenuSpawningTreeUser);
+
+    jMenuBar1.add(extraMenu);
 
     setJMenuBar(jMenuBar1);
 
@@ -326,6 +341,13 @@ public class JMenu extends Base {
       personView.setVisible(true);
   }//GEN-LAST:event_userMenuAddUserActionPerformed
 
+  private void extraMenuSpawningTreeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuSpawningTreeUserActionPerformed
+    SpawningTreeOfUserForm form = new SpawningTreeOfUserForm();
+    form.setTitle("Spawning Tree of an User");
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_extraMenuSpawningTreeUserActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -363,6 +385,8 @@ public class JMenu extends Base {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTextArea consoleTextArea;
+  private javax.swing.JMenu extraMenu;
+  private javax.swing.JMenuItem extraMenuSpawningTreeUser;
   private javax.swing.JFileChooser fileChooser;
   private javax.swing.JMenu fileMenu;
   private javax.swing.JMenuItem fileMenuExit;
