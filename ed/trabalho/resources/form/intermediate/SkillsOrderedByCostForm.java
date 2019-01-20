@@ -10,9 +10,11 @@ import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
+import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.PriorityQueueADT;
+import estg.ed.tree.binary.ArrayPriorityMaxQueue;
 import estg.ed.tree.binary.ArrayPriorityMinQueue;
 import java.util.Iterator;
 
@@ -191,27 +193,33 @@ public class SkillsOrderedByCostForm extends Base {
       //Get spawning tree of user
       SocialNetwork resultGraph = (SocialNetwork) this.store.getNetwork().mstNetwork(user);
       
-      //Create result in PriorityQueue
+      //Create result in PriorityMaxQueue (preference is to less weight = 1/n)
       PriorityQueueADT<Person> resultQueue = new ArrayPriorityMinQueue<>();
 
       //Iterate in user list
       Iterator it = resultGraph.iteratorBFS(user);
-      
+
       //Check user has skill
       Person first = (Person) it.next();
       if(first.hasSkill(skill))
         resultQueue.enqueue(first, 0);
-      
+
       while(it.hasNext()){
         Person p = (Person) it.next();
-        
+
         if(p.hasSkill(skill)){
           double cost = resultGraph.shortestPathWeight(user, p);
           resultQueue.enqueue(p, cost);
         }
       }
-      
-      this.message(resultQueue.toString());
+
+      //Show result in new frame
+      PeopleListView view = new PeopleListView();
+      view.setTitle("Skill Ordered by Cost");
+      view.setDesc("List of users with skill '" + skill + "' who are reachable from user '" + user.toString() + "' (including himself) and ordered by the path cost from him (ascending).");
+      view.loadPeople(resultQueue);
+      view.pack();
+      view.setVisible(true);
     }
     catch (ElementNotFoundException | VertexIsNotAccessibleException ex) {
       this.message("There was an error processing the action.");

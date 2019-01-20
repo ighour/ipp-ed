@@ -10,6 +10,7 @@ import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.model.Person;
 import ed.trabalho.model.Professional;
 import ed.trabalho.resources.Base;
+import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.array.DynamicArray;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.interfaces.DynamicArrayContract;
@@ -206,8 +207,15 @@ public class CompanyPeopleAndPersonContactsForm extends Base {
     
     if(resultList.size() == 0)
       this.message("There is no one from company '" + companyName + "' having user '" + user.toString() + "' as a contact.");
-    else
-      this.message(resultList.toString());
+    else{
+      //Show result in new frame
+      PeopleListView view = new PeopleListView();
+      view.setTitle("Company People x Person Contacts");
+      view.setDesc("List of users who work(ed) in company '" + companyName + "' and have user '" + user.toString() + "' as their contact.");
+      view.loadPeople(resultList);
+      view.pack();
+      view.setVisible(true);
+    }
   }//GEN-LAST:event_submitButtonActionPerformed
 
   private void inputUserEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputUserEmailActionPerformed

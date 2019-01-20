@@ -8,6 +8,8 @@ package ed.trabalho.resources.view;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import estg.ed.exceptions.EmptyCollectionException;
+import estg.ed.interfaces.BaseQueueADT;
+import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.ListADT;
 
 /**
@@ -60,6 +62,44 @@ public class PeopleListView extends Base {
       try {
         list[count] = source.removeFirst().toString();
       } catch (EmptyCollectionException ex) {}
+      
+      count++;
+    }
+    
+    this.peopleList.setListData(list); 
+  }
+  
+  /**
+   * Loads a list of people.
+   * @param source
+   */
+  public void loadPeople(DynamicArrayContract<Person> source) {
+    int size = source.size();
+    
+    String[] list = new String[size];
+    
+    for(int i = 0; i < size; i++)
+      list[i] = source.get(i).toString();
+    
+    this.peopleList.setListData(list); 
+  }
+  
+  /**
+   * Loads a list of people.
+   * @param source
+   */
+  public void loadPeople(BaseQueueADT<Person> source) {
+    int size = source.size();
+    
+    String[] list = new String[size];
+    
+    int count = 0;
+    while(!source.isEmpty()){
+      try {
+        list[count] = source.dequeue().toString();
+      } catch (EmptyCollectionException ex) {}
+      
+      count++;
     }
     
     this.peopleList.setListData(list); 

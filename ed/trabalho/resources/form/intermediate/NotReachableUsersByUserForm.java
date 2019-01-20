@@ -182,7 +182,7 @@ public class NotReachableUsersByUserForm extends Base {
       //Show result in new frame
       PeopleListView view = new PeopleListView();
       view.setTitle("Not Reachable Users");
-      view.setDesc("List of users who were not reachable from user: " + from.toString());
+      view.setDesc("List of users who were not reachable from user '" + from.toString() + "'");
       view.loadPeople(resultList);
       view.pack();
       view.setVisible(true);
