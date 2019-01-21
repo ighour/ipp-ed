@@ -191,7 +191,7 @@ public class SkillsOrderedByCostForm extends Base {
       SocialNetwork resultGraph = this.getStore().getMstNetwork(user);
       
       //Create result in PriorityMaxQueue (preference is to less weight = 1/n)
-      PriorityQueueADT<Person> resultQueue = new ArrayPriorityMinQueue<>();
+      PriorityQueueADT<UserNode> resultQueue = new ArrayPriorityMinQueue<>();
 
       //Iterate in user list
       Iterator it = resultGraph.iteratorBFS(user);
@@ -199,14 +199,14 @@ public class SkillsOrderedByCostForm extends Base {
       //Check user has skill
       Person first = (Person) it.next();
       if(first.hasSkill(skill))
-        resultQueue.enqueue(first, 0);
+        resultQueue.enqueue(new UserNode(first, 0), 0);
 
       while(it.hasNext()){
         Person p = (Person) it.next();
 
         if(p.hasSkill(skill)){
           double cost = resultGraph.shortestPathWeight(user, p);
-          resultQueue.enqueue(p, cost);
+          resultQueue.enqueue(new UserNode(p, cost), cost);
         }
       }
 
@@ -223,6 +223,24 @@ public class SkillsOrderedByCostForm extends Base {
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 
+  /**
+   * Class to store Person info and Path Weight.
+   */
+  private class UserNode {
+    public Person person;
+    public double pathWeight;
+    
+    public UserNode(Person person, double pathWeight){
+      this.person = person;
+      this.pathWeight = pathWeight;
+    }
+    
+    @Override
+    public String toString(){
+      return this.person.toString() + " / " + this.pathWeight;
+    }
+  }
+  
   private void inputUserEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputUserEmailActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_inputUserEmailActionPerformed

@@ -88,7 +88,7 @@ public class PeopleListView extends Base {
    * Loads a list of people.
    * @param source
    */
-  public void loadPeople(BaseQueueADT<Person> source) {
+  public void loadPeople(BaseQueueADT source) {
     int size = source.size();
     
     String[] list = new String[size];
