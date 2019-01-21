@@ -15,6 +15,7 @@ import ed.trabalho.model.Person;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.EmptyCollectionException;
 import estg.ed.exceptions.NotComparableException;
+import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.NetworkADT;
 import estg.ed.interfaces.OrderedListADT;
@@ -231,6 +232,18 @@ public abstract class BaseStore {
    */
   public Iterator getIteratorShortestPath(Person from, Person to) {
     return this.network.iteratorShortestPath(from, to);
+  }
+  
+  /**
+   * Get shortest path weight between users.
+   * @param from
+   * @param to
+   * @return
+   * @throws estg.ed.exceptions.ElementNotFoundException
+   * @throws estg.ed.exceptions.VertexIsNotAccessibleException
+   */
+  public double getShortestPathWeight(Person from, Person to) throws ElementNotFoundException, VertexIsNotAccessibleException {
+    return this.network.shortestPathWeight(from, to);
   }
   
   /**

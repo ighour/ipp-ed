@@ -11,6 +11,7 @@ import ed.trabalho.resources.Base;
 import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.array.DynamicArray;
 import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.DynamicArrayContract;
 import java.util.Iterator;
 
@@ -192,24 +193,42 @@ public class CompanyPeopleAndPersonContactsForm extends Base {
     while(it.hasNext()){
       Person p = (Person) it.next();
       
+      boolean inCompany = false;
+      
       //Iterate in professional list
       DynamicArrayContract<Professional> professionalList = p.getProfessionalList();
       for(int i = 0; i < professionalList.size(); i++){
         Professional prof = professionalList.get(i);
         
-        //User has worked in desired company and has desired user as a contact
-        if(prof.getCompany().equals(companyName) && p.isContact(user))
+        //User has worked in desired company
+        if(prof.getCompany().equals(companyName)){
+          inCompany = true;
+          break;
+        }
+      }
+      
+      //Work(ed) in company
+      if(inCompany == true){
+        //Check if can achieve desired user
+        try {
+          //Try to get path weight between then
+          this.getStore().getShortestPathWeight(p, user);
+
+          //Add to result
           resultList.add(p, resultList.size());
+        }
+        //Target user is not acessible from current user
+        catch (ElementNotFoundException | VertexIsNotAccessibleException ex) {}
       }
     }
     
     if(resultList.size() == 0)
-      this.message("There is no one from company '" + companyName + "' having user '" + user.toString() + "' as a contact.");
+      this.message("There is no one from company '" + companyName + "' who can achieve user '" + user.toString() + "' at graph.");
     else{
       //Show result in new frame
       PeopleListView view = new PeopleListView();
       view.setTitle("Company People x Person Contacts");
-      view.setDesc("List of users who work(ed) in company '" + companyName + "' and have user '" + user.toString() + "' as their contact.");
+      view.setDesc("List of users who work(ed) in company '" + companyName + "' and can achieve user '" + user.toString() + "' in graph.");
       view.loadPeople(resultList);
       view.pack();
       view.setVisible(true);
