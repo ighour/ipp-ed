@@ -10,6 +10,7 @@ import ed.trabalho.helpers.Viewer;
 import ed.trabalho.json.Pessoa;
 import ed.trabalho.resources.Base;
 import ed.trabalho.resources.form.intermediate.CompanyPeopleAndPersonContactsForm;
+import ed.trabalho.resources.form.intermediate.ContactsSkillsCompanyForm;
 import ed.trabalho.resources.form.intermediate.FindPersonByEmailForm;
 import ed.trabalho.resources.form.intermediate.FindPersonByIdForm;
 import ed.trabalho.resources.form.intermediate.MentionContactMediaForm;
@@ -64,6 +65,7 @@ public class JMenu extends Base {
     userMenuSearchByEmail = new javax.swing.JMenuItem();
     userMenuCompareCompanyPeopleAndPersonContacts = new javax.swing.JMenuItem();
     userMenuSkillsOrderedByCost = new javax.swing.JMenuItem();
+    extraMenuContactsContactsSkillsCompany = new javax.swing.JMenuItem();
     extraMenu = new javax.swing.JMenu();
     extraMenuMentionContactMedia = new javax.swing.JMenuItem();
     extraMenuSpawningTreeUser = new javax.swing.JMenuItem();
@@ -186,6 +188,14 @@ public class JMenu extends Base {
       }
     });
     userMenu.add(userMenuSkillsOrderedByCost);
+
+    extraMenuContactsContactsSkillsCompany.setText("Contacts of Contacts with Skills and Company");
+    extraMenuContactsContactsSkillsCompany.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        extraMenuContactsContactsSkillsCompanyActionPerformed(evt);
+      }
+    });
+    userMenu.add(extraMenuContactsContactsSkillsCompany);
 
     jMenuBar1.add(userMenu);
 
@@ -433,6 +443,13 @@ public class JMenu extends Base {
     }
   }//GEN-LAST:event_extraMenuWeightMentionsActionPerformed
 
+  private void extraMenuContactsContactsSkillsCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuContactsContactsSkillsCompanyActionPerformed
+    ContactsSkillsCompanyForm form = new ContactsSkillsCompanyForm();
+    form.setTitle("Contacts of Contacts of an User with Skills and Company");
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_extraMenuContactsContactsSkillsCompanyActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -471,6 +488,7 @@ public class JMenu extends Base {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTextArea consoleTextArea;
   private javax.swing.JMenu extraMenu;
+  private javax.swing.JMenuItem extraMenuContactsContactsSkillsCompany;
   private javax.swing.JMenuItem extraMenuMentionContactMedia;
   private javax.swing.JMenuItem extraMenuSpawningTreeUser;
   private javax.swing.JMenuItem extraMenuWeightConstant;
