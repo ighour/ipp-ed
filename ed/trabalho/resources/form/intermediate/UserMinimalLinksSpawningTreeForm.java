@@ -5,22 +5,19 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.SocialNetwork;
-import ed.trabalho.helpers.Viewer;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
-import ed.trabalho.store.BaseStore;
 import estg.ed.exceptions.ElementNotFoundException;
 
 /**
- * Form to retrieve the spawning tree of an user.
+ * Form to retrieve the count of links of spawning tree of an user.
  * @author igu
  */
-public class SpawningTreeOfUserForm extends Base {
+public class UserMinimalLinksSpawningTreeForm extends Base {
   /**
    * Creates new form
    */
-  public SpawningTreeOfUserForm() {
+  public UserMinimalLinksSpawningTreeForm() {
     initComponents();
   }
 
@@ -137,14 +134,12 @@ public class SpawningTreeOfUserForm extends Base {
     try{
       //By id
       if(!inputFromID.getText().isEmpty()){
-        int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.getStore().searchUserById(fromID);
+        from = this.findUserById(Integer.parseInt(inputFromID.getText()));
       }
       
       //By email
       else {
-        String fromEmail = inputFromEmail.getText();
-        from = this.getStore().searchUserByEmail(fromEmail);
+        from = this.findUserByEmail(inputFromEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
@@ -152,14 +147,11 @@ public class SpawningTreeOfUserForm extends Base {
       return;
     }
            
-    //Construct a graph to show spaning tree from desired user
+    //Construct the result
     try {
-      SocialNetwork resultGraph = this.getStore().getMstNetwork(from);
+      int result = this.getCountOfLinksUserTree(from);
         
-      //Show as Jung Graph
-      Viewer resultView = new Viewer();
-      resultView.create(resultGraph, BaseStore.getStoreType());
-      resultView.showFrame("Spawning Tree of an User");
+      this.message("The minimal count of links to connect user '" + from.toString() + "' to other users in graph (if reachable) is: " + result + " link(s).");
     }
     catch(ElementNotFoundException e){
       this.message("Error processing the action.");
@@ -191,14 +183,22 @@ public class SpawningTreeOfUserForm extends Base {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(SpawningTreeOfUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(UserMinimalLinksSpawningTreeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(SpawningTreeOfUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(UserMinimalLinksSpawningTreeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(SpawningTreeOfUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(UserMinimalLinksSpawningTreeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(SpawningTreeOfUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(UserMinimalLinksSpawningTreeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     //</editor-fold>
     //</editor-fold>
     //</editor-fold>
@@ -211,7 +211,7 @@ public class SpawningTreeOfUserForm extends Base {
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new SpawningTreeOfUserForm().setVisible(false);
+        new UserMinimalLinksSpawningTreeForm().setVisible(false);
       }
     });
   }

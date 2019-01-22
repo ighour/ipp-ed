@@ -136,15 +136,13 @@ public class ReachableUsersByUserForm extends Base {
     
     try{
       //By id
-      if(!inputFromID.getText().isEmpty()){
-        int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.getStore().searchUserById(fromID);
+      if(!inputFromID.getText().isEmpty()){ 
+       from = this.findUserById(Integer.parseInt(inputFromID.getText()));
       }
       
       //By email
       else {
-        String fromEmail = inputFromEmail.getText();
-        from = this.getStore().searchUserByEmail(fromEmail);
+        from = this.findUserByEmail(inputFromEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
@@ -154,7 +152,7 @@ public class ReachableUsersByUserForm extends Base {
            
     //Construct a graph to show spaning tree from desired user
     try {
-      SocialNetwork resultGraph = this.getStore().getMstNetwork(from);
+      SocialNetwork resultGraph = this.getReachablePeople(from);
       
       //Show as Jung Graph
       Viewer resultView = new Viewer();

@@ -5,15 +5,12 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.PriorityQueueADT;
-import estg.ed.tree.binary.ArrayPriorityMinQueue;
-import java.util.Iterator;
 
 /**
  * Form to list people with desired skill ordered by minimum path cost from desired person.
@@ -168,47 +165,24 @@ public class SkillsOrderedByCostForm extends Base {
     try{
       //By id
       if(!inputUserID.getText().isEmpty()){
-        int id = Integer.parseInt(inputUserID.getText());
-        user = this.getStore().searchUserById(id);
+        user = this.findUserById(Integer.parseInt(inputUserID.getText()));
       }
       
       //By email
       else {
-        String email = inputUserEmail.getText();
-        user = this.getStore().searchUserByEmail(email);
+        user = this.findUserByEmail(inputUserEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
       this.message("User was not found.");
       return;
     }
-    
+
+    //Skill
+    String skill = inputSkill.getText();  
+      
     try {
-      //Skill
-      String skill = inputSkill.getText();      
-      
-      //Get spawning tree of user
-      SocialNetwork resultGraph = this.getStore().getMstNetwork(user);
-      
-      //Create result in PriorityMaxQueue (preference is to less weight = 1/n)
-      PriorityQueueADT<UserNode> resultQueue = new ArrayPriorityMinQueue<>();
-
-      //Iterate in user list
-      Iterator it = resultGraph.iteratorBFS(user);
-
-      //Check user has skill
-      Person first = (Person) it.next();
-      if(first.hasSkill(skill))
-        resultQueue.enqueue(new UserNode(first, 0), 0);
-
-      while(it.hasNext()){
-        Person p = (Person) it.next();
-
-        if(p.hasSkill(skill)){
-          double cost = resultGraph.shortestPathWeight(user, p);
-          resultQueue.enqueue(new UserNode(p, cost), cost);
-        }
-      }
+      PriorityQueueADT resultQueue = this.getListOfUsersWithSkillOrderedByLinkCost(user, skill);
 
       //Show result in new frame
       PeopleListView view = new PeopleListView();
@@ -223,24 +197,6 @@ public class SkillsOrderedByCostForm extends Base {
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 
-  /**
-   * Class to store Person info and Path Weight.
-   */
-  private class UserNode {
-    public Person person;
-    public double pathWeight;
-    
-    public UserNode(Person person, double pathWeight){
-      this.person = person;
-      this.pathWeight = pathWeight;
-    }
-    
-    @Override
-    public String toString(){
-      return this.person.toString() + " / " + this.pathWeight;
-    }
-  }
-  
   private void inputUserEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputUserEmailActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_inputUserEmailActionPerformed

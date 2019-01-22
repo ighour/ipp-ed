@@ -6,17 +6,13 @@
 package ed.trabalho.resources.form.intermediate;
 
 import ed.trabalho.model.Person;
-import ed.trabalho.model.Professional;
 import ed.trabalho.resources.Base;
 import ed.trabalho.resources.view.PeopleListView;
-import estg.ed.array.DynamicArray;
 import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.DynamicArrayContract;
-import java.util.Iterator;
 
 /**
- * Form to list company users with desired user in contacts list.
+ * Form to list company users with desired user reachable in graph.
  * @author igu
  */
 public class CompanyPeopleAndPersonContactsForm extends Base {
@@ -167,14 +163,12 @@ public class CompanyPeopleAndPersonContactsForm extends Base {
     try{
       //By id
       if(!inputUserID.getText().isEmpty()){
-        int id = Integer.parseInt(inputUserID.getText());
-        user = this.getStore().searchUserById(id);
+        user = this.findUserById(Integer.parseInt(inputUserID.getText()));
       }
       
       //By email
       else {
-        String email = inputUserEmail.getText();
-        user = this.getStore().searchUserByEmail(email);
+        user = this.findUserByEmail(inputUserEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
@@ -186,42 +180,8 @@ public class CompanyPeopleAndPersonContactsForm extends Base {
     String companyName = inputCompanyName.getText();
     
     //Creates result list
-    DynamicArrayContract<Person> resultList = new DynamicArray<>();
-    
-    //Iterate in users list to search users who worked on desired company
-    Iterator it = this.getStore().getPeopleByIdIterator();
-    while(it.hasNext()){
-      Person p = (Person) it.next();
-      
-      boolean inCompany = false;
-      
-      //Iterate in professional list
-      DynamicArrayContract<Professional> professionalList = p.getProfessionalList();
-      for(int i = 0; i < professionalList.size(); i++){
-        Professional prof = professionalList.get(i);
-        
-        //User has worked in desired company
-        if(prof.getCompany().equals(companyName)){
-          inCompany = true;
-          break;
-        }
-      }
-      
-      //Work(ed) in company
-      if(inCompany == true){
-        //Check if can achieve desired user
-        try {
-          //Try to get path weight between then
-          this.getStore().getShortestPathWeight(p, user);
+    DynamicArrayContract<Person> resultList = this.getListOfUsersFromCompanyWithRelationToUser(user, companyName);
 
-          //Add to result
-          resultList.add(p, resultList.size());
-        }
-        //Target user is not acessible from current user
-        catch (ElementNotFoundException | VertexIsNotAccessibleException ex) {}
-      }
-    }
-    
     if(resultList.size() == 0)
       this.message("There is no one from company '" + companyName + "' who can achieve user '" + user.toString() + "' at graph.");
     else{

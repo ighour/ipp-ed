@@ -19,7 +19,7 @@ import ed.trabalho.resources.form.intermediate.PathPersonToPersonForm;
 import ed.trabalho.resources.form.intermediate.ReachableUsersByUserForm;
 import ed.trabalho.resources.form.intermediate.RelationEmployeeCompanyCompanyForm;
 import ed.trabalho.resources.form.intermediate.SkillsOrderedByCostForm;
-import ed.trabalho.resources.form.intermediate.SpawningTreeOfUserForm;
+import ed.trabalho.resources.form.intermediate.UserMinimalLinksSpawningTreeForm;
 import ed.trabalho.resources.form.model.PersonCreate;
 import ed.trabalho.store.BaseStore;
 import java.io.File;
@@ -70,7 +70,7 @@ public class JMenu extends Base {
     usersMenuCompanyEmployeeRelation = new javax.swing.JMenuItem();
     extraMenu = new javax.swing.JMenu();
     extraMenuMentionContactMedia = new javax.swing.JMenuItem();
-    extraMenuSpawningTreeUser = new javax.swing.JMenuItem();
+    extraMenuMinimalLinksToEveryone = new javax.swing.JMenuItem();
     extraMenuWeightDefault = new javax.swing.JMenuItem();
     extraMenuWeightMentions = new javax.swing.JMenuItem();
     extraMenuWeightConstant = new javax.swing.JMenuItem();
@@ -219,13 +219,13 @@ public class JMenu extends Base {
     });
     extraMenu.add(extraMenuMentionContactMedia);
 
-    extraMenuSpawningTreeUser.setText("Spawning Tree of an User");
-    extraMenuSpawningTreeUser.addActionListener(new java.awt.event.ActionListener() {
+    extraMenuMinimalLinksToEveryone.setText("Minimal Links to connect User to Everyone");
+    extraMenuMinimalLinksToEveryone.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        extraMenuSpawningTreeUserActionPerformed(evt);
+        extraMenuMinimalLinksToEveryoneActionPerformed(evt);
       }
     });
-    extraMenu.add(extraMenuSpawningTreeUser);
+    extraMenu.add(extraMenuMinimalLinksToEveryone);
 
     extraMenuWeightDefault.setText("Change Weights to 1/Visualizations");
     extraMenuWeightDefault.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +273,7 @@ public class JMenu extends Base {
    * Open file chooser to select JSON input.
    * Stores converted JSON info on json attribute.
    * Construct the network after converting JSON.
+   * For requirement: "Carregar o grafo social a partir de um ficheiro JSON".
    * @param evt 
    */
   private void fileMenuOpenJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuOpenJsonActionPerformed
@@ -309,6 +310,8 @@ public class JMenu extends Base {
       //Success
       if(BaseStore.getStoreType().equals("CONSTANT"))
         this.message("Successfully loaded JSON file and created Graph using weight: 1 (constant).");
+      else if(BaseStore.getStoreType().equals("MENTIONS"))
+        this.message("Successfully loaded JSON file and created Graph using weight: 1/mentions (of contact).");
       else
         this.message("Successfully loaded JSON file and created Graph using weight: 1/visualizations (of contact).");
     }
@@ -343,6 +346,10 @@ public class JMenu extends Base {
     }
   }//GEN-LAST:event_graphMenuViewActionPerformed
 
+  /**
+   * For requirement: "A informação de um utilizador pode ser consultada usando o email".
+   * @param evt 
+   */
   private void userMenuSearchByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSearchByIdActionPerformed
     FindPersonByIdForm form = new FindPersonByIdForm();
     form.setTitle("Find by ID");
@@ -357,15 +364,19 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_userMenuSearchByEmailActionPerformed
 
+  /**
+   * For requirement: "Criar funções para testar se o grafo é completo (os utilizadores estão todos ligados entre si)".
+   * @param evt 
+   */
   private void graphMenuIsCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuIsCompleteActionPerformed
-    if(this.getStore().getPeopleCount() == 0)
-      this.message("Graph is empty (no vertices).");
-    else if(this.getStore().graphIsComplete())
-      this.message("Graph is complete (all vertices are connected with each other).");
-    else
-      this.message("Graph is not complete.");
+    String result = this.checkGraphIsComplete();
+    this.message(result);
   }//GEN-LAST:event_graphMenuIsCompleteActionPerformed
 
+  /**
+   * For requirement: "Verificar se dois utilizadores se encontram ligados entre si e apresentar o caminho mais curto entre eles usando as métricas descritas".
+   * @param evt 
+   */
   private void graphMenuMinimalPathVerticesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuMinimalPathVerticesActionPerformed
     PathPersonToPersonForm form = new PathPersonToPersonForm();
     form.setTitle("Best Path between Users.");
@@ -373,6 +384,10 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_graphMenuMinimalPathVerticesActionPerformed
 
+  /**
+   * For requirement: "Verificar quais os utilizadores que são alcançáveis a partir de um determinado utilizador".
+   * @param evt 
+   */
   private void graphMenuRechableUsersByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuRechableUsersByUserActionPerformed
     ReachableUsersByUserForm form = new ReachableUsersByUserForm();
     form.setTitle("Reachable Users by User");
@@ -380,6 +395,10 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_graphMenuRechableUsersByUserActionPerformed
 
+  /**
+   * For requirement: "Listar utilizadores que não são possíveis de contactar, a partir de um determinado utilizador".
+   * @param evt 
+   */
   private void graphMenuNotReachableUsersByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMenuNotReachableUsersByUserActionPerformed
     NotReachableUsersByUserForm form = new NotReachableUsersByUserForm();
     form.setTitle("Not Reachable Users by User");
@@ -387,6 +406,10 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_graphMenuNotReachableUsersByUserActionPerformed
 
+  /**
+   * For requirement: "Apresentar uma lista de utilizadores de uma empresa passada como parâmetro que estão relacionados com um utilizador também passado como parâmetro".
+   * @param evt 
+   */
   private void userMenuCompareCompanyPeopleAndPersonContactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuCompareCompanyPeopleAndPersonContactsActionPerformed
     CompanyPeopleAndPersonContactsForm form = new CompanyPeopleAndPersonContactsForm();
     form.setTitle("Company People Related to User Contacts");
@@ -394,6 +417,10 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_userMenuCompareCompanyPeopleAndPersonContactsActionPerformed
 
+  /**
+   * For requirement: "Apresentar uma lista de utilizadores que contém um determinado skill no seu perfil ordenado pelo menor custo de ligação. O método deverá ter como parâmetro o utilizador inicial".
+   * @param evt 
+   */
   private void userMenuSkillsOrderedByCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuSkillsOrderedByCostActionPerformed
     SkillsOrderedByCostForm form = new SkillsOrderedByCostForm();
     form.setTitle("Users with Skill Ordered by Cost From user");
@@ -409,13 +436,21 @@ public class JMenu extends Base {
       personView.setVisible(true);
   }//GEN-LAST:event_userMenuAddUserActionPerformed
 
-  private void extraMenuSpawningTreeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuSpawningTreeUserActionPerformed
-    SpawningTreeOfUserForm form = new SpawningTreeOfUserForm();
+  /**
+   * For extra requirement: "Teste dos graus de separação entre utilizadores da plataforma (O número de mínimo de ligações para um utilizador se conectar a todos os outros utilizadores no grafo social)".
+   * @param evt 
+   */
+  private void extraMenuMinimalLinksToEveryoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuMinimalLinksToEveryoneActionPerformed
+    UserMinimalLinksSpawningTreeForm form = new UserMinimalLinksSpawningTreeForm();
     form.setTitle("Spawning Tree of an User");
     form.pack();
     form.setVisible(true);
-  }//GEN-LAST:event_extraMenuSpawningTreeUserActionPerformed
+  }//GEN-LAST:event_extraMenuMinimalLinksToEveryoneActionPerformed
 
+  /**
+   * For extra requirement: "Apresentar a média de menções e ligações dos utilizadores alcançáveis por um utilizador versus a média de ligações e menções do grafo social".
+   * @param evt 
+   */
   private void extraMenuMentionContactMediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuMentionContactMediaActionPerformed
     MentionContactMediaForm form = new MentionContactMediaForm();
     form.setTitle("Mention Media Comparative");
@@ -423,6 +458,11 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_extraMenuMentionContactMediaActionPerformed
 
+  /**
+   * Change edge weight to constant (1).
+   * For extra requirement: "Alterar as funções que impliquem o cálculo do caminho mais curto: constante com valor fixo para todas as ligações".
+   * @param evt 
+   */
   private void extraMenuWeightConstantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuWeightConstantActionPerformed
     if(BaseStore.getStoreType().equals("CONSTANT")){
       this.message("Graph is already of that type.");
@@ -433,6 +473,10 @@ public class JMenu extends Base {
     }
   }//GEN-LAST:event_extraMenuWeightConstantActionPerformed
 
+  /**
+   * Change edge weight to default (1/visualizations).
+   * @param evt 
+   */
   private void extraMenuWeightDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuWeightDefaultActionPerformed
     if(BaseStore.getStoreType().equals("DEFAULT")){
       this.message("Graph is already of that type.");
@@ -443,6 +487,11 @@ public class JMenu extends Base {
     }
   }//GEN-LAST:event_extraMenuWeightDefaultActionPerformed
 
+  /**
+   * Change edge weight to mentions (1/mentions).
+   * For extra requirement: "Alterar as funções que impliquem o cálculo do caminho mais curto: pelo número de menções que um utilizador".
+   * @param evt 
+   */
   private void extraMenuWeightMentionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuWeightMentionsActionPerformed
     if(BaseStore.getStoreType().equals("MENTIONS")){
       this.message("Graph is already of that type.");
@@ -453,6 +502,10 @@ public class JMenu extends Base {
     }
   }//GEN-LAST:event_extraMenuWeightMentionsActionPerformed
 
+  /**
+   * For requirement: "Verificar a partir de um dado utilizador qual a lista de utilizadores que fazem parte dos contactos da lista de contactos que têm determinados skills / trabalharam em determinada empresa. Em resumo todas as pessoas que o utilizador pode contactar via 1 único intermediário.".
+   * @param evt 
+   */
   private void extraMenuContactsContactsSkillsCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuContactsContactsSkillsCompanyActionPerformed
     ContactsSkillsCompanyForm form = new ContactsSkillsCompanyForm();
     form.setTitle("Contacts of Contacts of an User with Skills and Company");
@@ -460,6 +513,10 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_extraMenuContactsContactsSkillsCompanyActionPerformed
 
+  /**
+   * For requirement: "Verificar que os utilizadores que ocupam um cargo numa empresa (ex: empresa A) não estão relacionados com a utilizadores com cargos noutra empresa passada como parâmetro (empresa B)". 
+   * @param evt 
+   */
   private void usersMenuCompanyEmployeeRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersMenuCompanyEmployeeRelationActionPerformed
     RelationEmployeeCompanyCompanyForm form = new RelationEmployeeCompanyCompanyForm();
     form.setTitle("Relation of Employees of Companies Roles");
@@ -507,7 +564,7 @@ public class JMenu extends Base {
   private javax.swing.JMenu extraMenu;
   private javax.swing.JMenuItem extraMenuContactsContactsSkillsCompany;
   private javax.swing.JMenuItem extraMenuMentionContactMedia;
-  private javax.swing.JMenuItem extraMenuSpawningTreeUser;
+  private javax.swing.JMenuItem extraMenuMinimalLinksToEveryone;
   private javax.swing.JMenuItem extraMenuWeightConstant;
   private javax.swing.JMenuItem extraMenuWeightDefault;
   private javax.swing.JMenuItem extraMenuWeightMentions;

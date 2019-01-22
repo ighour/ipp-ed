@@ -7,14 +7,11 @@ package ed.trabalho.resources.form.intermediate;
 
 import ed.trabalho.adt.PersonIdOrderedList;
 import ed.trabalho.model.Person;
-import ed.trabalho.model.Professional;
 import ed.trabalho.resources.Base;
 import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.array.DynamicArray;
 import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.exceptions.NotComparableException;
 import estg.ed.interfaces.DynamicArrayContract;
-import java.util.Iterator;
 
 /**
  * Form to list contacts of contacts of an user with desired skills and worked in desired company.
@@ -233,14 +230,12 @@ public class ContactsSkillsCompanyForm extends Base {
     try{
       //By id
       if(!inputUserID.getText().isEmpty()){
-        int id = Integer.parseInt(inputUserID.getText());
-        user = this.getStore().searchUserById(id);
+        user = this.findUserById(Integer.parseInt(inputUserID.getText()));
       }
       
       //By email
       else {
-        String email = inputUserEmail.getText();
-        user = this.getStore().searchUserByEmail(email);
+        user = this.findUserByEmail(inputUserEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
@@ -248,79 +243,9 @@ public class ContactsSkillsCompanyForm extends Base {
       return;
     }
     
-    //Get filters
     String companyName = inputCompanyName.getText();
-    DynamicArrayContract<Person> contacts = user.getContactList();
     
-    //Creates result ordered list
-    PersonIdOrderedList resultList = new PersonIdOrderedList();
-    
-    //Iterate in users list to search users with filter
-    Iterator it = this.getStore().getPeopleByIdIterator();
-    while(it.hasNext()){
-      Person p = (Person) it.next();
-      
-      //Is already in result or is himself
-      if(resultList.contains(p) || p.getId() == user.getId())
-        continue;
-      
-      boolean isContact = false;
-      
-      //Check is a contact of contact
-      for(int i = 0; i < contacts.size(); i++){
-        Person contact = contacts.get(i);
-        
-        //Succeed
-        if(contact.isContact(p)){
-          isContact = true;
-          break;
-        }
-      }
-      
-      //Pass to next
-      if(isContact == false)
-        continue;
-      
-      boolean inCompany = false;
-      
-      //Check work(ed) in company
-      DynamicArrayContract<Professional> professionalList = p.getProfessionalList();
-      for(int i = 0; i < professionalList.size(); i++){
-        Professional professional = professionalList.get(i);
-        
-        //Succeed
-        if(professional.getCompany().equals(companyName)){
-          inCompany = true;
-          break;
-        }
-      }
-      
-      //Pass to next
-      if(inCompany == false)
-        continue;
-      
-      boolean hasSkills = true;
-      
-      //Check if has all skills
-      for(int i = 0; i < this.skills.size(); i++){
-        String skill = this.skills.get(i);
-        
-        //Does not have
-        if(!p.hasSkill(skill)){
-          hasSkills = false;
-          break;
-        }
-      }
-      
-      //Pass to next
-      if(hasSkills == false)
-        continue;
-      
-      try {
-        //Add to result
-        resultList.add(p);
-      } catch (NotComparableException ex) {}
-    }
+    PersonIdOrderedList resultList = this.getIndirectContactsWithSkillsAndCompany(user, companyName, this.skills);
     
     if(resultList.size() == 0)
       this.message("There is no one from company '" + companyName + "' and with desired skills and as a contact of contacts of '" + user.toString() + "'");

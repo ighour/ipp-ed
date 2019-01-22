@@ -5,19 +5,9 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.SocialNetwork;
-import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import ed.trabalho.resources.view.PeopleListView;
-import estg.ed.array.DynamicArray;
-import estg.ed.exceptions.ElementNotFoundException;
-import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.DynamicArrayContract;
-import estg.ed.interfaces.PriorityQueueADT;
-import estg.ed.tree.binary.ArrayPriorityMinQueue;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Form to list relation between employees of two companys role.
@@ -156,43 +146,7 @@ public class RelationEmployeeCompanyCompanyForm extends Base {
     String companyFrom = inputCompanyFrom.getText();
     String companyTo = inputCompanyTo.getText();
     
-    DynamicArrayContract<Person> peopleFrom = new DynamicArray<>();
-    DynamicArrayContract<Person> peopleTo = new DynamicArray<>();
-    
-    Iterator it = this.getStore().getPeopleByIdIterator();
-    while(it.hasNext()){
-      Person p = (Person) it.next();
-      
-      //Check if has worked in From company
-      if(p.hasWorked(companyFrom, role))
-        peopleFrom.add(p, peopleFrom.size());
-      
-      //Check if has worked in To company
-      if(p.hasWorked(companyTo, role))
-        peopleTo.add(p, peopleTo.size());
-    }
-    
-    //Create result list
-    DynamicArrayContract<UserNode> resultList = new DynamicArray<>();
-    
-    for(int i = 0; i < peopleFrom.size(); i++){
-      Person from = peopleFrom.get(i);
-      UserNode newUser = new UserNode(from);
-      
-      for(int j = 0; j < peopleTo.size(); j++){
-        Person to = peopleTo.get(j);
-        
-        try {
-          //Add relation to node
-          if(this.getStore().hasRelation(from, to)){
-            newUser.relatedPeople.add(to, newUser.relatedPeople.size());
-          }
-        } catch (ElementNotFoundException ex) {}
-      }
-      
-      //Add to result list
-      resultList.add(newUser, resultList.size());
-    }
+    DynamicArrayContract resultList = this.getRelationsOfEmployeesWithRoleInCompanies(role, companyFrom, companyTo);
 
     //Show result in new frame
     PeopleListView view = new PeopleListView();
@@ -203,36 +157,7 @@ public class RelationEmployeeCompanyCompanyForm extends Base {
     view.setVisible(true);
   }//GEN-LAST:event_submitButtonActionPerformed
 
-  /**
-   * Class to store Person info and Path Weight.
-   */
-  private class UserNode {
-    public Person person;
-    public DynamicArrayContract<Person> relatedPeople;
-    
-    public UserNode(Person person){
-      this.person = person;
-      this.relatedPeople = new DynamicArray<>();
-    }
-    
-    @Override
-    public String toString(){
-      StringBuilder stb = new StringBuilder();
-      
-      stb.append(this.person.toString()).append(" - ");
-      
-      if(this.relatedPeople.size() == 0)
-        stb.append("No relations");
-      
-      else{
-        for(int i = 0; i < this.relatedPeople.size(); i++){
-          stb.append(this.relatedPeople.get(i).getId()).append(", ");
-        }
-      }
-      
-      return stb.toString();
-    }
-  }
+
   
   private void inputCompanyToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputCompanyToActionPerformed
     // TODO add your handling code here:

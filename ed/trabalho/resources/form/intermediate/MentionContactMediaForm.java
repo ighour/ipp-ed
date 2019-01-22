@@ -134,14 +134,12 @@ public class MentionContactMediaForm extends Base {
     try{
       //By id
       if(!inputFromID.getText().isEmpty()){
-        int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.getStore().searchUserById(fromID);
+        from = this.findUserById(Integer.parseInt(inputFromID.getText()));
       }
       
       //By email
       else {
-        String fromEmail = inputFromEmail.getText();
-        from = this.getStore().searchUserByEmail(fromEmail);
+        from = this.findUserByEmail(inputFromEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
@@ -151,23 +149,13 @@ public class MentionContactMediaForm extends Base {
          
     //Get media comparative
     try{
-      //Get user mention media
-      double userMentionMedia = this.getStore().getMentionMedia(from);
-      
-      //Get total mention media
-      double totalMentionMedia = this.getStore().getMentionMedia();
-      
-      //Get user contacyt media
-      double userContactMedia = this.getStore().getContactMedia(from);
-      
-      //Get total contacyt media
-      double totalContactMedia = this.getStore().getContactMedia();
-      
+      String result = this.getMediaComparative(from);
+
       //Show result
-      this.message("User Mention Media: " + userMentionMedia + ".\nTotal Mention Media: " + totalMentionMedia + ".\n\nUser Contact Media: " + userContactMedia + ".\nTotal Contact Media: " + totalContactMedia + ".");
+      this.message(result);
       
     } catch (ElementNotFoundException ex) {
-      this.message("Error processing from user mention media.");
+      this.message("Error processing from user media.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 

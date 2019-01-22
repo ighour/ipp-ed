@@ -5,17 +5,13 @@
  */
 package ed.trabalho.resources.form.intermediate;
 
-import ed.trabalho.adt.SocialNetwork;
 import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.EmptyCollectionException;
 import estg.ed.exceptions.NotComparableException;
-import estg.ed.interfaces.NetworkADT;
 import estg.ed.interfaces.OrderedListADT;
-import estg.ed.list.OrderedArrayList;
-import java.util.Iterator;
 
 /**
  * Form to retrieve reachable users from another user.
@@ -142,14 +138,12 @@ public class NotReachableUsersByUserForm extends Base {
     try{
       //By id
       if(!inputFromID.getText().isEmpty()){
-        int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.getStore().searchUserById(fromID);
+        from = this.findUserById(Integer.parseInt(inputFromID.getText()));
       }
       
       //By email
       else {
-        String fromEmail = inputFromEmail.getText();
-        from = this.getStore().searchUserByEmail(fromEmail);
+        from = this.findUserByEmail(inputFromEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
@@ -159,23 +153,7 @@ public class NotReachableUsersByUserForm extends Base {
            
     //Show users not reachable
     try {
-      //Get reachable users
-      NetworkADT<Person> resultGraph = (SocialNetwork) this.getStore().getMstNetwork(from);
-
-      //Create result list
-      OrderedListADT<Person> resultList = new OrderedArrayList();
-      Iterator it = this.getStore().getPeopleByIdIterator();
-      while(it.hasNext()){
-        Person p = (Person) it.next();
-        resultList.add(p);
-      }
-      
-      //Remove reachable users from list
-      Iterator reachable = resultGraph.iteratorBFS(from);
-      while(reachable.hasNext()){
-        Person p = (Person) reachable.next();
-        resultList.remove(p);
-      }
+      OrderedListADT<Person> resultList = this.getNotReachablePeople(from);
       
       //Show result in new frame
       PeopleListView view = new PeopleListView();

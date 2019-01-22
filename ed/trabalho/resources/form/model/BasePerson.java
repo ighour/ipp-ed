@@ -108,6 +108,7 @@ public abstract class BasePerson extends Base {
   /**
    * Process submit of visualizations.
    * Also, updates edges on network.
+   * For requirement: "Editar as ligações e visualizações no grafo após ser carregado do ficheiro".
    * @param field 
    */
   protected void submitVisualizations(JTextField field){
@@ -339,6 +340,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of contact create.
+   * For requirement: "Editar as ligações e visualizações no grafo após ser carregado do ficheiro".
    */
   protected void submitContactCreate(){
     try {
@@ -355,6 +357,7 @@ public abstract class BasePerson extends Base {
     
   /**
    * Process submit of contact delete.
+   * For requirement: "Editar as ligações e visualizações no grafo após ser carregado do ficheiro".
    * @param index
    */
   protected void submitContactDelete(int index){

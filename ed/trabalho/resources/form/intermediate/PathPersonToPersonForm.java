@@ -11,6 +11,7 @@ import ed.trabalho.model.Person;
 import ed.trabalho.resources.Base;
 import ed.trabalho.store.BaseStore;
 import estg.ed.exceptions.ElementNotFoundException;
+import estg.ed.exceptions.VertexIsNotAccessibleException;
 import java.util.Iterator;
 
 /**
@@ -198,14 +199,12 @@ public class PathPersonToPersonForm extends Base {
     try{
       //By id
       if(!inputFromID.getText().isEmpty()){
-        int fromID = Integer.parseInt(inputFromID.getText());
-        from = this.getStore().searchUserById(fromID);
+        from = this.findUserById(Integer.parseInt(inputFromID.getText()));
       }
       
       //By email
       else {
-        String fromEmail = inputFromEmail.getText();
-        from = this.getStore().searchUserByEmail(fromEmail);
+        from = this.findUserByEmail(inputFromEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
@@ -219,48 +218,21 @@ public class PathPersonToPersonForm extends Base {
     try{
       //By id
       if(!inputToID.getText().isEmpty()){
-        int toID = Integer.parseInt(inputToID.getText());
-        to = this.getStore().searchUserById(toID);
+        to  = this.findUserById(Integer.parseInt(inputToID.getText()));
       }
       
       //By email
       else {
-        String toEmail = inputToEmail.getText();
-        to = this.getStore().searchUserByEmail(toEmail);
+        to = this.findUserByEmail(inputToEmail.getText());
       }
     }
     catch(ElementNotFoundException e){
       this.message("To user was not found.");return;
     }
     
-    //Get path
-    Iterator it = this.getStore().getIteratorShortestPath(from, to);
-    
-    //There is no path
-    if(it.hasNext() == false){
-      this.message("There is no path between From and To users.");
-      return;
-    }
-    
-    //Construct a graph to show the path with the Jung
     try {
-      SocialNetwork resultGraph = new SocialNetwork();
-      Person last = null;
-      
-      //Populate the view graph with users in minimum path
-      while(it.hasNext()){
-        Person p = (Person) it.next();
+      SocialNetwork resultGraph = this.getMinimalPathBetweenUsers(from, to);
 
-        resultGraph.addVertex(p);
-
-        //There is a user before -> add an edge
-        if(last != null){
-          resultGraph.addEdge(last, p, 1 / (double) p.getVisualizations());
-        }
-
-        last = p;
-      }
-      
       //Show as Jung Graph
       Viewer resultView = new Viewer();
       resultView.create(resultGraph, BaseStore.getStoreType());
@@ -268,6 +240,9 @@ public class PathPersonToPersonForm extends Base {
     }
     catch(ElementNotFoundException e){
       this.message("Error processing action.");
+    }
+    catch(VertexIsNotAccessibleException e){
+      this.message("There is no path between From and To users.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed
 

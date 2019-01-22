@@ -155,12 +155,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extraMenuMentionContactMediaActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="extraMenuSpawningTreeUser">
+            <MenuItem class="javax.swing.JMenuItem" name="extraMenuMinimalLinksToEveryone">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Spawning Tree of an User"/>
+                <Property name="text" type="java.lang.String" value="Minimal Links to connect User to Everyone"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extraMenuSpawningTreeUserActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extraMenuMinimalLinksToEveryoneActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="extraMenuWeightDefault">

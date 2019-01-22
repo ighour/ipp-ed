@@ -20,8 +20,6 @@ import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.NetworkADT;
 import estg.ed.interfaces.OrderedListADT;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Base of store.
