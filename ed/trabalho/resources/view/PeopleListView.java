@@ -73,7 +73,7 @@ public class PeopleListView extends Base {
    * Loads a list of people.
    * @param source
    */
-  public void loadPeople(DynamicArrayContract<Person> source) {
+  public void loadPeople(DynamicArrayContract source) {
     int size = source.size();
     
     String[] list = new String[size];

@@ -17,6 +17,7 @@ import ed.trabalho.resources.form.intermediate.MentionContactMediaForm;
 import ed.trabalho.resources.form.intermediate.NotReachableUsersByUserForm;
 import ed.trabalho.resources.form.intermediate.PathPersonToPersonForm;
 import ed.trabalho.resources.form.intermediate.ReachableUsersByUserForm;
+import ed.trabalho.resources.form.intermediate.RelationEmployeeCompanyCompanyForm;
 import ed.trabalho.resources.form.intermediate.SkillsOrderedByCostForm;
 import ed.trabalho.resources.form.intermediate.SpawningTreeOfUserForm;
 import ed.trabalho.resources.form.model.PersonCreate;
@@ -66,6 +67,7 @@ public class JMenu extends Base {
     userMenuCompareCompanyPeopleAndPersonContacts = new javax.swing.JMenuItem();
     userMenuSkillsOrderedByCost = new javax.swing.JMenuItem();
     extraMenuContactsContactsSkillsCompany = new javax.swing.JMenuItem();
+    usersMenuCompanyEmployeeRelation = new javax.swing.JMenuItem();
     extraMenu = new javax.swing.JMenu();
     extraMenuMentionContactMedia = new javax.swing.JMenuItem();
     extraMenuSpawningTreeUser = new javax.swing.JMenuItem();
@@ -196,6 +198,14 @@ public class JMenu extends Base {
       }
     });
     userMenu.add(extraMenuContactsContactsSkillsCompany);
+
+    usersMenuCompanyEmployeeRelation.setText("Relation between Company Employees");
+    usersMenuCompanyEmployeeRelation.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        usersMenuCompanyEmployeeRelationActionPerformed(evt);
+      }
+    });
+    userMenu.add(usersMenuCompanyEmployeeRelation);
 
     jMenuBar1.add(userMenu);
 
@@ -450,6 +460,13 @@ public class JMenu extends Base {
     form.setVisible(true);
   }//GEN-LAST:event_extraMenuContactsContactsSkillsCompanyActionPerformed
 
+  private void usersMenuCompanyEmployeeRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersMenuCompanyEmployeeRelationActionPerformed
+    RelationEmployeeCompanyCompanyForm form = new RelationEmployeeCompanyCompanyForm();
+    form.setTitle("Relation of Employees of Companies Roles");
+    form.pack();
+    form.setVisible(true);
+  }//GEN-LAST:event_usersMenuCompanyEmployeeRelationActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -512,5 +529,6 @@ public class JMenu extends Base {
   private javax.swing.JMenuItem userMenuSearchByEmail;
   private javax.swing.JMenuItem userMenuSearchById;
   private javax.swing.JMenuItem userMenuSkillsOrderedByCost;
+  private javax.swing.JMenuItem usersMenuCompanyEmployeeRelation;
   // End of variables declaration//GEN-END:variables
 }

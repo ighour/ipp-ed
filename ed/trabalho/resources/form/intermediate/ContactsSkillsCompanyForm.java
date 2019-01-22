@@ -13,11 +13,8 @@ import ed.trabalho.resources.view.PeopleListView;
 import estg.ed.array.DynamicArray;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.NotComparableException;
-import estg.ed.exceptions.VertexIsNotAccessibleException;
 import estg.ed.interfaces.DynamicArrayContract;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Form to list contacts of contacts of an user with desired skills and worked in desired company.
@@ -331,7 +328,7 @@ public class ContactsSkillsCompanyForm extends Base {
       //Show result in new frame
       PeopleListView view = new PeopleListView();
       view.setTitle("Contacts of Contacts of an User with Skills and Company");
-      view.setDesc("List of users who work(ed) in company '" + companyName + "' and can achieve user '" + user.toString() + "' in graph.");
+      view.setDesc("List of people who work(ed) in '" + companyName + "' and with desired skills and as a contact of contacts of '" + user.toString() + "'");
       view.loadPeople(resultList);
       view.pack();
       view.setVisible(true);

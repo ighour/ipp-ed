@@ -20,6 +20,8 @@ import estg.ed.interfaces.DynamicArrayContract;
 import estg.ed.interfaces.NetworkADT;
 import estg.ed.interfaces.OrderedListADT;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Base of store.
@@ -410,6 +412,23 @@ public abstract class BaseStore {
     }
 
     return total / (double) resultNetwork.size();
+  }
+  
+  /**
+   * Check if it is possible to achieve person To by From in graph.
+   * @param from
+   * @param to
+   * @return
+   * @throws ElementNotFoundException 
+   */
+  public boolean hasRelation(Person from, Person to) throws ElementNotFoundException{
+    try {
+      this.network.shortestPathWeight(from, to);
+      return true;
+      
+    } catch (VertexIsNotAccessibleException ex) {
+      return false;
+    }
   }
   
   /**

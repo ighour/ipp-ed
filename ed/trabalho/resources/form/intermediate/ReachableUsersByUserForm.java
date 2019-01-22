@@ -156,9 +156,6 @@ public class ReachableUsersByUserForm extends Base {
     try {
       SocialNetwork resultGraph = this.getStore().getMstNetwork(from);
       
-      //Remove himself
-      resultGraph.removeVertex(from);
-      
       //Show as Jung Graph
       Viewer resultView = new Viewer();
       resultView.create(resultGraph, BaseStore.getStoreType());

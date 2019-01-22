@@ -259,6 +259,43 @@ public class Person implements Comparable<Person> {
     
     return false;
   }
+  
+  /**
+   * Check if user has worked in desired company.
+   * @param targetCompany
+   * @return 
+   */
+  public boolean hasWorked(String targetCompany) {
+    int size = this.professionalList.size();
+    
+    for(int i = 0; i < size; i++){
+      Professional prof = this.professionalList.get(i);
+      
+      if(prof.getCompany().equals(targetCompany))
+        return true;
+    }
+    
+    return false;
+  }
+  
+  /**
+   * Check if user has worked in desired company.
+   * @param targetCompany
+   * @param targetRole
+   * @return 
+   */
+  public boolean hasWorked(String targetCompany, String targetRole) {
+    int size = this.professionalList.size();
+    
+    for(int i = 0; i < size; i++){
+      Professional prof = this.professionalList.get(i);
+      
+      if(prof.getCompany().equals(targetCompany) && prof.getRole().equals(targetRole))
+        return true;
+    }
+    
+    return false;
+  }
 
   /**
    * Compare to other Person.
