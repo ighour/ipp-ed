@@ -35,10 +35,10 @@ public class StoreMentions extends BaseStore {
    * Add a mention to an user.
    * Add to user mention list.
    * Updates weights on edges.
-   * @param from
-   * @param to
-   * @throws ElementNotFoundException 
-   * @throws ed.trabalho.exceptions.UserIsAlreadyMentionedException 
+   * @param from user reference
+   * @param to user to add
+   * @throws ElementNotFoundException user was not found
+   * @throws ed.trabalho.exceptions.UserIsAlreadyMentionedException user is already a mention
    */
   @Override
   public void addUserMention(Person from, Person to) throws ElementNotFoundException, UserIsAlreadyMentionedException{
@@ -51,8 +51,8 @@ public class StoreMentions extends BaseStore {
    * Remove a mention from an user.
    * Remove from user mention list.
    * Updates weights on edges.
-   * @param from
-   * @param index
+   * @param from user reference
+   * @param index index of user to remove from user mention list
    */
   @Override
   public void removeUserMention(Person from, int index){
@@ -92,9 +92,9 @@ public class StoreMentions extends BaseStore {
   /**
    * Implements the weight when adding and edge.
    * Uses 1/mentions (from To person).
-   * @param from
-   * @param to 
-   * @throws estg.ed.exceptions.ElementNotFoundException 
+   * @param from first user
+   * @param to last user
+   * @throws estg.ed.exceptions.ElementNotFoundException user was not found
    */
   @Override
   protected void addNetworkEdge(Person from, Person to) throws ElementNotFoundException {

@@ -42,9 +42,9 @@ public class PersonIdOrderedList extends OrderedArrayList<Person> implements Ord
    * Search a person by id.
    * Uses recursion to binary search in ordered list.
    * Throws ElementNotFoundException if there is no person with desired id.
-   * @param targetId
-   * @return
-   * @throws ElementNotFoundException 
+   * @param targetId id to find
+   * @return user reference
+   * @throws ElementNotFoundException user was not found
    */
   public Person searchById(int targetId) throws ElementNotFoundException{
     if(this.array.size() == 0)

@@ -15,7 +15,7 @@ public class GrafoSocial {
   
   /**
    * Returns the converted JSON data as GrafoSocial instance.
-   * @return 
+   * @return array of Pessoa with brute info
    */
   public Pessoa[] getResult(){
     return this.grafoSocial;

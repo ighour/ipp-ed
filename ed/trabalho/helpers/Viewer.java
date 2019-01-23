@@ -38,7 +38,7 @@ public class Viewer {
   
   /**
    * Create a view of input network.
-   * @param source 
+   * @param source SocialNetwork to receive data
    * @param storeType DEFAULT | CONSTANT | MENTIONS
    */
   public void create(SocialNetwork source, String storeType){
@@ -99,7 +99,7 @@ public class Viewer {
   
   /**
    * Show the view on a new JFrame.
-   * @param title
+   * @param title title to show on frame
    */
   public void showFrame(String title){
     JFrame frame = new JFrame(title);

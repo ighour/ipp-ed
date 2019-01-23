@@ -35,7 +35,7 @@ public class ProfessionalCreateEdit extends Base {
     
   /**
    * Set data for creating element.
-   * @param personInfo
+   * @param personInfo person info
    */
   public void setData(BasePerson personInfo) {
       this.person = personInfo.getPerson();
@@ -46,8 +46,8 @@ public class ProfessionalCreateEdit extends Base {
   
   /**
    * Set data for editing element.
-   * @param personInfo
-   * @param professionalIndex
+   * @param personInfo person info
+   * @param professionalIndex index on professional list
    */
   public void setData(BasePerson personInfo, int professionalIndex) {
     this.person = personInfo.getPerson();

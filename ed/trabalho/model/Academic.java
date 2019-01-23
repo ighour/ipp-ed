@@ -23,8 +23,8 @@ public class Academic {
 
   /**
    * Instantiate with parameters.
-   * @param year
-   * @param description 
+   * @param year year
+   * @param description description 
    */
   public Academic(int year, String description) {
     this.year = year;
@@ -33,7 +33,7 @@ public class Academic {
   
   /**
    * Get year of academic activity.
-   * @return 
+   * @return year
    */
   public int getYear() {
     return year;
@@ -41,7 +41,7 @@ public class Academic {
 
   /**
    * Get description of academic activity.
-   * @return 
+   * @return description
    */
   public String getDescription() {
     return description;
@@ -49,7 +49,7 @@ public class Academic {
 
   /**
    * Set year.
-   * @param year 
+   * @param year year
    */
   public void setYear(int year) {
     this.year = year;
@@ -57,7 +57,7 @@ public class Academic {
 
   /**
    * Set description.
-   * @param description 
+   * @param description description
    */
   public void setDescription(String description) {
     this.description = description;

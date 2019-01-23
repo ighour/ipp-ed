@@ -35,7 +35,7 @@ public class SkillCreateEdit extends Base {
     
   /**
    * Set data for creating element.
-   * @param personInfo
+   * @param personInfo person info
    */
   public void setData(BasePerson personInfo) {
       this.person = personInfo.getPerson();
@@ -46,8 +46,8 @@ public class SkillCreateEdit extends Base {
   
   /**
    * Set data for editing element.
-   * @param personInfo
-   * @param skillIndex
+   * @param personInfo person info
+   * @param skillIndex index on skill list
    */
   public void setData(BasePerson personInfo, int skillIndex) {
     this.person = personInfo.getPerson();

@@ -17,7 +17,7 @@ public class PersonViewEdit extends BasePerson {
 
   /**
    * Set person data to form/view. 
-   * @param person
+   * @param person current user
    */
   public void setPerson(Person person){
     this.person = person;

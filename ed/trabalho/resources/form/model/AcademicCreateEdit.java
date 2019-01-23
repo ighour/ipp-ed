@@ -35,7 +35,7 @@ public class AcademicCreateEdit extends Base {
     
   /**
    * Set data for creating element.
-   * @param personInfo
+   * @param personInfo info of person
    */
   public void setData(BasePerson personInfo) {
       this.person = personInfo.getPerson();
@@ -46,8 +46,8 @@ public class AcademicCreateEdit extends Base {
   
   /**
    * Set data for editing element.
-   * @param personInfo
-   * @param academicIndex
+   * @param personInfo info of person
+   * @param academicIndex index of item in academic list
    */
   public void setData(BasePerson personInfo, int academicIndex) {
     this.person = personInfo.getPerson();

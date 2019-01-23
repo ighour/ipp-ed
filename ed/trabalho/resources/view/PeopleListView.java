@@ -26,8 +26,8 @@ public class PeopleListView extends Base {
   }
   
   /**
-   * Sets the title and description labels.
-   * @param desc 
+   * Sets description labels.
+   * @param desc description
    */
   public void setDesc(String desc){
     this.descLabel.setText(desc);
@@ -35,7 +35,7 @@ public class PeopleListView extends Base {
   
   /**
    * Loads a list of people.
-   * @param source
+   * @param source source of people to populate list
    */
   public void loadPeople(Person[] source) {
     int size = source.length;
@@ -50,7 +50,7 @@ public class PeopleListView extends Base {
   
   /**
    * Loads a list of people.
-   * @param source
+   * @param source source of people to populate list
    */
   public void loadPeople(ListADT<Person> source) {
     int size = source.size();
@@ -71,7 +71,7 @@ public class PeopleListView extends Base {
   
   /**
    * Loads a list of people.
-   * @param source
+   * @param source source of people to populate list
    */
   public void loadPeople(DynamicArrayContract source) {
     int size = source.size();
@@ -86,7 +86,7 @@ public class PeopleListView extends Base {
   
   /**
    * Loads a list of people.
-   * @param source
+   * @param source source of people to populate list
    */
   public void loadPeople(BaseQueueADT source) {
     int size = source.size();

@@ -34,9 +34,9 @@ public abstract class Data {
   
   /**
    * Reads a JSON file and map it to java classes.
-   * @param path
-   * @return
-   * @throws FileNotFoundException 
+   * @param path path to JSON file
+   * @return array of Pessoa containing brute value of JSON file as java classes
+   * @throws FileNotFoundException  file was not found
    */
   public static Pessoa[] readJson(String path) throws FileNotFoundException{
     Gson gson = new Gson();
@@ -48,13 +48,13 @@ public abstract class Data {
     
   /**
    * Populates the network and binary search tree with provided data.
-   * @param source
-   * @param store
-   * @throws estg.ed.exceptions.ElementNotFoundException
-   * @throws estg.ed.exceptions.NotComparableException
-   * @throws ed.trabalho.exceptions.UserIsAlreadyMentionedException
-   * @throws ed.trabalho.exceptions.UserIsAlreadyAContactException
-   * @throws ed.trabalho.exceptions.UserIsAlreadyAddedException
+   * @param source array of Pessoa containing brute value of JSON file as java classes
+   * @param store instance of Store to save elements
+   * @throws estg.ed.exceptions.ElementNotFoundException element was not found
+   * @throws estg.ed.exceptions.NotComparableException element is not comparable
+   * @throws ed.trabalho.exceptions.UserIsAlreadyMentionedException user is already mentioned
+   * @throws ed.trabalho.exceptions.UserIsAlreadyAContactException user is already a contact
+   * @throws ed.trabalho.exceptions.UserIsAlreadyAddedException user is already added
    */
   public static void populate(Pessoa[] source, BaseStore store) throws ElementNotFoundException, NotComparableException, UserIsAlreadyMentionedException, UserIsAlreadyAContactException, UserIsAlreadyAddedException{
     //Clear store before (needed if loaded another JSON)
@@ -77,9 +77,11 @@ public abstract class Data {
   /**
    * Add a person to the network.
    * Only the attributes which does not referrer to another person.
-   * @param p
-   * @param store
-   * @return 
+   * @param p person reference to add
+   * @param store store to receive person
+   * @return added person
+   * @throws estg.ed.exceptions.NotComparableException user is not comparable
+   * @throws ed.trabalho.exceptions.UserIsAlreadyAddedException user was already added
    */
   private static Person addPerson(Pessoa p, BaseStore store) throws NotComparableException, UserIsAlreadyAddedException{
     //Parse "Pessoa" (converted JSON data) to "Person" (model)
@@ -110,11 +112,15 @@ public abstract class Data {
   /**
    * Add person relation of mentions and contacts.
    * Relations which referrer to another person.
-   * @param id
-   * @param source
-   * @param peopleList
-   * @param store
-   * @throws ElementNotFoundException 
+   * @param id position on arrays used to create elements
+   * @param source array of Pessoa containing brute info
+   * @param peopleList array of Person containing result info
+   * @param store store to receive Person
+   * @throws ElementNotFoundException user was not found
+   * @throws estg.ed.exceptions.NotComparableException user is not comparable
+   * @throws ed.trabalho.exceptions.UserIsAlreadyMentionedException user was already mentioned
+   * @throws ed.trabalho.exceptions.UserIsAlreadyAContactException user is already a contact
+   * @throws ed.trabalho.exceptions.UserIsAlreadyAddedException user was already added
    */
   private static void addRelations(int id, Pessoa[] source, Person[] peopleList, BaseStore store) throws ElementNotFoundException, NotComparableException, UserIsAlreadyMentionedException, UserIsAlreadyAContactException, UserIsAlreadyAddedException{
     /* Add Mentions */
@@ -154,10 +160,10 @@ public abstract class Data {
   
   /**
    * Get the index of a Person inside the array of Pessoa.
-   * @param uid
-   * @param source
-   * @return
-   * @throws ElementNotFoundException 
+   * @param uid id of Person
+   * @param source array of Pessoa with brute info
+   * @return index on arrays to enable converting Pessoa into Person
+   * @throws ElementNotFoundException user was not found
    */
   private static int getIndex(int uid, Pessoa[] source) throws ElementNotFoundException{
     for(int i = 0; i < source.length; i++){

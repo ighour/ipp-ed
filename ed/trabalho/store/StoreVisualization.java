@@ -33,8 +33,8 @@ public class StoreVisualization extends BaseStore {
   /**
    * Update user visualizations.
    * Update network edges (relation with contacts) using new visualization count.
-   * @param person
-   * @param visualizations 
+   * @param person user reference
+   * @param visualizations visualizations value
    */
   @Override
   public void updateUserVisualizations(Person person, int visualizations){
@@ -57,9 +57,9 @@ public class StoreVisualization extends BaseStore {
   /**
    * Implements the weight when adding and edge.
    * Uses 1/visualizations (from To person).
-   * @param from
-   * @param to 
-   * @throws estg.ed.exceptions.ElementNotFoundException 
+   * @param from first user
+   * @param to last user
+   * @throws estg.ed.exceptions.ElementNotFoundException user was not found
    */
   @Override
   protected void addNetworkEdge(Person from, Person to) throws ElementNotFoundException {

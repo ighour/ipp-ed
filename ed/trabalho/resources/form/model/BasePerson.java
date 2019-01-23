@@ -22,7 +22,7 @@ public abstract class BasePerson extends Base {
   /**
    * Get the current person.
    * To manipulate in forms.
-   * @return 
+   * @return current user
    */
   public Person getPerson(){
     return this.person;
@@ -55,7 +55,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of name.
-   * @param field 
+   * @param field name
    */
   protected void submitName(JTextField field){
     try{
@@ -72,7 +72,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of age.
-   * @param field 
+   * @param field age
    */
   protected void submitAge(JTextField field){
     try{
@@ -90,7 +90,7 @@ public abstract class BasePerson extends Base {
   /**
    * Process submit of email.
    * Also, updates on peopleByEmail list.
-   * @param field 
+   * @param field email
    */
   protected void submitEmail(JTextField field){
     try{
@@ -109,7 +109,7 @@ public abstract class BasePerson extends Base {
    * Process submit of visualizations.
    * Also, updates edges on network.
    * For requirement: "Editar as ligações e visualizações no grafo após ser carregado do ficheiro".
-   * @param field 
+   * @param field visualizations
    */
   protected void submitVisualizations(JTextField field){
     try{
@@ -142,7 +142,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of skill edit.
-   * @param index
+   * @param index index of skill in list
    */
   protected void submitSkillEdit(int index){
     try {
@@ -164,7 +164,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of skill delete.
-   * @param index
+   * @param index index of skill in list
    */
   protected void submitSkillDelete(int index){
     try {
@@ -201,7 +201,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of professional edit.
-   * @param index
+   * @param index index of professional in list
    */
   protected void submitProfessionalEdit(int index){
     try {
@@ -223,7 +223,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of professional delete.
-   * @param index
+   * @param index index of professional in list
    */
   protected void submitProfessionalDelete(int index){
     try {
@@ -260,7 +260,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of academic edit.
-   * @param index
+   * @param index index of academic in list
    */
   protected void submitAcademicEdit(int index){
     try {
@@ -282,7 +282,7 @@ public abstract class BasePerson extends Base {
   
   /**
    * Process submit of academic delete.
-   * @param index
+   * @param index index of academic in list
    */
   protected void submitAcademicDelete(int index){
     try {
@@ -319,7 +319,7 @@ public abstract class BasePerson extends Base {
     
   /**
    * Process submit of mention delete.
-   * @param index
+   * @param index index of mention in list
    */
   protected void submitMentionDelete(int index){
     try {
@@ -358,7 +358,7 @@ public abstract class BasePerson extends Base {
   /**
    * Process submit of contact delete.
    * For requirement: "Editar as ligações e visualizações no grafo após ser carregado do ficheiro".
-   * @param index
+   * @param index index of contact in list
    */
   protected void submitContactDelete(int index){
     try {

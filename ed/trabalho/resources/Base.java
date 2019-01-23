@@ -22,6 +22,8 @@ import estg.ed.interfaces.PriorityQueueADT;
 import estg.ed.list.OrderedArrayList;
 import estg.ed.tree.binary.ArrayPriorityMinQueue;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,7 +37,7 @@ public abstract class Base extends javax.swing.JFrame {
   
   /**
    * Show a message.
-   * @param message 
+   * @param message string message to show
    */
   protected void message(String message){
     JOptionPane.showMessageDialog(null, message);
@@ -43,9 +45,9 @@ public abstract class Base extends javax.swing.JFrame {
   
   /**
    * Find an user by id.
-   * @param id
-   * @return
-   * @throws ElementNotFoundException 
+   * @param id id of user to find
+   * @return user reference
+   * @throws ElementNotFoundException there is no user with that id
    */
   protected Person findUserById(int id) throws ElementNotFoundException{
     return this.getStore().searchUserById(id);
@@ -54,9 +56,9 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Find an user by email.
    * For requirement: "A informação de um utilizador pode ser consultada usando o email".
-   * @param email
-   * @return
-   * @throws ElementNotFoundException 
+   * @param email email of user to find
+   * @return user reference
+   * @throws ElementNotFoundException there is no user with that email
    */
   protected Person findUserByEmail(String email) throws ElementNotFoundException{
     return this.getStore().searchUserByEmail(email);
@@ -65,25 +67,20 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Check if graph is complete.
    * For requirement: "Criar funções para testar se o grafo é completo (os utilizadores estão todos ligados entre si)".
-   * @return
+   * @return true if graph is complete
    */
-  protected String checkGraphIsComplete() {
-    if(this.getStore().getPeopleCount() == 0)
-      return "Graph is empty (no vertices).";
-    else if(this.getStore().graphIsComplete())
-      return "Graph is complete (all vertices are connected with each other).";
-    else
-      return "Graph is not complete.";
+  protected boolean checkGraphIsComplete() {
+    return this.getStore().graphIsComplete();
   }
   
   /**
    * Get the minimal path between users as a graph.
    * For requirement: "Verificar se dois utilizadores se encontram ligados entre si e apresentar o caminho mais curto entre eles usando as métricas descritas".
-   * @param from
-   * @param to
-   * @return
-   * @throws ElementNotFoundException 
-   * @throws estg.ed.exceptions.VertexIsNotAccessibleException 
+   * @param from first user
+   * @param to last user
+   * @return SocialNetwork with the path between users
+   * @throws ElementNotFoundException one of users were not found
+   * @throws estg.ed.exceptions.VertexIsNotAccessibleException is not possible to achieve To user
    */
   protected SocialNetwork getMinimalPathBetweenUsers(Person from, Person to) throws ElementNotFoundException, VertexIsNotAccessibleException{
     //Get path
@@ -117,9 +114,9 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Get the reachable users from an user on graph.
    * For requirement: "Verificar quais os utilizadores que são alcançáveis a partir de um determinado utilizador".
-   * @param from
-   * @return
-   * @throws ElementNotFoundException 
+   * @param from first user
+   * @return a spawning tree of the user
+   * @throws ElementNotFoundException user was not found
    */
   protected SocialNetwork getReachablePeople(Person from) throws ElementNotFoundException{
     return this.getStore().getMstNetwork(from);
@@ -128,13 +125,12 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Get not reachable users from user on graph.
    * For requirement: "Listar utilizadores que não são possíveis de contactar, a partir de um determinado utilizador".
-   * @param from
-   * @return
-   * @throws ElementNotFoundException
-   * @throws NotComparableException
-   * @throws EmptyCollectionException 
+   * @param from first user
+   * @return list of not reachable users
+   * @throws ElementNotFoundException user was not found
+   * @throws NotComparableException user is not comparable
    */
-  protected OrderedListADT<Person> getNotReachablePeople(Person from) throws ElementNotFoundException, NotComparableException, EmptyCollectionException{
+  protected OrderedListADT<Person> getNotReachablePeople(Person from) throws ElementNotFoundException, NotComparableException{
     //Get reachable users
     NetworkADT<Person> resultGraph = this.getReachablePeople(from);
 
@@ -150,7 +146,9 @@ public abstract class Base extends javax.swing.JFrame {
     Iterator reachable = resultGraph.iteratorBFS(from);
     while(reachable.hasNext()){
       Person p = (Person) reachable.next();
-      resultList.remove(p);
+      try {
+        resultList.remove(p);
+      } catch (EmptyCollectionException ex) {}
     }
     
     return resultList;
@@ -159,10 +157,10 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Get the list of users who are contact of contacts of desired user and with desired skills and who work(ed) in desired company.
    * For requirement: "Verificar a partir de um dado utilizador qual a lista de utilizadores que fazem parte dos contactos da lista de contactos que têm determinados skills / trabalharam em determinada empresa. Em resumo todas as pessoas que o utilizador pode contactar via 1 único intermediário.".
-   * @param user
-   * @param companyName
-   * @param skills
-   * @return 
+   * @param user user reference
+   * @param companyName name of company
+   * @param skills DynamiArrayContract of skills names
+   * @return result as a PersonIdOrderedList
    */
   protected PersonIdOrderedList getIndirectContactsWithSkillsAndCompany(Person user, String companyName, DynamicArrayContract<String> skills){
     //Get filters
@@ -244,9 +242,9 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Get list of users from desired company who can achieve desired user in graph.
    * For requirement: "Apresentar uma lista de utilizadores de uma empresa passada como parâmetro que estão relacionados com um utilizador também passado como parâmetro".
-   * @param user
-   * @param companyName
-   * @return 
+   * @param user user reference
+   * @param companyName company name
+   * @return result as a DynamicArray
    */
   protected DynamicArrayContract<Person> getListOfUsersFromCompanyWithRelationToUser(Person user, String companyName){
     //Creates result list
@@ -292,10 +290,10 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Get the relation of (ex) employees of company A with desired role and company B.
    * For requirement: "Verificar que os utilizadores que ocupam um cargo numa empresa (ex: empresa A) não estão relacionados com a utilizadores com cargos noutra empresa passada como parâmetro (empresa B)". 
-   * @param role
-   * @param companyFrom
-   * @param companyTo
-   * @return 
+   * @param role role to find
+   * @param companyFrom company to compare
+   * @param companyTo comparing company
+   * @return result as a DynamicArray
    */
   protected DynamicArrayContract getRelationsOfEmployeesWithRoleInCompanies(String role, String companyFrom, String companyTo){
     DynamicArrayContract<Person> peopleFrom = new DynamicArray<>();
@@ -373,13 +371,12 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Get the list of users with desired skills from desired user and ordered by link cost ascending.
    * For requirement: "Apresentar uma lista de utilizadores que contém um determinado skill no seu perfil ordenado pelo menor custo de ligação. O método deverá ter como parâmetro o utilizador inicial".
-   * @param user
-   * @param skill
-   * @return
-   * @throws ElementNotFoundException
-   * @throws VertexIsNotAccessibleException 
+   * @param user user reference
+   * @param skill skill name
+   * @return result as a PriorityQueue
+   * @throws ElementNotFoundException user was not found
    */
-  protected PriorityQueueADT getListOfUsersWithSkillOrderedByLinkCost(Person user, String skill) throws ElementNotFoundException, VertexIsNotAccessibleException{
+  protected PriorityQueueADT getListOfUsersWithSkillOrderedByLinkCost(Person user, String skill) throws ElementNotFoundException{
     //Get spawning tree of user
     SocialNetwork resultGraph = this.getStore().getMstNetwork(user);
 
@@ -398,8 +395,10 @@ public abstract class Base extends javax.swing.JFrame {
       Person p = (Person) it.next();
 
       if(p.hasSkill(skill)){
-        double cost = resultGraph.shortestPathWeight(user, p);
-        resultQueue.enqueue(new UserWeightBlock(p, cost), cost);
+        try {
+          double cost = resultGraph.shortestPathWeight(user, p);
+          resultQueue.enqueue(new UserWeightBlock(p, cost), cost);
+        } catch (VertexIsNotAccessibleException ex) {}
       }
     }
     
@@ -427,9 +426,9 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Get the media of contacts and mentions of user compared to the total.
    * For extra requirement: "Apresentar a média de menções e ligações dos utilizadores alcançáveis por um utilizador versus a média de ligações e menções do grafo social".
-   * @param from
-   * @return 
-   * @throws estg.ed.exceptions.ElementNotFoundException 
+   * @param from user reference
+   * @return String with media
+   * @throws estg.ed.exceptions.ElementNotFoundException user was not found
    */
   protected String getMediaComparative(Person from) throws ElementNotFoundException{
     //Get user mention media
@@ -450,9 +449,9 @@ public abstract class Base extends javax.swing.JFrame {
   /**
    * Counts the number of links from the user spawning tree.
    * For extra requirement: "Teste dos graus de separação entre utilizadores da plataforma (O número de mínimo de ligações para um utilizador se conectar a todos os outros utilizadores no grafo social)".
-   * @param from
-   * @return
-   * @throws ElementNotFoundException 
+   * @param from user reference
+   * @return integer of link count of result
+   * @throws ElementNotFoundException user was not found
    */
   protected int getCountOfLinksUserTree(Person from) throws ElementNotFoundException{
     SocialNetwork resultGraph = this.getStore().getMstNetwork(from);

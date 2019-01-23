@@ -36,7 +36,7 @@ public class ContactCreate extends Base {
     
   /**
    * Set data for creating element.
-   * @param personInfo
+   * @param personInfo person info
    */
   public void setData(BasePerson personInfo) {
       this.person = personInfo.getPerson();

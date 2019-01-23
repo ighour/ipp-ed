@@ -22,7 +22,7 @@ public class PersonEmailOrderedList extends OrderedArrayList<Person> implements 
    * Add to internal circular dynamic array on proper location.
    * Order by email.
    * @param element the element to be added to this list
-   * @throws estg.ed.exceptions.NotComparableException
+   * @throws estg.ed.exceptions.NotComparableException user is not comparable
    */
   @Override
   public void add(Person element) throws NotComparableException {
@@ -78,9 +78,9 @@ public class PersonEmailOrderedList extends OrderedArrayList<Person> implements 
    * Search a person by email.
    * Uses recursion to binary search in ordered list.
    * Throws ElementNotFoundException if there is no person with desired email.
-   * @param targetEmail
-   * @return
-   * @throws ElementNotFoundException 
+   * @param targetEmail email to find
+   * @return user reference
+   * @throws ElementNotFoundException user was not found
    */
   public Person searchByEmail(String targetEmail) throws ElementNotFoundException{
     if(this.array.size() == 0)

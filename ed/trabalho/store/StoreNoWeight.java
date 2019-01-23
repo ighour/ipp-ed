@@ -32,9 +32,9 @@ public class StoreNoWeight extends BaseStore {
   /**
    * Implements the weight when adding and edge.
    * Uses 1 (constant).
-   * @param from
-   * @param to 
-   * @throws estg.ed.exceptions.ElementNotFoundException 
+   * @param from first user
+   * @param to last user
+   * @throws estg.ed.exceptions.ElementNotFoundException user was not found
    */
   @Override
   protected void addNetworkEdge(Person from, Person to) throws ElementNotFoundException {

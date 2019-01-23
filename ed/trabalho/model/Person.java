@@ -66,11 +66,11 @@ public class Person implements Comparable<Person> {
   /**
    * Instantiate a person with own attributes.
    * Only attributes referring to other people are excluded.
-   * @param id
-   * @param name
-   * @param age
-   * @param email
-   * @param visualizations 
+   * @param id unique id
+   * @param name name
+   * @param age age
+   * @param email email
+   * @param visualizations visualizations 
    */
   public Person(int id, String name, int age, String email, int visualizations) {
     this.id = id;
@@ -87,7 +87,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get Id.
-   * @return 
+   * @return unique id
    */
   public int getId() {
     return id;
@@ -95,7 +95,7 @@ public class Person implements Comparable<Person> {
   
   /**
    * Get name.
-   * @return 
+   * @return name
    */
   public String getName() {
     return name;
@@ -103,7 +103,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get age.
-   * @return 
+   * @return age
    */
   public int getAge() {
     return age;
@@ -111,7 +111,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get email.
-   * @return 
+   * @return email
    */
   public String getEmail() {
     return email;
@@ -119,7 +119,7 @@ public class Person implements Comparable<Person> {
   
   /**
    * Get count of visualizations.
-   * @return 
+   * @return visualizations
    */
   public int getVisualizations() {
     return visualizations;
@@ -127,7 +127,7 @@ public class Person implements Comparable<Person> {
   
   /**
    * Get list of academic information.
-   * @return 
+   * @return academic list
    */
   public DynamicArrayContract<Academic> getAcademicList() {
     return academicList;
@@ -135,7 +135,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get list of professional information.
-   * @return 
+   * @return professional list
    */
   public DynamicArrayContract<Professional> getProfessionalList() {
     return professionalList;
@@ -143,7 +143,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get list of skills.
-   * @return 
+   * @return skill list
    */
   public DynamicArrayContract<Skill> getSkillList() {
     return skillList;
@@ -151,8 +151,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get list of contacts (list of other people).
-   * 
-   * @return 
+   * @return contact list
    */
   public DynamicArrayContract<Person> getContactList() {
     return contactList;
@@ -160,7 +159,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get list of mentions (list of other people).
-   * @return 
+   * @return mention list
    */
   public DynamicArrayContract<Person> getMentionList() {
     return mentionList;
@@ -168,7 +167,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Set a new name.
-   * @param name 
+   * @param name name
    */
   public void setName(String name) {
     this.name = name;
@@ -176,7 +175,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Set a new age.
-   * @param age 
+   * @param age age
    */
   public void setAge(int age) {
     this.age = age;
@@ -184,7 +183,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Set a new email.
-   * @param email 
+   * @param email email
    */
   public void setEmail(String email) {
     this.email = email;
@@ -192,7 +191,7 @@ public class Person implements Comparable<Person> {
   
   /**
    * Set a new visualization count. 
-   * @param visualizations
+   * @param visualizations visualizations
    */
   public void setVisualizations(int visualizations) {
     this.visualizations = visualizations;
@@ -200,7 +199,7 @@ public class Person implements Comparable<Person> {
 
   /**
    * Get count of mentions.
-   * @return 
+   * @return mention list size
    */  
   public int getMentions(){
     return this.mentionList.size();
@@ -208,8 +207,8 @@ public class Person implements Comparable<Person> {
   
   /**
    * Check if desired Person is in contact list.
-   * @param person
-   * @return 
+   * @param person person to check if is a contact
+   * @return true if is in contact list
    */
   public boolean isContact(Person person) {
     int size = this.contactList.size();
@@ -226,8 +225,8 @@ public class Person implements Comparable<Person> {
   
   /**
    * Check if desired Person is in mention list.
-   * @param person
-   * @return 
+   * @param person person to check if is mentioned
+   * @return true if is in mention list
    */
   public boolean isMention(Person person) {
     int size = this.mentionList.size();
@@ -244,8 +243,8 @@ public class Person implements Comparable<Person> {
   
   /**
    * Check if desired Skill is in skills list.
-   * @param targetSkill
-   * @return 
+   * @param targetSkill skill name
+   * @return true if skill name is in skill list
    */
   public boolean hasSkill(String targetSkill) {
     int size = this.skillList.size();
@@ -262,8 +261,8 @@ public class Person implements Comparable<Person> {
   
   /**
    * Check if user has worked in desired company.
-   * @param targetCompany
-   * @return 
+   * @param targetCompany company name
+   * @return true if company name is in professional list
    */
   public boolean hasWorked(String targetCompany) {
     int size = this.professionalList.size();
@@ -280,9 +279,9 @@ public class Person implements Comparable<Person> {
   
   /**
    * Check if user has worked in desired company.
-   * @param targetCompany
-   * @param targetRole
-   * @return 
+   * @param targetCompany company name
+   * @param targetRole company role
+   * @return true if company name and role is in professional list
    */
   public boolean hasWorked(String targetCompany, String targetRole) {
     int size = this.professionalList.size();
@@ -300,8 +299,8 @@ public class Person implements Comparable<Person> {
   /**
    * Compare to other Person.
    * Using id.
-   * @param o
-   * @return 
+   * @param o person to compare
+   * @return 1 if ID is greater. -1 if ID is smaller. 0 if ID is the same.
    */
   @Override
   public int compareTo(Person o) {

@@ -28,9 +28,9 @@ public class Professional {
 
   /**
    * Instantiate with parameters.
-   * @param year
-   * @param company
-   * @param role 
+   * @param year year
+   * @param company company name
+   * @param role role name
    */
   public Professional(int year, String company, String role) {
     this.year = year;
@@ -40,7 +40,7 @@ public class Professional {
 
   /**
    * Get year of professional activity.
-   * @return 
+   * @return year
    */
   public int getYear() {
     return year;
@@ -48,7 +48,7 @@ public class Professional {
 
   /**
    * Get company name.
-   * @return 
+   * @return company name
    */
   public String getCompany() {
     return company;
@@ -56,7 +56,7 @@ public class Professional {
 
   /**
    * Get role name at company.
-   * @return 
+   * @return role name
    */
   public String getRole() {
     return role;
@@ -64,7 +64,7 @@ public class Professional {
 
   /**
    * Set year.
-   * @param year 
+   * @param year year
    */
   public void setYear(int year) {
     this.year = year;
@@ -72,7 +72,7 @@ public class Professional {
 
   /**
    * Set company.
-   * @param company 
+   * @param company company name
    */
   public void setCompany(String company) {
     this.company = company;
@@ -80,7 +80,7 @@ public class Professional {
 
   /**
    * Set role.
-   * @param role 
+   * @param role role name
    */
   public void setRole(String role) {
     this.role = role;

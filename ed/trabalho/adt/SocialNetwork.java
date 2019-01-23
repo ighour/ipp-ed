@@ -15,7 +15,7 @@ import estg.ed.tree.binary.ArrayPriorityMinQueue;
 /**
  * Implements a directional network with an adjacency matrix.
  * Add methods to retrieve adjacency matrix and vertices to generate network view with Jung.
- * @param <T>
+ * @param <T> generic
  */
 public class SocialNetwork<T> extends Network<T> implements NetworkADT<T> {
   /**
@@ -34,9 +34,9 @@ public class SocialNetwork<T> extends Network<T> implements NetworkADT<T> {
    * Uses recursion.
    * Similar to iterator BFS, but using greedy technic to select next vertex instead.
    * Returns a instance of SocialNetwork, instead of Network.
-   * @param vertex
-   * @return an instance of SocialNetwork
-   * @throws estg.ed.exceptions.ElementNotFoundException 
+   * @param vertex vertex to start
+   * @return an instance of SocialNetwork with minimum spawning tree
+   * @throws estg.ed.exceptions.ElementNotFoundException element was not found 
    */
   @Override
   public NetworkADT<T> mstNetwork(T vertex) throws ElementNotFoundException {
@@ -79,7 +79,7 @@ public class SocialNetwork<T> extends Network<T> implements NetworkADT<T> {
   /**
    * Get the network adjacency matrix.
    * To use in Jung Graph Visualization and copying data between networks.
-   * @return 
+   * @return the adjacency matrix of graph
    */
   public DynamicArrayContract<DynamicArrayContract<Double>> adjacencyMatrix(){
     return this.adjMatrix;
@@ -88,7 +88,7 @@ public class SocialNetwork<T> extends Network<T> implements NetworkADT<T> {
   /**
    * Get the network vertices.
    * To use in Jung Graph Visualization and copying data between networks.
-   * @return 
+   * @return the vertices of graph
    */
   public DynamicArrayContract<T> vertices(){
     return this.vertices;

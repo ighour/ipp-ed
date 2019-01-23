@@ -46,9 +46,9 @@ public abstract class BaseStore {
   
   /**
    * Selects the store type.
-   * 0 (default) => 1/visualizations (of contact) is the weight.
-   * 1 => 1 (constant) is the weight.
-   * 2 => 1/mentions (of contact) is the weight.
+   * 1: 1 (constant) is the weight.
+   * 2: 1/mentions (of contact) is the weight.
+   * (other): 1/visualizations (of contact) is the weight.
    */
   protected static int storeType;
   
@@ -65,7 +65,7 @@ public abstract class BaseStore {
   /**
    * Returns the unique instance of Store.
    * Based on storeType.
-   * @return 
+   * @return the unique instance of current store (based on store type)
    */
   public static BaseStore getInstance(){
     switch (BaseStore.storeType) {
@@ -105,6 +105,11 @@ public abstract class BaseStore {
       BaseStore.setStoreType(2);
   }
   
+  /**
+   * Changes the store type.
+   * Also, copy all data from previous store type to current, changing the edges weights.
+   * @param type an integer representing new store type.
+   */
   private static void setStoreType(int type){
     //Get old store
     BaseStore oldStore = BaseStore.getInstance();
@@ -144,6 +149,12 @@ public abstract class BaseStore {
     oldStore.clearStore();
   }
   
+  /**
+   * Get the edge value of relation, base on store type.
+   * @param from user at start of edge
+   * @param to user at end of edge
+   * @return value of edge
+   */
   private static double getEdgeValue(Person from, Person to){
     switch(BaseStore.storeType){
       //Constant
@@ -159,7 +170,7 @@ public abstract class BaseStore {
   
   /**
    * Get the store type.
-   * @return 
+   * @return A string representing the store type (CONSTANT | MENTIONS | DEFAULT)
    */
   public static String getStoreType(){
     switch(BaseStore.storeType){
@@ -176,8 +187,8 @@ public abstract class BaseStore {
   
   /**
    * Get number of mentions to user.
-   * @param user
-   * @return 
+   * @param user user reference
+   * @return count of mentions to an user
    */
   public static int getNumberOfMentionsToUser(Person user){
     //Get new user To count of mentions
@@ -208,7 +219,7 @@ public abstract class BaseStore {
   /**
    * Returns the network.
    * For use in Jung Graph Viewer.
-   * @return 
+   * @return The current social network
    */
   public SocialNetwork getNetwork(){
     return (SocialNetwork) this.network;
@@ -216,9 +227,9 @@ public abstract class BaseStore {
   
   /**
    * Get minimum spawning tree of network by an user.
-   * @param person
-   * @return
-   * @throws ElementNotFoundException 
+   * @param person Person to start building the spawning tree
+   * @return SocialNetwork with minimum spawning tree
+   * @throws ElementNotFoundException user was not found
    */
   public SocialNetwork getMstNetwork(Person person) throws ElementNotFoundException{
     return (SocialNetwork) this.network.mstNetwork(person);
@@ -226,9 +237,9 @@ public abstract class BaseStore {
   
   /**
    * Get iterator shortest path between users.
-   * @param from
-   * @param to
-   * @return
+   * @param from first user
+   * @param to last user
+   * @return Iterator with path between users
    */
   public Iterator getIteratorShortestPath(Person from, Person to) {
     return this.network.iteratorShortestPath(from, to);
@@ -236,11 +247,11 @@ public abstract class BaseStore {
   
   /**
    * Get shortest path weight between users.
-   * @param from
-   * @param to
-   * @return
-   * @throws estg.ed.exceptions.ElementNotFoundException
-   * @throws estg.ed.exceptions.VertexIsNotAccessibleException
+   * @param from first user
+   * @param to last user
+   * @return double value of shortest path weight between users
+   * @throws estg.ed.exceptions.ElementNotFoundException one of users were not found
+   * @throws estg.ed.exceptions.VertexIsNotAccessibleException To user is not accessible
    */
   public double getShortestPathWeight(Person from, Person to) throws ElementNotFoundException, VertexIsNotAccessibleException {
     return this.network.shortestPathWeight(from, to);
@@ -248,7 +259,7 @@ public abstract class BaseStore {
   
   /**
    * Returns number of people in graph and lists.
-   * @return 
+   * @return integer with number of people in graph
    */
   public int getPeopleCount(){
     return this.peopleById.size();
@@ -256,7 +267,7 @@ public abstract class BaseStore {
   
   /**
    * Get the next valid id for creating an user.
-   * @return 
+   * @return integer with next valid id to create an user
    */
   public int getNextValidId(){
     int id;
@@ -272,7 +283,7 @@ public abstract class BaseStore {
   
   /**
    * Returns the iterator for peopleById list.
-   * @return 
+   * @return Iterator of people by Id
    */
   public Iterator getPeopleByIdIterator(){
     return this.peopleById.iterator();
@@ -281,9 +292,9 @@ public abstract class BaseStore {
   /**
    * Search an user by id.
    * Uses binary search on peopleById list.
-   * @param id
-   * @return
-   * @throws ElementNotFoundException 
+   * @param id id to find
+   * @return User with that id
+   * @throws ElementNotFoundException User was not found
    */
   public Person searchUserById(int id) throws ElementNotFoundException{
     return ((PersonIdOrderedList)this.peopleById).searchById(id);
@@ -292,9 +303,9 @@ public abstract class BaseStore {
   /**
    * Search an user by email.
    * Uses binary search on peopleByEmail list.
-   * @param email
-   * @return
-   * @throws ElementNotFoundException 
+   * @param email email to find
+   * @return User with that email
+   * @throws ElementNotFoundException User was not found 
    */
   public Person searchUserByEmail(String email) throws ElementNotFoundException{
     return ((PersonEmailOrderedList)this.peopleByEmail).searchByEmail(email);
@@ -302,7 +313,7 @@ public abstract class BaseStore {
   
   /**
    * Check if graph is complete.
-   * @return 
+   * @return true if is complete
    */
   public boolean graphIsComplete(){
     //Total amount of people (vertices) in graph
@@ -324,7 +335,7 @@ public abstract class BaseStore {
   
   /**
    * Get the media of contacts on network.
-   * @return 
+   * @return double value of media of contacts on network
    */
   public double getContactMedia(){
     int total = 0;
@@ -344,9 +355,9 @@ public abstract class BaseStore {
   
   /**
    * Get the media of contacts on reachable part of a network by a person.
-   * @param person
-   * @return 
-   * @throws estg.ed.exceptions.ElementNotFoundException 
+   * @param person user reference
+   * @return double value of media of contacts of reachable network
+   * @throws estg.ed.exceptions.ElementNotFoundException user was not found
    */
   public double getContactMedia(Person person) throws ElementNotFoundException{
     //Only iterates on user's spawning tree
@@ -369,7 +380,7 @@ public abstract class BaseStore {
   
   /**
    * Get the media of mentions on network.
-   * @return 
+   * @return double value of media of mentions on network
    */
   public double getMentionMedia(){
     int total = 0;
@@ -389,9 +400,9 @@ public abstract class BaseStore {
   
   /**
    * Get the media of mentions on reachable part of a network by a person.
-   * @param person
-   * @return 
-   * @throws estg.ed.exceptions.ElementNotFoundException 
+   * @param person user reference
+   * @return double value of media of mentions on reachable network
+   * @throws estg.ed.exceptions.ElementNotFoundException user was not found
    */
   public double getMentionMedia(Person person) throws ElementNotFoundException{
     //Only iterates on user's spawning tree
@@ -414,10 +425,10 @@ public abstract class BaseStore {
   
   /**
    * Check if it is possible to achieve person To by From in graph.
-   * @param from
-   * @param to
-   * @return
-   * @throws ElementNotFoundException 
+   * @param from first user
+   * @param to last user
+   * @return true if last user is reachable by first user in graph
+   * @throws ElementNotFoundException one of user were not found
    */
   public boolean hasRelation(Person from, Person to) throws ElementNotFoundException{
     try {
@@ -433,9 +444,9 @@ public abstract class BaseStore {
    * Add an user to store.
    * Add vertex to network.
    * Add to peopleById and peopleByEmail lists.
-   * @param p
-   * @throws UserIsAlreadyAddedException
-   * @throws NotComparableException 
+   * @param p user reference
+   * @throws UserIsAlreadyAddedException user is already added
+   * @throws NotComparableException user is not comparable
    */
   public void addUser(Person p) throws UserIsAlreadyAddedException, NotComparableException{
     try {
@@ -458,10 +469,10 @@ public abstract class BaseStore {
    * Add a contact to an user.
    * Add to user contact list.
    * Create edge in network between users.
-   * @param from
-   * @param to
-   * @throws ElementNotFoundException 
-   * @throws ed.trabalho.exceptions.UserIsAlreadyAContactException 
+   * @param from first user
+   * @param to last user
+   * @throws ElementNotFoundException user was not found
+   * @throws ed.trabalho.exceptions.UserIsAlreadyAContactException user is already a contact
    */
   public void addUserContact(Person from, Person to) throws ElementNotFoundException, UserIsAlreadyAContactException{
     //Is already a contact
@@ -479,8 +490,8 @@ public abstract class BaseStore {
    * Remove user from contact list.
    * Remove from user contact list.
    * Remove edge in network between users.
-   * @param from
-   * @param index
+   * @param from user reference
+   * @param index contact index position on user contact list
    */
   public void removeUserContact(Person from, int index){
     //Get contact
@@ -498,10 +509,10 @@ public abstract class BaseStore {
   /**
    * Add a mention to an user.
    * Add to user mention list.
-   * @param from
-   * @param to
-   * @throws ElementNotFoundException 
-   * @throws ed.trabalho.exceptions.UserIsAlreadyMentionedException 
+   * @param from user reference
+   * @param to user to add
+   * @throws ElementNotFoundException user was not found
+   * @throws ed.trabalho.exceptions.UserIsAlreadyMentionedException user is already mentioned
    */
   public void addUserMention(Person from, Person to) throws ElementNotFoundException, UserIsAlreadyMentionedException{
     //Is already a contact
@@ -515,8 +526,8 @@ public abstract class BaseStore {
   /**
    * Remove a mention from an user.
    * Remove from user mention list.
-   * @param from
-   * @param index
+   * @param from user reference
+   * @param index index of person to remove from user mention list
    */
   public void removeUserMention(Person from, int index){
     //Remove from mentions
@@ -526,8 +537,8 @@ public abstract class BaseStore {
   /**
    * Update user email.
    * Removes and insert again in peopleByEmail list to sync index.
-   * @param person
-   * @param email 
+   * @param person user reference
+   * @param email new email
    */
   public void updateUserEmail(Person person, String email){
     //Update email
@@ -546,8 +557,8 @@ public abstract class BaseStore {
   
   /**
    * Update user visualizations.
-   * @param person
-   * @param visualizations 
+   * @param person user reference
+   * @param visualizations new visualizations
    */
   public void updateUserVisualizations(Person person, int visualizations){
     //Update visualizations
@@ -556,9 +567,9 @@ public abstract class BaseStore {
   
   /**
    * Implements the weight when adding and edge.
-   * @param from
-   * @param to 
-   * @throws estg.ed.exceptions.ElementNotFoundException 
+   * @param from first user
+   * @param to last user
+   * @throws estg.ed.exceptions.ElementNotFoundException one of user were not found
    */
   protected abstract void addNetworkEdge(Person from, Person to) throws ElementNotFoundException;
 }
