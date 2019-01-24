@@ -192,7 +192,7 @@ public class SkillsOrderedByCostForm extends Base {
       view.pack();
       view.setVisible(true);
     }
-    catch (ElementNotFoundException | VertexIsNotAccessibleException ex) {
+    catch (ElementNotFoundException ex) {
       this.message("There was an error processing the action.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed

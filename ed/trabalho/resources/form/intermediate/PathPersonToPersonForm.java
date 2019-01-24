@@ -12,7 +12,6 @@ import ed.trabalho.resources.Base;
 import ed.trabalho.store.BaseStore;
 import estg.ed.exceptions.ElementNotFoundException;
 import estg.ed.exceptions.VertexIsNotAccessibleException;
-import java.util.Iterator;
 
 /**
  * Form to retrieve from and to people to calculate minimal path in graph.

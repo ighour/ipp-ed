@@ -163,7 +163,7 @@ public class NotReachableUsersByUserForm extends Base {
       view.pack();
       view.setVisible(true);
     }
-    catch(ElementNotFoundException | NotComparableException | EmptyCollectionException e){
+    catch(ElementNotFoundException | NotComparableException e){
       this.message("Error processing action.");
     }
   }//GEN-LAST:event_submitButtonActionPerformed

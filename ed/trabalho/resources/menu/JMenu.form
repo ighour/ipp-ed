@@ -124,12 +124,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userMenuSkillsOrderedByCostActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="extraMenuContactsContactsSkillsCompany">
+            <MenuItem class="javax.swing.JMenuItem" name="usersMenuContactsContactsSkillsCompany">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Contacts of Contacts with Skills and Company"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extraMenuContactsContactsSkillsCompanyActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usersMenuContactsContactsSkillsCompanyActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="usersMenuCompanyEmployeeRelation">

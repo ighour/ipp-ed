@@ -66,7 +66,7 @@ public class JMenu extends Base {
     userMenuSearchByEmail = new javax.swing.JMenuItem();
     userMenuCompareCompanyPeopleAndPersonContacts = new javax.swing.JMenuItem();
     userMenuSkillsOrderedByCost = new javax.swing.JMenuItem();
-    extraMenuContactsContactsSkillsCompany = new javax.swing.JMenuItem();
+    usersMenuContactsContactsSkillsCompany = new javax.swing.JMenuItem();
     usersMenuCompanyEmployeeRelation = new javax.swing.JMenuItem();
     extraMenu = new javax.swing.JMenu();
     extraMenuMentionContactMedia = new javax.swing.JMenuItem();
@@ -191,13 +191,13 @@ public class JMenu extends Base {
     });
     userMenu.add(userMenuSkillsOrderedByCost);
 
-    extraMenuContactsContactsSkillsCompany.setText("Contacts of Contacts with Skills and Company");
-    extraMenuContactsContactsSkillsCompany.addActionListener(new java.awt.event.ActionListener() {
+    usersMenuContactsContactsSkillsCompany.setText("Contacts of Contacts with Skills and Company");
+    usersMenuContactsContactsSkillsCompany.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        extraMenuContactsContactsSkillsCompanyActionPerformed(evt);
+        usersMenuContactsContactsSkillsCompanyActionPerformed(evt);
       }
     });
-    userMenu.add(extraMenuContactsContactsSkillsCompany);
+    userMenu.add(usersMenuContactsContactsSkillsCompany);
 
     usersMenuCompanyEmployeeRelation.setText("Relation between Company Employees");
     usersMenuCompanyEmployeeRelation.addActionListener(new java.awt.event.ActionListener() {
@@ -513,12 +513,12 @@ public class JMenu extends Base {
    * For requirement: "Verificar a partir de um dado utilizador qual a lista de utilizadores que fazem parte dos contactos da lista de contactos que têm determinados skills / trabalharam em determinada empresa. Em resumo todas as pessoas que o utilizador pode contactar via 1 único intermediário.".
    * @param evt event
    */
-  private void extraMenuContactsContactsSkillsCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraMenuContactsContactsSkillsCompanyActionPerformed
+  private void usersMenuContactsContactsSkillsCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersMenuContactsContactsSkillsCompanyActionPerformed
     ContactsSkillsCompanyForm form = new ContactsSkillsCompanyForm();
     form.setTitle("Contacts of Contacts of an User with Skills and Company");
     form.pack();
     form.setVisible(true);
-  }//GEN-LAST:event_extraMenuContactsContactsSkillsCompanyActionPerformed
+  }//GEN-LAST:event_usersMenuContactsContactsSkillsCompanyActionPerformed
 
   /**
    * For requirement: "Verificar que os utilizadores que ocupam um cargo numa empresa (ex: empresa A) não estão relacionados com a utilizadores com cargos noutra empresa passada como parâmetro (empresa B)". 
@@ -569,7 +569,6 @@ public class JMenu extends Base {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTextArea consoleTextArea;
   private javax.swing.JMenu extraMenu;
-  private javax.swing.JMenuItem extraMenuContactsContactsSkillsCompany;
   private javax.swing.JMenuItem extraMenuMentionContactMedia;
   private javax.swing.JMenuItem extraMenuMinimalLinksToEveryone;
   private javax.swing.JMenuItem extraMenuWeightConstant;
@@ -594,5 +593,6 @@ public class JMenu extends Base {
   private javax.swing.JMenuItem userMenuSearchById;
   private javax.swing.JMenuItem userMenuSkillsOrderedByCost;
   private javax.swing.JMenuItem usersMenuCompanyEmployeeRelation;
+  private javax.swing.JMenuItem usersMenuContactsContactsSkillsCompany;
   // End of variables declaration//GEN-END:variables
 }

@@ -22,8 +22,6 @@ import estg.ed.interfaces.PriorityQueueADT;
 import estg.ed.list.OrderedArrayList;
 import estg.ed.tree.binary.ArrayPriorityMinQueue;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
