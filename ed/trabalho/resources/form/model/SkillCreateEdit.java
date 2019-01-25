@@ -126,6 +126,9 @@ public class SkillCreateEdit extends Base {
         if (inputSkill.getText().isEmpty()) {
             this.message("You need to put a skill name first.");
             return;
+        } else if (person.hasSkill(inputSkill.getText())) {
+            this.message("User already has that skill");
+            return;
         }
 
         //Message to show at end
