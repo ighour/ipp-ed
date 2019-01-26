@@ -122,7 +122,7 @@ Some samples were provided to test the project. They are in the sample folder of
 ## Authors
 
 * **Célio Ighour** - *Owner* - [Ighour](https://github.com/ighour)
-* **Jorge Miguel Pinto Araújo** - *Owner*
+* **Jorge Miguel Pinto Araújo** - *Owner* - [Jorge](https://github.com/JorgeAraujo123)
 
 ## Reports
 
