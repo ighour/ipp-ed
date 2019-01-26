@@ -61,19 +61,19 @@ Project for IPP/ESTG Class "Estruturas de Dados"
 
 * **Menu**
 
-![Menu](sample/images/main.png)
+![Menu](sample/images/main.PNG)
 
 * **Network View**
 
-![Network View](sample/images/graph.png)
+![Network View](sample/images/graph.PNG)
 
 * **Best Path Between Users**
 
-![Best Path Between Users](sample/images/minimal_path.png)
+![Best Path Between Users](sample/images/minimal_path.PNG)
 
 * **User Profile**
 
-![User Profile](sample/images/profile.png)
+![User Profile](sample/images/profile.PNG)
 
 ## Files
 
