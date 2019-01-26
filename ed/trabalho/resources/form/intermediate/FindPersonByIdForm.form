@@ -56,7 +56,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="submitButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
+        <Property name="text" type="java.lang.String" value="Search"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submitButtonActionPerformed"/>

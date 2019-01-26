@@ -130,7 +130,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="16" style="2"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="(ID ou email)"/>
+        <Property name="text" type="java.lang.String" value="(ID or email)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelPersonId2">
