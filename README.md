@@ -77,11 +77,11 @@ Project for IPP/ESTG Class "Estruturas de Dados"
 
 ## Files
 
-* [Complete Project](https://gitlab.com/ighour-learn/ipp/ed/project/uploads/c960d84f16457a65e465fb4cd12424f5/Full_Project.zip) - include project jar and all dependencies, ready-to-go, and it's javadoc.
-* [ADT Library](https://gitlab.com/ighour-learn/ipp/ed/project/uploads/59c2c302059d7b3f41c746c6bca923ae/ADT-Library.zip) - only the distribution of the abstract data types repository and it's javadoc.
-* [Gson 2.8.5](https://gitlab.com/ighour-learn/ipp/ed/project/uploads/5aacde0e2fa2491e16f89cd15a8f8c32/gson-2.8.5.zip) - jar file of used dependency.
-* [Guava 23.0](https://gitlab.com/ighour-learn/ipp/ed/project/uploads/12df0c162c7b1e228f9bf827cab4e7d6/guava-23.0.zip) - jar file of used dependency.
-* [Jung 2.1.1](https://gitlab.com/ighour-learn/ipp/ed/project/uploads/ba4bd5c87a3012e8f7320b467da7e1be/jung-2.1.1.zip) - jar files of used dependency.
+* [Complete Project](/uploads/c960d84f16457a65e465fb4cd12424f5/Full_Project.zip) - include project jar and all dependencies, ready-to-go, and it's javadoc.
+* [ADT Library](/uploads/59c2c302059d7b3f41c746c6bca923ae/ADT-Library.zip) - only the distribution of the abstract data types repository and it's javadoc.
+* [Gson 2.8.5](/uploads/5aacde0e2fa2491e16f89cd15a8f8c32/gson-2.8.5.zip) - jar file of used dependency.
+* [Guava 23.0](/uploads/12df0c162c7b1e228f9bf827cab4e7d6/guava-23.0.zip) - jar file of used dependency.
+* [Jung 2.1.1](/uploads/ba4bd5c87a3012e8f7320b467da7e1be/jung-2.1.1.zip) - jar files of used dependency.
 
 ## Built With
 
@@ -95,7 +95,7 @@ Project for IPP/ESTG Class "Estruturas de Dados"
 
 * **Class Diagram**
 
-![Class Diagram](https://gitlab.com/ighour-learn/ipp/ed/project/uploads/ef30fd82f33ed6bd2a0fdde53c7ee950/CLASSES_-_SER%C3%81_DESTA___1_.png)
+![Class Diagram](/uploads/ef30fd82f33ed6bd2a0fdde53c7ee950/CLASSES_-_SER%C3%81_DESTA___1_.png)
 
 ## Installation
 
@@ -121,9 +121,9 @@ Some samples were provided to test the project. They are in the sample folder of
 
 ## Authors
 
-* **Célio Ighour** - *Owner* - [My Portfolio](https://ighour.talosdev.com) | [Github](https://github.com/ighour) | [Gitlab](https://gitlab.com/ighour) | [LinkedIn](https://www.linkedin.com/in/c%C3%A9lio-ighour-de-castro-rodrigues-0a278a13a/) | [StackOverflow](https://stackexchange.com/users/10652400/ighour)
+* **Célio Ighour** - *Owner* - [My Portfolio](https://www.ighour.com) | [Github](https://github.com/ighour) | [Gitlab](https://gitlab.com/ighour) | [LinkedIn](https://www.linkedin.com/in/c%C3%A9lio-ighour-de-castro-rodrigues-0a278a13a/) | [StackOverflow](https://stackexchange.com/users/10652400/ighour)
 * **Jorge Miguel Pinto Araújo** - *Owner* - [Jorge](https://github.com/JorgeAraujo123)
 
 ## Reports
 
-A full report of this project is available in portuguese [here](https://gitlab.com/ighour-learn/ipp/ed/project/uploads/f377f51f1adfbcf00daa410bc4de5326/Relat%C3%B3rio.pdf).
+A full report of this project is available in portuguese [here](/uploads/f377f51f1adfbcf00daa410bc4de5326/Relat%C3%B3rio.pdf).
