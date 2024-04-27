@@ -1,23 +1,21 @@
-# Project
+# Social Network
 
-Project for IPP/ESTG Class "Estruturas de Dados"
+Project for [IPP/ESTG](https://www.estg.ipp.pt) course "Estruturas de Dados" (Data Structures)
 
 ## Main Components
 
-### **[Library](https://gitlab.com/ighour-learn/ipp/ed/adt-library)** - Own library of abstract data types to use in project.
-### **[Project](https://gitlab.com/ighour-learn/ipp/ed/project)** - Project made using the library to construct a social network. *(here)*
-
-*Detailed info about components is in their own repository.*
+### **[Library](https://github.com/ighour/ipp-ed-lib)** - Own library of abstract data types.
+### **[Project](https://github.com/ighour/ipp-ed)** - Project made using the library to construct a social network. *(here)*
 
 ## Objectives
 
 * The main purpose is to construct a social network which will receive an input with users data (json file), construct a network with them and enable it's management.
 
-* Current repository will use abstract data type repository and construct the project of Social Graph. It is not possible to use any of java collections API, only ours.
+* Current repository will use abstract data structures repository and construct the project of Social Graph. It is not possible to use any of java collections API, only the ones created in my other repository.
 
-## Customized Data Types from ADT Library and Others
+## Additional Data Types
 
-* **Social Network**: a modification of Network to use in project, because it was necessary to receive the brute info about adjacency matrix and vertices of network to send to Jung API.
+* **Social Network**: a modification of Network, because it was necessary to receive the brute info about adjacency matrix and vertices of network to send to Jung API.
 
 * **PersonIdOrderedList**: a modification of OrderedArrayList to provided binary search of an user with his id.
 
@@ -75,27 +73,17 @@ Project for IPP/ESTG Class "Estruturas de Dados"
 
 ![User Profile](sample/images/profile.PNG)
 
-## Files
-
-* [Complete Project](/uploads/c960d84f16457a65e465fb4cd12424f5/Full_Project.zip) - include project jar and all dependencies, ready-to-go, and it's javadoc.
-* [ADT Library](/uploads/59c2c302059d7b3f41c746c6bca923ae/ADT-Library.zip) - only the distribution of the abstract data types repository and it's javadoc.
-* [Gson 2.8.5](/uploads/5aacde0e2fa2491e16f89cd15a8f8c32/gson-2.8.5.zip) - jar file of used dependency.
-* [Guava 23.0](/uploads/12df0c162c7b1e228f9bf827cab4e7d6/guava-23.0.zip) - jar file of used dependency.
-* [Jung 2.1.1](/uploads/ba4bd5c87a3012e8f7320b467da7e1be/jung-2.1.1.zip) - jar files of used dependency.
-
 ## Built With
 
 * [Guava](https://github.com/google/guava/wiki/Release23) - Used to show graph with Jung.
 * [Gson](https://github.com/google/gson) - Java serialization/deserialization library to convert Java Objects into JSON and back.
-* [Java](https://www.java.com/) - Programming language.
+* [Java](https://www.java.com/)
 * [Jung](https://github.com/jrtom/jung) - Java Universal Network/Graph Framework, to show the graphs.
-* [NetBeans](https://netbeans.org/) - IDE.
+* [NetBeans](https://netbeans.org/)
 
-## Modelling
+## Modeling
 
-* **Class Diagram**
-
-![Class Diagram](/uploads/ef30fd82f33ed6bd2a0fdde53c7ee950/CLASSES_-_SER%C3%81_DESTA___1_.png)
+![Modeling](sample/images/modeling.png)
 
 ## Installation
 
@@ -119,11 +107,6 @@ Some samples were provided to test the project. They are in the sample folder of
 
 * **Sample 06**: test if users from a company can achieve another user.
 
-## Authors
-
-* **Célio Ighour** - *Owner* - [My Portfolio](https://www.ighour.com) | [Github](https://github.com/ighour) | [Gitlab](https://gitlab.com/ighour) | [LinkedIn](https://www.linkedin.com/in/c%C3%A9lio-ighour-de-castro-rodrigues-0a278a13a/) | [StackOverflow](https://stackexchange.com/users/10652400/ighour)
-* **Jorge Miguel Pinto Araújo** - *Owner* - [Jorge](https://github.com/JorgeAraujo123)
-
 ## Reports
 
-A full report of this project is available in portuguese [here](/uploads/f377f51f1adfbcf00daa410bc4de5326/Relat%C3%B3rio.pdf).
+A full report of this project is available in portuguese version [here](sample/report.pdf).
